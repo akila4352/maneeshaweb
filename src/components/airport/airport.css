@@ -1,0 +1,232 @@
+.body1 {
+  background: #0F172B;
+}
+ 
+.airport-container {
+  /* Only border color, not full background */
+  padding: 0;
+  background: #f8f9fa;
+  border: 6px solid #0F172B;
+  border-radius: 16px;
+  margin: 32px auto 0 auto;
+  max-width: 1200px;
+  box-sizing: border-box;
+}
+
+/* Remove airport-inner-content wrapper */
+.airport-inner-content {
+  background: none;
+  border-radius: 0;
+  margin: 0;
+  max-width: none;
+  padding: 0;
+}
+
+.airport-title {
+  font-size: 2.2rem;
+  color: #43b39c;
+  text-align: center;
+  margin-bottom: 24px;
+  font-weight: bold;
+}
+
+.airport-description {
+  font-size: 1.1rem;
+  color: #333;
+}
+
+.airport-booking-row {
+  display: flex;
+  gap: 32px;
+  justify-content: center;
+  margin-bottom: 32px;
+}
+
+.airport-form-col {
+  flex: 1;
+  max-width: 400px;
+}
+
+.airport-map-col {
+  flex: 1;
+  min-width: 350px;
+  max-width: 500px;
+}
+
+.airport-form-group {
+  margin-bottom: 16px;
+}
+
+.airport-form-group label {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+
+.airport-form-group input {
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+}
+
+/* CommonHeading background and border */
+
+
+/* Center slider from border and reduce size */
+.airport-slider-section {
+  padding-left: 0;
+  padding-right: 0;
+  margin: 0 auto;
+  margin-top: 18px;
+  max-width: 800px;
+  /* Ensure slider section has enough height for arrows/dots */
+  position: relative;
+  min-height: 340px;
+}
+
+@media (max-width: 900px) {
+  .airport-slider-section {
+    max-width: 98vw;
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+}
+
+.airport-slider-section {
+  margin-top: 32px;
+}
+
+.airport-car-card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+  padding: 32px 16px; /* increased padding */
+  text-align: center;
+  min-height: 320px;  /* increased height */
+  max-height: 320px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* Add transition for border/background */
+  transition: border 0.2s, background 0.2s;
+}
+
+/* Orange indicator for selected vehicle */
+.airport-car-card[style*="2px solid orange"] {
+  box-shadow: 0 0 0 2px #ff9800;
+  background: #fff7e6;
+  transition: box-shadow 0.2s, background 0.2s;
+}
+
+/* Hover effect for selected vehicle card */
+.airport-car-card[style*="2px solid orange"]:hover {
+  box-shadow: 0 0 0 4px #ff9800;
+  background: #ffe0b2;
+}
+
+/* Slick slider arrows */
+.slick-arrow {
+  background: #0F172B !important;
+  border-radius: 50%;
+  width: 38px !important;
+  height: 38px !important;
+  z-index: 2;
+  transition: box-shadow 0.2s, background 0.2s;
+}
+.slick-arrow:before {
+  color: #fff !important;
+  font-size: 28px !important;
+  opacity: 1 !important;
+}
+
+/* Hover effect for slider arrows */
+.slick-arrow:hover {
+  background: #ff9800 !important;
+  box-shadow: 0 0 0 4px #ff9800;
+}
+.slick-arrow:hover:before {
+  color: #fff !important;
+}
+
+/* Slick slider dots */
+.slick-dots li button:before {
+  color: orange !important;
+  font-size: 18px !important;
+  opacity: 0.8 !important;
+}
+.slick-dots li.slick-active button:before {
+  color: orange !important;
+  font-size: 22px !important;
+  opacity: 1 !important;
+}
+
+/* Submit button at bottom */
+.airport-submit-btn {
+  display: block;
+  margin: 32px auto 0 auto;
+  background: orange;
+  color: #fff;
+  border: none;
+  border-radius: 24px;
+  padding: 12px 48px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  transition: background 0.2s;
+}
+.airport-submit-btn:hover {
+  background: #ff9800;
+}
+
+.airport-map-responsive {
+  display: block;
+}
+
+@media (max-width: 992px) {
+  .airport-map-responsive {
+    display: none;
+  }
+}
+
+.airport-suggest-list {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-top: none;
+  z-index: 20;
+  max-height: 180px;
+  overflow-y: auto;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.airport-suggest-list li {
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.airport-suggest-list li:hover {
+  background: #f7f0fa;
+}
+
+.airport-popup-inner,
+.safari-popup-inner {
+  width: 100%;
+  max-width: 600px;
+}
+@media (max-width: 700px) {
+  .airport-popup-inner,
+  .safari-popup-inner {
+    max-width: 98vw;
+    min-width: 0;
+    padding: 16px 4px !important;
+  }
+}
