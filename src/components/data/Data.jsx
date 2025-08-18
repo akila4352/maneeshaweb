@@ -130,12 +130,12 @@ export const contact = [
 ];
 
 
-export const services = [
-  {
-    icon: <i class="fa fa-bed fa-2x text-primary"></i>, // Rooms & Apartment
-    name: "Rooms & Apartment",
+export const services = [  {
+    icon: <i class="fa fa-shuttle-van fa-2x text-primary"></i>, // Airport drop and pickup
+    name: "Airport drop and pickup",
     discription: "Contrary to popular belief, ipsum is not simply random.",
-  },
+  }
+  ,
   {
     icon: <i class="fa fa-suitcase-rolling fa-2x text-primary"></i>, // Travel packages
     name: "Travel packages",
@@ -145,22 +145,22 @@ export const services = [
     icon: <i class="fa fa-binoculars fa-2x text-primary"></i>, // Safari
     name: "Safari",
     discription: "Contrary to popular belief, ipsum is not simply random.",
-  },
-  {
-    icon: <i class="fa fa-shuttle-van fa-2x text-primary"></i>, // Airport drop and pickup
-    name: "Airport drop and pickup",
+  },{
+    icon: <i class="fa fa-bed fa-2x text-primary"></i>, // Rooms & Apartment
+    name: "Rooms & Apartment",
     discription: "Contrary to popular belief, ipsum is not simply random.",
-  },
-  {
-    icon: <i class="fa fa-glass-cheers fa-2x text-primary"></i>, // Event & Party
-    name: "Event & Party",
-    discription: "Contrary to popular belief, ipsum is not simply random.",
-  },
+  }
+,
+ 
   {
     icon: <i class="fa fa-taxi fa-2x text-primary"></i>, // TukTuk journey
     name: "TukTuk journey",
     discription: "Contrary to popular belief, ipsum is not simply random.",
-  },
+  }, {
+    icon: <i class="fa fa-glass-cheers fa-2x text-primary"></i>, // Event & Party
+    name: "Blog",
+    discription: "Contrary to popular belief, ipsum is not simply random.",
+  }
 ];
 export const testimonial = [
   {

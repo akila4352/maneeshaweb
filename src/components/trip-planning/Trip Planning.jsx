@@ -267,7 +267,7 @@ const TripPlanning = () => {
               width: "200px", 
               height: "320px",
               objectFit: "contain",
-              marginTop: "550px",
+              marginTop: "350px",
               marginLeft: "-400px" // move image a little to the left
             }} 
           />
@@ -305,7 +305,7 @@ const TripPlanning = () => {
                     alt={`Trip slide ${idx + 1}`}
                     style={{
                       width: "100%",
-                      height: "800px", // increased height
+                      height: "650px", // increased height
                       objectFit: "cover",
                       borderRadius: "32px"
                     }}
