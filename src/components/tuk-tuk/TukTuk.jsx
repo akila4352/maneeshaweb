@@ -93,7 +93,7 @@ function BookingCard() {
   return (
     <div style={{
       position: 'fixed', // Change from sticky to fixed
-      top: '100px',      // Adjust top offset below header
+      top: '150px',      // Adjust top offset below header
       right: '40px',     // Stick to right side of viewport
       width: '500px',
       background: '#fff',
