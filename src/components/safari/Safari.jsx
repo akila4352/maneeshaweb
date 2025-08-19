@@ -149,7 +149,7 @@ export default function Safari() {
           style={{ marginBottom: "24px", display: "block", marginLeft: "auto", marginRight: "auto" }}
           onClick={handleQuotationClick}
         >
-          Quotation
+          Quotation 
         </button>
         {/* Quotation Popup */}
         {showPopup && (

@@ -91,7 +91,7 @@ const TripPlanning = () => {
     ) {
       alert("Please fill in all required fields.");
       return;
-    }
+    } 
     setLoading(true);
     try {
       await push(ref(rtdb, "tripQuotations"), {
@@ -267,7 +267,7 @@ const TripPlanning = () => {
               width: "200px", 
               height: "320px",
               objectFit: "contain",
-              marginTop: "350px",
+              marginTop: "550px",
               marginLeft: "-400px" // move image a little to the left
             }} 
           />
@@ -305,7 +305,7 @@ const TripPlanning = () => {
                     alt={`Trip slide ${idx + 1}`}
                     style={{
                       width: "100%",
-                      height: "650px", // increased height
+                      height: "780px", // increased height
                       objectFit: "cover",
                       borderRadius: "32px"
                     }}

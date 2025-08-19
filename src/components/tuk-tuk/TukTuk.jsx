@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import Header from '../common/Header';
 import { tukTukGalleryImages } from './../data/Data';
+import { rtdb } from '../../firebase/firebase';
+import { ref, push } from "firebase/database";
 
 
 const TravelerIcon = (
@@ -88,8 +90,16 @@ function ImageGrid({ images, onViewGallery }) {
   );
 }
 
+ 
+const tukTukDestinations = [
+  "Tissamaharama",
+  "Ella",
+  "Kandy",
+  "Galle",
+  "Negombo"
+];
 
-function BookingCard() {
+function BookingCard({ onQuotationClick, form, handleFormChange, errors }) {
   return (
     <div style={{
       position: 'fixed', // Change from sticky to fixed
@@ -110,86 +120,297 @@ function BookingCard() {
       </div>
       <div style={{margin: '8px 0', color: '#666'}}>up to 2 guests</div>
       <hr style={{border: 'none', borderTop: '1px solid #eee', margin: '16px 0'}} />
-      <div style={{position: 'relative', marginBottom: '12px'}}>
-        <span style={{
-          position: 'absolute',
-          left: '12px',
-          top: '50%',
-          transform: 'translateY(-50%)'
-        }}>{TravelerIcon}</span>
-        <select style={{
-          width: '100%',
-          padding: '10px 10px 10px 40px',
-          borderRadius: '8px',
-          border: '1px solid #ddd',
-          fontSize: '1rem',
-          background: '#fafafa',
-          appearance: 'none'
-        }}>
-          <option>1 - Traveler</option>
-          <option>2 - Travelers</option>
+      <div style={{marginBottom: '12px'}}>
+        <label>Destination</label>
+        <select
+          name="destination"
+          value={form.destination}
+          onChange={handleFormChange}
+          className={errors.destination ? 'error' : ''}
+          style={{ width: "100%", fontSize: "0.95rem", padding: "6px 10px", marginTop: 4 }}
+        >
+          <option value="">Select destination</option>
+          {tukTukDestinations.map(dest => (
+            <option key={dest} value={dest}>{dest}</option>
+          ))}
         </select>
+        {errors.destination && <span style={{color: "#e25d5d", fontSize: "0.9rem"}}>{errors.destination}</span>}
       </div>
-      <div style={{position: 'relative', marginBottom: '12px'}}>
-        <span style={{
-          position: 'absolute',
-          left: '12px',
-          top: '50%',
-          transform: 'translateY(-50%)'
-        }}>{CalendarIcon}</span>
+      <div style={{marginBottom: '12px'}}>
+        <label>Trip Date</label>
         <input
           type="date"
-          style={{
-            width: '100%',
-            padding: '10px 10px 10px 40px',
-            borderRadius: '8px',
-            border: '1px solid #ddd',
-            fontSize: '1rem',
-            background: '#fafafa'
-          }}
-          placeholder="Select a date"
+          name="date"
+          value={form.date}
+          onChange={handleFormChange}
+          className={errors.date ? 'error' : ''}
+          style={{ width: "100%", fontSize: "0.95rem", padding: "6px 10px", marginTop: 4 }}
         />
+        {errors.date && <span style={{color: "#e25d5d", fontSize: "0.9rem"}}>{errors.date}</span>}
       </div>
-      <button style={{
-        width: '100%',
-        background: '#b3d3db',
-        color: '#fff',
-        fontWeight: 'bold',
-        fontSize: '1.1rem',
-        border: 'none',
-        borderRadius: '8px',
-        padding: '12px',
-        marginBottom: '16px',
-        cursor: 'pointer',
-        opacity: 0.8
-      }}>
-        Reserve Your Spot
+      <div style={{marginBottom: '12px'}}>
+        <label>Number of Guests</label>
+        <input
+          type="number"
+          name="travelers"
+          placeholder="Number of Guests"
+          min="1"
+          value={form.travelers}
+          onChange={handleFormChange}
+          className={errors.travelers ? 'error' : ''}
+          style={{ width: "100%", fontSize: "0.95rem", padding: "6px 10px", marginTop: 4 }}
+        />
+        {errors.travelers && <span style={{color: "#e25d5d", fontSize: "0.9rem"}}>{errors.travelers}</span>}
+      </div>
+      <button
+        className="submit-btn"
+        style={{
+          marginBottom: "24px",
+          display: "block",
+          marginLeft: "auto",
+          marginRight: "auto",
+          background: "#ff9800",
+          color: "#fff",
+          border: "none",
+          borderRadius: "0.5rem",
+          padding: "0.9rem 2rem",
+          fontSize: "1.1rem",
+          fontWeight: 600,
+          cursor: "pointer",
+          transition: "background 0.2s"
+        }}
+        onClick={onQuotationClick}
+      >
+        Quotation
       </button>
-      <div style={{
-        background: '#f6fcfd',
-        borderRadius: '8px',
-        padding: '12px',
-        fontSize: '1rem',
-        color: '#444',
-        border: '1px solid #dbeff2',
-        display: 'flex',
-        alignItems: 'flex-start',
-        gap: '8px'
-      }}>
-        <svg width="20" height="20" fill="none" stroke="#4bb" strokeWidth="2" viewBox="0 0 24 24" style={{marginTop: 2}}>
-          <circle cx="12" cy="12" r="10" stroke="#b3d3db" strokeWidth="2"/>
-          <path d="M8 12l2 2 4-4" stroke="#4bb" strokeWidth="2" fill="none"/>
-        </svg>
-        <span>
-          <span style={{fontWeight: 'bold'}}>Cancellation:</span> Free cancellation up to 24 hours before the start of your experience (local time).
-        </span>
-      </div>
+      
     </div>
+  );
+}
+
+// Popup form for quotation
+function QuotationPopup({ open, onClose, onSubmit, loading, submitted, errors, form, handleFormChange }) {
+  if (!open) return null;
+  return (
+    <>
+      <div
+        style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          width: "100vw",
+          height: "100vh",
+          background: "rgba(0,0,0,0.4)",
+          zIndex: 9999,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center"
+        }}
+        onClick={onClose}
+      >
+        <div
+          style={{
+            background: "#fff",
+            borderRadius: "16px",
+            padding: "32px 24px",
+            minWidth: "350px",
+            width: "100%",
+            maxWidth: "500px",
+            boxShadow: "0 4px 24px rgba(0,0,0,0.2)",
+            position: "relative",
+            maxHeight: "90vh",
+            overflowY: "auto",
+            display: "flex",
+            flexDirection: "column"
+          }}
+          onClick={e => e.stopPropagation()}
+        >
+          <h2 style={{marginBottom: 16}}>Tuk Tuk Quotation</h2>
+          <form onSubmit={onSubmit} noValidate>
+            <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+              <div>
+                <label>Your Name</label>
+                <input
+                  type="text"
+                  name="name"
+                  placeholder="Enter your name"
+                  value={form.name}
+                  onChange={handleFormChange}
+                  className={errors.name ? 'error' : ''}
+                  style={{ width: "100%", fontSize: "0.95rem", padding: "6px 10px" }}
+                />
+                {errors.name && <span style={{color: "#e25d5d", fontSize: "0.9rem"}}>{errors.name}</span>}
+              </div>
+              <div>
+                <label>Contact Number</label>
+                <input
+                  type="tel"
+                  name="phone"
+                  placeholder="Enter contact number"
+                  value={form.phone}
+                  onChange={handleFormChange}
+                  className={errors.phone ? 'error' : ''}
+                  style={{ width: "100%", fontSize: "0.95rem", padding: "6px 10px" }}
+                />
+                {errors.phone && <span style={{color: "#e25d5d", fontSize: "0.9rem"}}>{errors.phone}</span>}
+              </div>
+              <div>
+                <label>Gmail Address</label>
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="Enter Gmail address"
+                  value={form.email}
+                  onChange={handleFormChange}
+                  className={errors.email ? 'error' : ''}
+                  style={{ width: "100%", fontSize: "0.95rem", padding: "6px 10px" }}
+                />
+                {errors.email && <span style={{color: "#e25d5d", fontSize: "0.9rem"}}>{errors.email}</span>}
+              </div>
+              <div>
+                <label>Message</label>
+                <textarea
+                  name="message"
+                  placeholder="Message"
+                  value={form.message}
+                  onChange={handleFormChange}
+                  style={{ width: "100%", fontSize: "0.95rem", padding: "6px 10px" }}
+                />
+              </div>
+            </div>
+            <div style={{ display: "flex", gap: "12px", marginTop: "18px" }}>
+              <button
+                type="button"
+                id="tuk-tuk-close-btn"
+                style={{
+                  background: "#b3d3db",
+                  color: "#fff",
+                  border: "none",
+                  borderRadius: "20px",
+                  padding: "8px 20px",
+                  fontWeight: "bold",
+                  cursor: "pointer",
+                  flex: 1,
+                  transition: "background 0.2s"
+                }}
+                onClick={onClose}
+              >
+                Close
+              </button>
+              <button
+                type="submit"
+                id="tuk-tuk-submit-btn"
+                style={{
+                  background: "#0F172B",
+                  color: "#fff",
+                  border: "none",
+                  borderRadius: "20px",
+                  padding: "8px 20px",
+                  fontWeight: "bold",
+                  cursor: "pointer",
+                  flex: 1,
+                  transition: "background 0.2s"
+                }}
+                disabled={loading}
+              >
+                {loading ? "Submitting..." : "Submit"}
+              </button>
+            </div>
+            {submitted && <div style={{marginTop: "1.2rem", color: "#b3d3db", fontWeight: 500}}>Thank you! We will contact you soon.</div>}
+          </form>
+        </div>
+      </div>
+      <style>{`
+        #tuk-tuk-quotation-btn:hover,
+        #tuk-tuk-close-btn:hover {
+          background: #0F172B !important;
+        }
+        #tuk-tuk-submit-btn:hover {
+          background: #b3d3db !important;
+        }
+        .submit-btn:hover {
+          background: #e67c00 !important;
+        }
+      `}</style>
+    </>
   );
 }
 
 export default function TukTuk() {
   const [galleryOpen, setGalleryOpen] = useState(false);
+  // Quotation popup state
+  const [showPopup, setShowPopup] = useState(false);
+  const [form, setForm] = useState({
+    destination: '',
+    date: '',
+    travelers: '',
+    name: '',
+    email: '',
+    phone: '',
+    message: ''
+  });
+  const [errors, setErrors] = useState({});
+  const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  // Form change handler
+  const handleFormChange = e => {
+    const { name, value } = e.target;
+    setForm(f => ({ ...f, [name]: value }));
+  };
+
+  // Validation
+  const validate = () => {
+    const newErrors = {};
+    if (!form.destination) newErrors.destination = 'Destination required';
+    if (!form.date) newErrors.date = 'Trip date required';
+    if (!form.travelers || isNaN(form.travelers) || form.travelers < 1) newErrors.travelers = 'Enter number of guests';
+    if (!form.name.trim()) newErrors.name = 'Name required';
+    if (!form.email.match(/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/)) newErrors.email = 'Valid email required';
+    if (!form.phone.match(/^\+?\d{7,}$/)) newErrors.phone = 'Valid phone required';
+    return newErrors;
+  };
+
+  // Submit handler
+  const handleSubmit = async e => {
+    e.preventDefault();
+    const v = validate();
+    setErrors(v);
+    if (Object.keys(v).length === 0) {
+      setSubmitted(true);
+      setLoading(true);
+      const details = {
+        ...form,
+        date: form.date ? new Date(form.date).toLocaleDateString() : "",
+        createdAt: new Date().toISOString(),
+        timestamp: Date.now()
+      };
+      let rtdbSuccess = false;
+      try {
+        await push(ref(rtdb, "tukTukQuotations"), details);
+        rtdbSuccess = true;
+      } catch (err) {
+        rtdbSuccess = false;
+      }
+      setLoading(false);
+      if (rtdbSuccess) {
+        alert("Our team will contact you within 1 hour.");
+        setShowPopup(false);
+        setForm({
+          destination: '',
+          date: '',
+          travelers: '',
+          name: '',
+          email: '',
+          phone: '',
+          message: ''
+        });
+        setSubmitted(false);
+      } else {
+        alert("Failed to send quotation. Please try again.");
+      }
+    }
+  };
 
   return (
     <>
@@ -226,8 +447,23 @@ export default function TukTuk() {
           
         </div>
       </div>
-      <BookingCard />
+      <BookingCard
+        onQuotationClick={() => { setShowPopup(true); setSubmitted(false); setErrors({}); }}
+        form={form}
+        handleFormChange={handleFormChange}
+        errors={errors}
+      />
       <GalleryModal open={galleryOpen} images={galleryImages} onClose={() => setGalleryOpen(false)} />
+      <QuotationPopup
+        open={showPopup}
+        onClose={() => setShowPopup(false)}
+        onSubmit={handleSubmit}
+        loading={loading}
+        submitted={submitted}
+        errors={errors}
+        form={form}
+        handleFormChange={handleFormChange}
+      />
     </>
   );
 }
