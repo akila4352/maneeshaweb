@@ -355,12 +355,18 @@ export const tripPlanningImages = [
 
 export const tukTukGalleryImages = [
   { img: ('../assets/img/about-2.jpg') },
-  { img:('../assets/img/about-2.jpg') },
-  { img: ('../assets/img/about-2.jpg') },
-  { img: ('../assets/img/about-2.jpg') },
-  { img:('../assets/img/about-2.jpg') },
-  { img: ('../assets/img/about-2.jpg') },
-  { img: ('../assets/img/about-2.jpg') }
+  { img:('../assets/img/tuktuk2.jpg') },
+  { img: ('../assets/img/tuktuk3.jpg') },
+  { img: ('../assets/img/tuktuk5.jpg') },
+  { img:('../assets/img/tuktuk8.jpg') },
+  { img: ('../assets/img/tuktuk6.jpg') },
+  { img: ('../assets/img/tuktuk7.jpg') },
+    { img: ('../assets/img/tuktuk11.jpg') },
+     { img: ('../assets/img/tuktuk13.jpg') },
+      { img: ('../assets/img/tuktuk14.jpg') },
+       { img: ('../assets/img/tuktuk15.jpg') },
+        { img: ('../assets/img/tuktuk16.jpg') },
+         { img: ('../assets/img/tuktuk20.jpg') }
 ];
 
 export const featuredPropertiesData = [
