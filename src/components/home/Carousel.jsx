@@ -3,11 +3,13 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { carouselData } from "../data/Data";
+import { useNavigate } from "react-router-dom";
 
 export default function Carousel() {
   const sliderRef = useRef(null);
+  const navigate = useNavigate();
 
-  const next = () => { 
+  const next = () => {
     if (sliderRef.current) {
       sliderRef.current.slickNext();
     }
@@ -25,6 +27,8 @@ export default function Carousel() {
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 3000,
   };
   return (
     <>
@@ -68,14 +72,22 @@ export default function Carousel() {
                         {val.title}
                       </h1>
                       <a
-                        href=""
+                        href="#"
                         className="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          navigate(val.navigatePath);
+                        }}
                       >
                         {val.btn1}
                       </a>
                       <a
-                        href=""
+                        href="#"
                         className="btn btn-light py-md-3 px-md-5 animated slideInRight"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          navigate(val.navigatePath);
+                        }}
                       >
                         {val.btn2}
                       </a>

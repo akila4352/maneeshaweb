@@ -48,8 +48,9 @@ export default function Destination() {
     autoplaySpeed: 3500,
     arrows: true,
     responsive: [
+      { breakpoint: 1200, settings: { slidesToShow: 1 } },
       { breakpoint: 992, settings: { slidesToShow: 1 } },
-      { breakpoint: 1200, settings: { slidesToShow: 2 } },
+      { breakpoint: 768, settings: { slidesToShow: 1 } }
     ],
   };
 

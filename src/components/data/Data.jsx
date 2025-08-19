@@ -127,44 +127,50 @@ export const contact = [
 ];
 
 
-export const services = [  {
-    icon: <i class="fa fa-shuttle-van fa-2x text-primary"></i>, // Airport drop and pickup
+export const services = [  
+  {
+    icon: <i class="fa fa-shuttle-van fa-2x text-primary"></i>,
     name: "Airport drop and pickup",
     discription: "Contrary to popular belief, ipsum is not simply random.",
-  }
-  ,
-  {
-    icon: <i class="fa fa-suitcase-rolling fa-2x text-primary"></i>, // Travel packages
-    name: "Travel packages",
-    discription: "Contrary to popular belief, ipsum is not simply random.",
+    path: "/airport"
   },
   {
-    icon: <i class="fa fa-binoculars fa-2x text-primary"></i>, // Safari
+    icon: <i class="fa fa-suitcase-rolling fa-2x text-primary"></i>,
+    name: "Plan your dream trip",
+    discription: "Contrary to popular belief, ipsum is not simply random.",
+    path: "/trip-planning"
+  },
+  {
+    icon: <i class="fa fa-binoculars fa-2x text-primary"></i>,
     name: "Safari",
     discription: "Contrary to popular belief, ipsum is not simply random.",
-  },{
-    icon: <i class="fa fa-bed fa-2x text-primary"></i>, // Rooms & Apartment
+    path: "/safari"
+  },
+  {
+    icon: <i class="fa fa-bed fa-2x text-primary"></i>,
     name: "Rooms & Apartment",
     discription: "Contrary to popular belief, ipsum is not simply random.",
-  }
-,
- 
+    path: "/hotel-booking"
+  },
   {
-    icon: <i class="fa fa-taxi fa-2x text-primary"></i>, // TukTuk journey
+    icon: <i class="fa fa-taxi fa-2x text-primary"></i>,
     name: "TukTuk journey",
     discription: "Contrary to popular belief, ipsum is not simply random.",
-  }, {
-    icon: <i class="fa fa-glass-cheers fa-2x text-primary"></i>, // Event & Party
-    name: "Blog",
-    discription: "Contrary to popular belief, ipsum is not simply random.",
+    path: "/tuk-tuk"
+  },
+  {
+    icon: <i class="fa fa-calendar-check fa-2x text-primary"></i>,
+    name: "Easy Bookings",
+    discription: "Book your travel, stay, and experiences in just a few clicks.",
+    path: "/"
   }
 ];
 export const testimonial = [
   {
     description:
-      "Tempor stet labore dolor clita stet diam amet ipsum dolor duo ipsum rebum stet dolor amet diam stet. Est stet ea lorem amet est kasd kasd et erat magna eos",
-    name: "Client Name",
-    profession: "Profession",
+      "My trip was seamless and unforgettable! The team took care of every detail, from airport pickup to hotel booking. Highly recommended for solo travelers.",
+    name: "Poppy",
+    profession: "Solo Traveler",
     icon: (
       <i class="fa fa-quote-right fa-3x text-primary position-absolute end-0 bottom-0 me-4 mb-n1"></i>
     ),
@@ -172,9 +178,9 @@ export const testimonial = [
   },
   {
     description:
-      "Tempor stet labore dolor clita stet diam amet ipsum dolor duo ipsum rebum stet dolor amet diam stet. Est stet ea lorem amet est kasd kasd et erat magna eos",
-    name: "Client Name",
-    profession: "Profession",
+      "Amazing experience! The safari was breathtaking and the guides were knowledgeable. I enjoyed every moment and felt safe throughout my journey.",
+    name: "Leo",
+    profession: "Musician",
     icon: (
       <i class="fa fa-quote-right fa-3x text-primary position-absolute end-0 bottom-0 me-4 mb-n1"></i>
     ),
@@ -182,30 +188,56 @@ export const testimonial = [
   },
   {
     description:
-      "Tempor stet labore dolor clita stet diam amet ipsum dolor duo ipsum rebum stet dolor amet diam stet. Est stet ea lorem amet est kasd kasd et erat magna eos",
-    name: "Client Name",
-    profession: "Profession",
+      "As a photographer, I found the destinations inspiring and the arrangements perfect for capturing Sri Lanka’s beauty. Will definitely book again!",
+    name: "Luka",
+    profession: "Photographer",
     icon: (
       <i class="fa fa-quote-right fa-3x text-primary position-absolute end-0 bottom-0 me-4 mb-n1"></i>
     ),
     img: "../assets/img/testimonial-3.jpg",
   },
 ];
- 
+
 export const carouselData = [
   {
     img: "../assets/img/carousel-1.jpg",
-title: "Discover Hidden Village Treasures",
-subtitle: "authentic rural adventures",
-btn1: "Village Tours",
-btn2: " book around srilanka tour"
+    title: "Discover Hidden Village Treasures",
+    subtitle: "Authentic rural adventures",
+    btn1: "Village Tours",
+    btn2: "Book Sri Lanka Tour",
+    navigatePath: "/tuk-tuk"
+  },
+  {
+    img: "../assets/img/airport.jpg",
+    title: "Airport Drop & Pickup",
+    subtitle: "Convenient transfers",
+    btn1: "Book Airport Ride",
+    btn2: "View Vehicles",
+    navigatePath: "/airport"
+  },
+  {
+    img: "../assets/img/carousel3.jpg",
+    title: "Plan Your Dream Trip",
+    subtitle: "Custom itineraries for you",
+    btn1: "Start Planning",
+    btn2: "Get Quotation",
+    navigatePath: "/trip-planning"
+  },
+  {
+    img: "../assets/img/carousel4.jpg",
+    title: "Safari Adventures",
+    subtitle: "Wildlife & nature tours",
+    btn1: "Explore Safaris",
+    btn2: "Book Safari",
+    navigatePath: "/safari"
   },
   {
     img: "../assets/img/carousel-2.jpg",
-    title: "Discover A Brand Luxurious Hotel",
-    subtitle: "luxury living",
-    btn1: "Our Room",
+    title: "Discover Luxurious Hotels",
+    subtitle: "Luxury living",
+    btn1: "Our Rooms",
     btn2: "Book Room",
+    navigatePath: "/hotel-booking"
   },
 ];
 

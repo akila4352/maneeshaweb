@@ -21,25 +21,109 @@ const CalendarIcon = (
 
 const galleryImages = tukTukGalleryImages.map(item => item.img);
 
-function GalleryModal({ open, images, onClose }) {
+function GalleryModal({ open, images, onClose, currentIndex, setCurrentIndex }) {
   if (!open) return null;
   return (
-    <div style={{
-      position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh',
-      background: 'rgba(0,0,0,0.7)', zIndex: 1000, display: 'flex', alignItems: 'center', justifyContent: 'center'
-    }}>
-      <div style={{
-        background: '#fff', borderRadius: 12, padding: 24, maxWidth: 900, maxHeight: '80vh', overflowY: 'auto', position: 'relative'
-      }}>
+    <div
+      style={{
+        position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh',
+        background: 'rgba(0,0,0,0.7)', zIndex: 1000, display: 'flex', alignItems: 'center', justifyContent: 'center'
+      }}
+      onClick={onClose}
+    >
+      <div
+        style={{
+          borderRadius: 12,
+          padding: 0,
+          maxWidth: 900,
+          maxHeight: '80vh',
+          overflowY: 'auto',
+          position: 'relative',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          boxShadow: 'none',
+          background: 'none'
+        }}
+        onClick={e => e.stopPropagation()}
+      >
         <button onClick={onClose} style={{
-          position: 'absolute', top: 12, right: 12, background: 'none', border: 'none', fontSize: 24, cursor: 'pointer'
+          position: 'absolute', top: 12, right: 12, background: 'none', border: 'none', fontSize: 24, cursor: 'pointer', color: '#fff'
         }}>&times;</button>
-        <div style={{display: 'flex', flexWrap: 'wrap', gap: 16}}>
-          {images.map((img, idx) => (
-            <img key={idx} src={img} alt={`gallery-${idx}`} style={{
-              width: '260px', height: '180px', objectFit: 'cover', borderRadius: 8
-            }} />
-          ))}
+        <div style={{
+          position: 'relative',
+          width: '500px',
+          height: '350px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center'
+        }}>
+          <img
+            src={images[currentIndex]}
+            alt={`gallery-${currentIndex}`}
+            style={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              borderRadius: 8,
+              boxShadow: '0 4px 24px rgba(0,0,0,0.5)'
+            }}
+          />
+          <button
+            onClick={() => setCurrentIndex(i => Math.max(i - 1, 0))}
+            disabled={currentIndex === 0}
+            style={{
+              position: 'absolute',
+              left: 10,
+              top: '50%',
+              transform: 'translateY(-50%)',
+              background: 'rgba(0,0,0,0.5)',
+              border: 'none',
+              fontSize: 32,
+              cursor: currentIndex === 0 ? 'not-allowed' : 'pointer',
+              color: '#fff',
+              borderRadius: '50%',
+              width: 44,
+              height: 44,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              opacity: currentIndex === 0 ? 0.5 : 1,
+              transition: 'opacity 0.2s'
+            }}
+            aria-label="Previous"
+          >
+            &#8592;
+          </button>
+          <button
+            onClick={() => setCurrentIndex(i => Math.min(i + 1, images.length - 1))}
+            disabled={currentIndex === images.length - 1}
+            style={{
+              position: 'absolute',
+              right: 10,
+              top: '50%',
+              transform: 'translateY(-50%)',
+              background: 'rgba(0,0,0,0.5)',
+              border: 'none',
+              fontSize: 32,
+              cursor: currentIndex === images.length - 1 ? 'not-allowed' : 'pointer',
+              color: '#fff',
+              borderRadius: '50%',
+              width: 44,
+              height: 44,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              opacity: currentIndex === images.length - 1 ? 0.5 : 1,
+              transition: 'opacity 0.2s'
+            }}
+            aria-label="Next"
+          >
+            &#8594;
+          </button>
+        </div>
+        <div style={{marginTop: 12, color: '#fff', fontSize: '1rem', textShadow: '0 1px 4px #000'}}>
+          {currentIndex + 1} / {images.length}
         </div>
       </div>
     </div>
@@ -57,7 +141,11 @@ function ImageGrid({ images, onViewGallery }) {
       maxWidth: '900px'  
     }}>
       {images.slice(0, 4).map((img, idx) => (
-        <div key={idx} style={{position: 'relative', cursor: 'pointer', borderRadius: 8, overflow: 'hidden'}}>
+        <div
+          key={idx}
+          style={{position: 'relative', cursor: 'pointer', borderRadius: 8, overflow: 'hidden'}}
+          onClick={() => onViewGallery(idx)}
+        >
           <img src={img} alt={`card-${idx}`} style={{
             width: '100%',          
             height: '300px',        
@@ -66,7 +154,7 @@ function ImageGrid({ images, onViewGallery }) {
           }} />
           {idx === 3 && (
             <button
-              onClick={onViewGallery}
+              onClick={e => { e.stopPropagation(); onViewGallery(0); }}
               style={{
                 position: 'absolute',
                 bottom: 10,
@@ -99,22 +187,24 @@ const tukTukDestinations = [
   "Negombo"
 ];
 
-function BookingCard({ onQuotationClick, form, handleFormChange, errors }) {
+function BookingCard({ onQuotationClick, form, handleFormChange, errors, isMobile }) {
   return (
-    <div style={{
-      position: 'fixed', // Change from sticky to fixed
-      top: '150px',      // Adjust top offset below header
-      right: '40px',     // Stick to right side of viewport
-      width: '500px',
-      background: '#fff',
-      boxShadow: '0 4px 24px rgba(0,0,0,0.12)',
-      borderRadius: '16px',
-      padding: '24px',
-      zIndex: 20,
-      border: '1px solid #eee',
-      height: 'auto'
-     
-    }}>
+    <div
+      style={{
+        position: isMobile ? 'static' : 'fixed',
+        top: isMobile ? undefined : '150px',
+        right: isMobile ? undefined : '40px',
+        width: isMobile ? '100%' : '500px',
+        background: '#fff',
+        boxShadow: '0 4px 24px rgba(0,0,0,0.12)',
+        borderRadius: '16px',
+        padding: '24px',
+        zIndex: 20,
+        border: '1px solid #eee',
+        height: 'auto',
+        margin: isMobile ? '24px 0' : undefined
+      }}
+    >
       <div style={{fontSize: '2rem', fontWeight: 'bold'}}>
         From <span style={{color: '#222'}}>$24</span> <span style={{fontSize: '1rem', color: '#888'}}>(Per Vehicle)</span>
       </div>
@@ -338,6 +428,7 @@ function QuotationPopup({ open, onClose, onSubmit, loading, submitted, errors, f
 
 export default function TukTuk() {
   const [galleryOpen, setGalleryOpen] = useState(false);
+  const [galleryIndex, setGalleryIndex] = useState(0);
   // Quotation popup state
   const [showPopup, setShowPopup] = useState(false);
   const [form, setForm] = useState({
@@ -352,6 +443,13 @@ export default function TukTuk() {
   const [errors, setErrors] = useState({});
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 900);
+
+  React.useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 900);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   // Form change handler
   const handleFormChange = e => {
@@ -424,9 +522,9 @@ export default function TukTuk() {
         margin: '0 auto',
         gap: '32px',
         padding: '32px 16px',
-        alignItems: 'flex-start'
+        alignItems: 'flex-start',
+        flexDirection: isMobile ? 'column' : 'row'
       }}>
-     
         <div style={{flex: 1}}>
           <h1>Tuk Tuk Adventure: Explore Sri Lanka's Villages</h1>
           <div style={{marginBottom: '24px'}}>
@@ -434,11 +532,11 @@ export default function TukTuk() {
             <span style={{marginLeft: '8px'}}>5.0 · 2 Ratings · Tissamaharama</span>
           </div>
      
-          <ImageGrid images={galleryImages} onViewGallery={() => setGalleryOpen(true)} />
+          <ImageGrid images={galleryImages} onViewGallery={idx => { setGalleryOpen(true); setGalleryIndex(idx); }} />
           <p>
             Discover Sri Lanka's charm by renting local tuk tuks. Support village communities and explore with friends. Book your adventure today.
           </p>
-          <h2>Highlights</h2>
+          <h2>Things to do</h2>
           <ul>
             <li>Rent high-quality tuktuks from locals, helping to support their income.</li>
             <li>Enjoy insurance coverage for both the tuktuk and personal protection.</li>
@@ -446,14 +544,34 @@ export default function TukTuk() {
           </ul>
           
         </div>
+        {!isMobile && (
+          <BookingCard
+            onQuotationClick={() => { setShowPopup(true); setSubmitted(false); setErrors({}); }}
+            form={form}
+            handleFormChange={handleFormChange}
+            errors={errors}
+            isMobile={isMobile}
+          />
+        )}
       </div>
-      <BookingCard
-        onQuotationClick={() => { setShowPopup(true); setSubmitted(false); setErrors({}); }}
-        form={form}
-        handleFormChange={handleFormChange}
-        errors={errors}
+      {isMobile && (
+        <div style={{maxWidth: '900px', margin: '0 auto', padding: '0 16px'}}>
+          <BookingCard
+            onQuotationClick={() => { setShowPopup(true); setSubmitted(false); setErrors({}); }}
+            form={form}
+            handleFormChange={handleFormChange}
+            errors={errors}
+            isMobile={isMobile}
+          />
+        </div>
+      )}
+      <GalleryModal
+        open={galleryOpen}
+        images={galleryImages}
+        onClose={() => setGalleryOpen(false)}
+        currentIndex={galleryIndex}
+        setCurrentIndex={setGalleryIndex}
       />
-      <GalleryModal open={galleryOpen} images={galleryImages} onClose={() => setGalleryOpen(false)} />
       <QuotationPopup
         open={showPopup}
         onClose={() => setShowPopup(false)}
