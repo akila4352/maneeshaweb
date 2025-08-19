@@ -1,3 +1,7 @@
+import gmailAnimation from './gmail.json';
+import viberAnimation from './viber.json';
+import locationAnimation from './location.json';
+
 export const navList = [
   {
     id: 1,
@@ -391,6 +395,25 @@ export const featuredPropertiesData = [
     price: "Starting from $105",
     rating: 8.9,
     ratingText: "Excellent"
+  }
+];
+
+
+export const socialIconLocations = [
+  {
+    type: "email",
+    link: ".com",
+    animation: gmailAnimation
+  },
+  {
+    type: "call",
+    link: "tel:+94762991525",
+    animation: viberAnimation
+  },
+  {
+    type: "location",
+    link: "https://maps.app.goo.gl/8KNRgs4pZnZDEpH59",
+    animation: locationAnimation
   }
 ];
 

@@ -17,6 +17,8 @@ import Airport from './components/airport/Airport';
 import TukTuk from '../src/components/tuk-tuk/TukTuk';
 import HotelBooking from '../src/components/hotel-booking/HotelBooking';
 import Admin from './components/admin/admin';
+import SocialIcons from './components/common/SocialIcons';
+import SocialIcons2 from './components/home/SocialIcons';
 
 function App() {
 return (
@@ -37,6 +39,7 @@ return (
      <Route path="/tuk-tuk" element={<TukTuk/>}/>
       <Route path="/hotel-booking" element={<HotelBooking/>}/> 
       <Route path="/admin" element={<Admin/>}/>
+      <Route path="/socialicons" element={<SocialIcons2/>}/>
       </Routes>
       </BrowserRouter>
      

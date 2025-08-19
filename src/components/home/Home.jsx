@@ -6,9 +6,10 @@ import Intro from './Intro';
 import Services from './Service';
 import Sliders from './Slider';
 import Destination from './Destination';
+import SocialIcons2 from './SocialIcons';
 const Home = () => {
   return (
-    <div>
+    <div><SocialIcons2/>
       <Header />
       <Carousel />
       <Intro />
