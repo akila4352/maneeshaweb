@@ -3,7 +3,7 @@ import Header from '../common/Header';
 import { tukTukGalleryImages } from './../data/Data';
 import { rtdb } from '../../firebase/firebase';
 import { ref, push } from "firebase/database";
-
+ 
 
 const TravelerIcon = (
   <svg width="20" height="20" style={{marginRight: 8, verticalAlign: 'middle'}} fill="none" stroke="#888" strokeWidth="1.5" viewBox="0 0 24 24">

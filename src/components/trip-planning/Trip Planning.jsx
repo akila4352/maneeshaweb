@@ -10,7 +10,7 @@ import { rtdb } from '../../firebase/firebase';
 import { ref, push } from "firebase/database";
 import { tripPlanningImages } from '../data/Data';
 import DreamTripSVG from './yBhAn901.svg';
-
+ 
 const images = tripPlanningImages;
 
 const sliderSettings = {

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { navList } from "../data/Data";
 import SocialIcons from "./SocialIcons";
-
+ 
 export default function Header() {
   const [navbarCollapse, setNavbarCollapse] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);

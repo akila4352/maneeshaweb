@@ -3,7 +3,7 @@ import Cards from "./Cards"
 import Charts from "./Charts"
 import TableData from "./TableData"
 import User from "./User"
-  
+   
 const Admin = () => {
   return (
     <>

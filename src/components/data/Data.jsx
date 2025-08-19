@@ -402,17 +402,17 @@ export const featuredPropertiesData = [
 export const socialIconLocations = [
   {
     type: "email",
-    link: ".com",
+    link: "",
     animation: gmailAnimation
   },
   {
     type: "call",
-    link: "tel:+94762991525",
+    link: "",
     animation: viberAnimation
   },
   {
     type: "location",
-    link: "https://maps.app.goo.gl/8KNRgs4pZnZDEpH59",
+    link: "",
     animation: locationAnimation
   }
 ];

@@ -1,7 +1,7 @@
 import React from "react"
 import data from "./data"
 import "./users.css"
-
+ 
 const User = () => {
   return (
     <>

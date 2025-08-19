@@ -3,7 +3,7 @@ import ReactApexChart from "react-apexcharts"
 import "./cards.css"
 import TrendingUpIcon from "@mui/icons-material/TrendingUp"
 import Common from "./Common"
-
+ 
 const Cards = () => {
   const data = {
     series: [58],
