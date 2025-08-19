@@ -16,6 +16,7 @@ import Airport from './components/airport/Airport';
  import TripPlanning from '../src/components/trip-planning/Trip Planning';
 import TukTuk from '../src/components/tuk-tuk/TukTuk';
 import HotelBooking from '../src/components/hotel-booking/HotelBooking';
+import Admin from './components/admin/admin';
 
 function App() {
 return (
@@ -35,6 +36,7 @@ return (
     <Route path="/trip-planning" element={<TripPlanning/>}/> 
      <Route path="/tuk-tuk" element={<TukTuk/>}/>
       <Route path="/hotel-booking" element={<HotelBooking/>}/> 
+      <Route path="/admin" element={<Admin/>}/>
       </Routes>
       </BrowserRouter>
      

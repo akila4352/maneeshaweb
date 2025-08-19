@@ -384,7 +384,7 @@
 
 /*** Testimonial ***/
 .testimonial {
-    background: linear-gradient(rgba(15, 23, 43, .7), rgba(15, 23, 43, .7)), url(../../img/carousel2.jpg);
+  
     background-position: center center;
     background-repeat: repeat;
     background-size: cover;

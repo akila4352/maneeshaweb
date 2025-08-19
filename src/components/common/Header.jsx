@@ -5,8 +5,10 @@ import SocialIcons from "./SocialIcons";
 
 export default function Header() {
   const [navbarCollapse, setNavbarCollapse] = useState(false);
-
   const [activeDropdown, setActiveDropdown] = useState(null);
+  const [showLogin, setShowLogin] = useState(false);
+  const [form, setForm] = useState({ username: "", password: "" });
+  const [error, setError] = useState("");
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -17,6 +19,17 @@ export default function Header() {
 
   const handleMouseLeave = () => {
     setActiveDropdown(null);
+  };
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+    if (form.username === "admin" && form.password === "dspl@1234") {
+      setShowLogin(false);
+      setError("");
+      navigate("/admin");
+    } else {
+      setError("Invalid credentials");
+    }
   };
 
   // Smooth scroll handler for anchor links
@@ -111,11 +124,129 @@ export default function Header() {
                   ))}
                 </div>
                 <SocialIcons />
+                {/* Sign In button */}
+                <button
+                  style={{
+                    background: "#0F172B",
+                    color: "#fff",
+                    border: "none",
+                    borderRadius: "8px",
+                    padding: "8px 20px",
+                    fontWeight: "bold",
+                    cursor: "pointer",
+                    marginLeft: "18px"
+                  }}
+                  onClick={() => setShowLogin(true)}
+                >
+                  Sign In
+                </button>
               </div>
             </nav>
           </div>
         </div>
       </div>
+      {/* Login Popup */}
+      {showLogin && (
+        <div
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            width: "100vw",
+            height: "100vh",
+            background: "rgba(0,0,0,0.3)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            zIndex: 9999,
+          }}
+          onClick={() => setShowLogin(false)}
+        >
+          <div
+            style={{
+              background: "#fff",
+              borderRadius: "16px",
+              boxShadow: "0 8px 32px rgba(0,0,0,0.18)",
+              padding: "32px 24px",
+              minWidth: "320px",
+              maxWidth: "90vw",
+              textAlign: "center",
+              border: "1px solid #e5e5e5",
+              position: "relative"
+            }}
+            onClick={e => e.stopPropagation()}
+          >
+            <h2 style={{marginBottom: "16px", color: "#0F172B"}}>Admin Login</h2>
+            <form onSubmit={handleLogin}>
+              <input
+                type="text"
+                name="username"
+                placeholder="Username"
+                value={form.username}
+                onChange={e => setForm(f => ({ ...f, username: e.target.value }))}
+                required
+                style={{
+                  width: "90%",
+                  marginBottom: "10px",
+                  padding: "8px",
+                  borderRadius: "6px",
+                  border: "1px solid #ccc",
+                  fontSize: "1rem",
+                }}
+              />
+              <input
+                type="password"
+                name="password"
+                placeholder="Password"
+                value={form.password}
+                onChange={e => setForm(f => ({ ...f, password: e.target.value }))}
+                required
+                style={{
+                  width: "90%",
+                  marginBottom: "16px",
+                  padding: "8px",
+                  borderRadius: "6px",
+                  border: "1px solid #ccc",
+                  fontSize: "1rem",
+                }}
+              />
+              {error && <div style={{ color: "#e25d5d", marginBottom: "10px" }}>{error}</div>}
+              <button
+                type="submit"
+                style={{
+                  background: "#0F172B",
+                  color: "#fff",
+                  border: "none",
+                  borderRadius: "8px",
+                  padding: "10px 24px",
+                  fontWeight: "bold",
+                  cursor: "pointer",
+                  fontSize: "1rem",
+                  marginRight: "10px",
+                }}
+              >
+                Login
+              </button>
+              <button
+                type="button"
+                onClick={() => setShowLogin(false)}
+                style={{
+                  background: "#eee",
+                  color: "#333",
+                  border: "none",
+                  borderRadius: "8px",
+                  padding: "10px 24px",
+                  fontWeight: "bold",
+                  cursor: "pointer",
+                  fontSize: "1rem",
+                }}
+              >
+                Cancel
+              </button>
+            </form>
+          </div>
+        </div>
+      )}
     </>
   );
 }

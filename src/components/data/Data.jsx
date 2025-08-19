@@ -366,3 +366,38 @@ export const tukTukGalleryImages = [
   { img: ('../assets/img/about-2.jpg') }
 ];
 
+export const featuredPropertiesData = [
+  {
+    img: "../assets/img/villashade.png",
+    name: "Villa Shade",
+    city: "Habaraduwa",
+    price: "Starting from $50",
+    rating: 8.9,
+    ratingText: "Excellent"
+  },
+  {
+    img: "../assets/img/villashade.png",
+    name: "Blue Ocean Villa",
+    city: "Galle",
+    price: "Starting from $140",
+    rating: 9.3,
+    ratingText: "Exceptional"
+  },
+  {
+    img: "../assets/img/villashade.png",
+    name: "Serendib Hotel",
+    city: "Kandy",
+    price: "Starting from $99",
+    rating: 8.8,
+    ratingText: "Excellent"
+  },
+  {
+    img: "../assets/img/villashade.png",
+    name: "Hilton Garden Inn",
+    city: "Colombo",
+    price: "Starting from $105",
+    rating: 8.9,
+    ratingText: "Excellent"
+  }
+];
+ 
