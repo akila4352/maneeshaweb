@@ -55,21 +55,14 @@ export const socialIcons = [
     link: "https://facebook.com",
   },
   {
-    icon: <i className="fab fa-twitter"></i>,
-    link: "https://twitter.com",
-  },
-  {
     icon: <i className="fab fa-instagram"></i>,
     link: "https://instagram.com",
-  },
+  },  
   {
-    icon: <i className="fab fa-linkedin-in"></i>,
-    link: "https://linkedin.com",
+    icon: <i className="fab fa-whatsapp"></i>, // updated to show WhatsApp icon
+    link: "https://whatsapp.com",
   },
-  {
-    icon: <i className="fab fa-youtube"></i>,
-    link: "https://youtube.com",
-  },
+  
 ];
 
 export const footerItem = [
@@ -400,4 +393,4 @@ export const featuredPropertiesData = [
     ratingText: "Excellent"
   }
 ];
- 
+

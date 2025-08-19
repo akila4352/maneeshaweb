@@ -134,7 +134,7 @@ export default function Header() {
                     padding: "8px 20px",
                     fontWeight: "bold",
                     cursor: "pointer",
-                    marginLeft: "18px"
+                    marginLeft: "1px"
                   }}
                   onClick={() => setShowLogin(true)}
                 >
