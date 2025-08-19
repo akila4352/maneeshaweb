@@ -5,14 +5,14 @@ import { getDatabase } from "firebase/database";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyCEriXTkuQrt-Mp3l7pxYQ37f1I54vpVSg",
-  authDomain: "maneesha-50b9e.firebaseapp.com",
-  databaseURL: "https://maneesha-50b9e-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "maneesha-50b9e",
-  storageBucket: "maneesha-50b9e.firebasestorage.app",
-  messagingSenderId: "926907779071",
-  appId: "1:926907779771:web:818bc9c4c25b21b37c49ca",
-  measurementId: "G-PMEMC8TM57"
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+  databaseURL: process.env.REACT_APP_FIREBASE_DATABASE_URL,
+  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_FIREBASE_APP_ID,
+  measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID
 };
 
 // Initialize Firebase
