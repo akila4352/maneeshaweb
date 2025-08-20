@@ -1,8 +1,8 @@
 import React from "react"
 import Cards from "./Cards"
-import Charts from "./Charts"
+
 import TableData from "./TableData"
-import User from "./User"
+
    
 const Admin = () => {
   return (
@@ -14,8 +14,8 @@ const Admin = () => {
             <span>Adminto / DashBoard</span>
           </div>
           <Cards />
-          <Charts />
-          <User />
+           
+       
           <TableData />
         </div>
       </section>
@@ -63,7 +63,7 @@ const Admin = () => {
         ul,
         li {
           list-style-type: none;
-        }
+        } 
         .heading {
           padding: 20px 0;
         }
@@ -78,13 +78,14 @@ const Admin = () => {
         }
         .grid {
           display: grid;
-          grid-template-columns: repeat(4, 1fr);
+          grid-template-columns: repeat(5, 1fr);
           grid-gap: 30px;
         }
         .cardBox {
           background-color: #313844;
           border-radius: 5px;
           padding: 20px;
+      
         }
         .cardHeading {
           display: flex;
@@ -93,6 +94,7 @@ const Admin = () => {
           color: #dee2e6;
         }
         .cardHeading h3 {
+          color: #f7f7f7;
           font-weight: 600;
           font-size: 18px;
         }

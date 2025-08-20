@@ -1,7 +1,7 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import "./Table.css"
 import Common from "./Common"
-import data from "./data"
+// import data from "./data" // Remove if not needed for inbox
 import "./users.css"
 import Table from "@mui/material/Table"
 import TableBody from "@mui/material/TableBody"
@@ -10,79 +10,9 @@ import TableContainer from "@mui/material/TableContainer"
 import TableHead from "@mui/material/TableHead"
 import TableRow from "@mui/material/TableRow"
 import Paper from "@mui/material/Paper"
+import { ref, get, child } from "firebase/database"
+import { rtdb } from "../../firebase/firebase"
 
-// Dummy data for each quotation type
-const quotationTables = {
-  airportQuotations: [
-    {
-      id: 1,
-      name: "John Doe",
-      pickup: "Bandaranaike International Airport",
-      destination: "Colombo",
-      date: "2024-06-01",
-      time: "10:00",
-      totalPrice: "3500",
-      contact: "+94712345678",
-      email: "john@example.com",
-    },
-    // ...more airport quotations
-  ],
-  hotelBookings: [
-    {
-      id: 1,
-      name: "Jane Smith",
-      hotel: "Hilton Garden Inn",
-      city: "Colombo",
-      date: "2024-06-02",
-      nights: 2,
-      totalPrice: "21000",
-      contact: "+94787654321",
-      email: "jane@example.com",
-    },
-    // ...more hotel bookings
-  ],
-  safariQuotations: [
-    {
-      id: 1,
-      name: "Alex Lee",
-      destinations: "Yala National Park",
-      travelers: 2,
-      date: "2024-06-03",
-      totalPrice: "2000",
-      contact: "+94711223344",
-      email: "alex@example.com",
-    },
-    // ...more safari quotations
-  ],
-  tripQuotations: [
-    {
-      id: 1,
-      name: "Sam Perera",
-      destinations: "Kandy, Sigiriya",
-      duration: "5 days",
-      date: "2024-06-04",
-      totalPrice: "4500",
-      contact: "+94799887766",
-      email: "sam@example.com",
-    },
-    // ...more trip quotations
-  ],
-  tukTukQuotations: [
-    {
-      id: 1,
-      name: "Nimal Fernando",
-      destination: "Ella",
-      date: "2024-06-05",
-      travelers: 2,
-      totalPrice: "1200",
-      contact: "+94766554433",
-      email: "nimal@example.com",
-    },
-    // ...more tuk tuk quotations
-  ],
-}
-
-// Table columns for each type
 const tableColumns = {
   airportQuotations: [
     "ID",
@@ -140,8 +70,54 @@ const tableColumns = {
 
 const TableData = () => {
   const [selectedType, setSelectedType] = useState("airportQuotations")
+  const [rows, setRows] = useState([])
+  const [inbox, setInbox] = useState([])
 
-  const rows = quotationTables[selectedType]
+  useEffect(() => {
+    // Fetch inbox emails
+    const fetchInbox = async () => {
+      try {
+        const snap = await get(child(ref(rtdb), "newsletterInbox"));
+        if (snap.exists()) {
+          const dataObj = snap.val();
+          const arr = Object.entries(dataObj).map(([key, value]) => ({
+            id: key,
+            ...value,
+          }));
+          setInbox(arr.reverse()); // latest first
+        } else {
+          setInbox([]);
+        }
+      } catch (err) {
+        setInbox([]);
+      }
+    };
+    fetchInbox();
+  }, []);
+
+  useEffect(() => {
+    const fetchRows = async () => {
+      try {
+        const dbRef = ref(rtdb)
+        const snap = await get(child(dbRef, selectedType))
+        if (snap.exists()) {
+          // Convert object to array, add id if not present
+          const dataObj = snap.val()
+          const arr = Object.entries(dataObj).map(([key, value]) => ({
+            id: value.id || key,
+            ...value,
+          }))
+          setRows(arr)
+        } else {
+          setRows([])
+        }
+      } catch (err) {
+        setRows([])
+      }
+    }
+    fetchRows()
+  }, [selectedType])
+
   const columns = tableColumns[selectedType]
 
   return (
@@ -150,22 +126,14 @@ const TableData = () => {
         <div className='user cardBox'>
           <Common title='Inbox' />
           <div className='userBox'>
-            {data.map((value) => {
-              return (
-                <div className='cardBox flexSB'>
-                  <div className='img'>
-                    <img className='imageCircle' src={value.cover} alt='' />
-                  </div>
-                  <div className='title'>
-                    <h3>{value.title}</h3>
-                    <p>{value.email}</p>
-                  </div>
-                  <div className='time'>
-                    <span>{value.time}</span>
-                  </div>
+            {inbox.map((value) => (
+              <div className='cardBox flexSB' key={value.id}>
+                <div className='title'>
+                  <h3>{value.email}</h3>
+                  <p>{new Date(value.time).toLocaleString()}</p>
                 </div>
-              )
-            })}
+              </div>
+            ))}
           </div>
         </div>
         <div className='table cardBox'>
@@ -179,8 +147,9 @@ const TableData = () => {
             </label>
             <select
               id='quotation-type'
+              name='quotation-type'
               value={selectedType}
-              onChange={(e) => setSelectedType(e.target.value)}
+              onChange={e => setSelectedType(e.target.value)}
               style={{
                 padding: "6px 12px",
                 borderRadius: "6px",
@@ -223,9 +192,9 @@ const TableData = () => {
                 <TableBody>
                   {rows.map((row) => (
                     <TableRow key={row.id}>
-                      {columns.map((col, idx) => (
-                        <TableCell key={idx}>
-                          {row[
+                      {columns.map((col, idx) => {
+                        const value =
+                          row[
                             col
                               .replace(/ /g, "")
                               .replace("ID", "id")
@@ -244,9 +213,20 @@ const TableData = () => {
                               .replace("Travelers", "travelers")
                               .replace("Destinations", "destinations")
                               .replace("Duration", "duration")
-                          ] || ""}
-                        </TableCell>
-                      ))}
+                          ];
+                        // If value is an object, convert to string
+                        let displayValue = value;
+                        if (typeof value === "object" && value !== null) {
+                          displayValue = Array.isArray(value)
+                            ? value.join(", ")
+                            : Object.values(value).join(" - ");
+                        }
+                        return (
+                          <TableCell key={idx}>
+                            {displayValue || ""}
+                          </TableCell>
+                        );
+                      })}
                     </TableRow>
                   ))}
                 </TableBody>

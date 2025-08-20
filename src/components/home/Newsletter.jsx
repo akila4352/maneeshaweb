@@ -1,4 +1,26 @@
+import React, { useState } from "react";
+import { ref, push } from "firebase/database";
+import { rtdb } from "../../firebase/firebase";
+
 export default function Newsletter() {
+  const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async () => {
+    if (!email) return;
+    setLoading(true);
+    try {
+      await push(ref(rtdb, "newsletterInbox"), {
+        email,
+        time: new Date().toISOString(),
+      });
+      setEmail("");
+    } catch (err) {
+      // Optionally handle error
+    }
+    setLoading(false);
+  };
+
   return (
     <>
       <div
@@ -10,9 +32,9 @@ export default function Newsletter() {
             <div className="border rounded text-center p-1">
               <div className="bg-white rounded text-center p-5">
                 <h4 className="mb-4">
-                  Subscribe Our
+                  join now{" "}
                   <span className="text-primary text-uppercase">
-                    Newsletter
+                    for latest updates
                   </span>
                 </h4>
                 <div
@@ -23,10 +45,14 @@ export default function Newsletter() {
                     className="form-control w-100 py-3 ps-4 pe-5"
                     type="text"
                     placeholder="Enter your email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                   />
                   <button
                     type="button"
                     className="btn btn-primary py-2 px-3 position-absolute top-0 end-0 mt-2 me-2"
+                    onClick={handleSubmit}
+                    disabled={loading}
                   >
                     Submit
                   </button>
