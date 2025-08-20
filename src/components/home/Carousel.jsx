@@ -29,7 +29,9 @@ export default function Carousel() {
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 3000,
+    arrows: false, // disable default slick arrows
   };
+
   return (
     <>
       <div
@@ -97,31 +99,49 @@ export default function Carousel() {
               ))}
             </Slider>
           </div>
+
+          {/* Custom Prev & Next Arrows */}
           <button
-            className="carousel-control-prev"
-            type="button"
             onClick={previous}
+            style={{
+              position: "absolute",
+              top: "50%",
+              left: "20px",
+              transform: "translateY(-50%)",
+              zIndex: 2,
+              background: "rgba(0,0,0,0.5)",
+              border: "none",
+              borderRadius: "50%",
+              width: "40px",
+              height: "40px",
+              color: "#fff",
+              cursor: "pointer",
+            }}
           >
-            <span
-              className="carousel-control-prev-icon"
-              aria-hidden="true"
-            ></span>
-            <span className="visually-hidden">Previous</span>
+            &#10094;
           </button>
+
           <button
-            className="carousel-control-next"
-            type="button"
             onClick={next}
+            style={{
+              position: "absolute",
+              top: "50%",
+              right: "20px",
+              transform: "translateY(-50%)",
+              zIndex: 2,
+              background: "rgba(0,0,0,0.5)",
+              border: "none",
+              borderRadius: "50%",
+              width: "40px",
+              height: "40px",
+              color: "#fff",
+              cursor: "pointer",
+            }}
           >
-            <span
-              className="carousel-control-next-icon"
-              aria-hidden="true"
-            ></span>
-            <span className="visually-hidden">Next</span>
+            &#10095;
           </button>
         </div>
       </div>
     </>
   );
 }
-
