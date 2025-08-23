@@ -62,10 +62,7 @@ export const socialIcons = [
     icon: <i className="fab fa-instagram"></i>,
     link: "https://instagram.com",
   },  
-  {
-    icon: <i className="fab fa-whatsapp"></i>, // updated to show WhatsApp icon
-    link: "https://whatsapp.com",
-  },
+
   
 ];
 

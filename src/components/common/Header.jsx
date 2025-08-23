@@ -138,7 +138,9 @@ export default function Header() {
                   }}
                   onClick={() => setShowLogin(true)}
                 >
-                  Sign In
+                  <>
+                    Sign <br/>In
+                  </>
                 </button>
               </div>
             </nav>
