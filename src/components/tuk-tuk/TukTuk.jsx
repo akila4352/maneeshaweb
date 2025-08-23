@@ -3,8 +3,11 @@ import Header from '../common/Header';
 import { tukTukGalleryImages } from './../data/Data';
 import { rtdb } from '../../firebase/firebase';
 import { ref, push } from "firebase/database";
+import emailjs from 'emailjs-com';
  
-
+const EMAILJS_SERVICE_ID = 'service_0gmvl4o';
+const EMAILJS_TEMPLATE_ID = 'template_qodp4ef';
+const EMAILJS_USER_ID = 'R_CMaLVBqicquTPm8';
 const TravelerIcon = (
   <svg width="20" height="20" style={{marginRight: 8, verticalAlign: 'middle'}} fill="none" stroke="#888" strokeWidth="1.5" viewBox="0 0 24 24">
     <circle cx="12" cy="8" r="4"/>
@@ -149,7 +152,7 @@ function ImageGrid({ images, onViewGallery }) {
           <img src={img} alt={`card-${idx}`} style={{
             width: '100%',          
             height: '300px',        
-            objectFit: 'cover',
+            objectFit: 'cover', 
             display: 'block'
           }} />
           {idx === 3 && (
@@ -487,6 +490,23 @@ export default function TukTuk() {
       try {
         await push(ref(rtdb, "tukTukQuotations"), details);
         rtdbSuccess = true;
+
+        // Send email via EmailJS
+        await emailjs.send(
+          EMAILJS_SERVICE_ID,
+          EMAILJS_TEMPLATE_ID,
+          {
+            type: 'tuk_tuk_booking',
+            name: form.name,
+            contact: form.phone,
+            email: "akilanirmalzz4352@gmail.com",
+            destination: form.destination,
+            date: details.date,
+            travelers: form.travelers,
+            message: form.message
+          },
+          EMAILJS_USER_ID
+        );
       } catch (err) {
         rtdbSuccess = false;
       }

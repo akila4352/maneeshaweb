@@ -14,6 +14,7 @@ import 'react-calendar/dist/Calendar.css';
 import Footer from '../common/Footer';
 import { rtdb } from '../../firebase/firebase';
 import { ref, push } from "firebase/database";
+import emailjs from 'emailjs-com';
 
 // Custom icons
 const greenIcon = new L.Icon({
@@ -32,6 +33,11 @@ const blueIcon = new L.Icon({
   popupAnchor: [1, -34],
   shadowSize: [41, 41]
 });
+
+// Add your EmailJS config here
+const EMAILJS_SERVICE_ID = 'service_0gmvl4o'; // from your screenshot
+const EMAILJS_TEMPLATE_ID = 'template_qodp4ef'; // replace with your template ID
+const EMAILJS_USER_ID = 'R_CMaLVBqicquTPm8'; // replace with your EmailJS public key
 
 export default function Airport() {
   const [selected, setSelected] = useState(0);
@@ -217,7 +223,7 @@ export default function Airport() {
     setShowPopup(true);
   };
 
-  // Handle final form submission to Firebase
+  // Handle final form submission to Firebase and send email
   const handleFinalSubmit = async () => {
     // Validate contact information
     if (!bookingDetails.name || !bookingDetails.contact || !bookingDetails.email) {
@@ -226,12 +232,34 @@ export default function Airport() {
     }
 
     setLoading(true);
-    
+
     try {
       // Send to Firebase Realtime Database
       const quotationRef = ref(rtdb, "airportQuotations");
       await push(quotationRef, bookingDetails);
-      
+
+      // Send email via EmailJS
+      await emailjs.send(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        {
+          pickup: bookingDetails.pickup,
+          destination: bookingDetails.destination,
+          date: bookingDetails.date,
+          time: bookingDetails.time,
+          distance: bookingDetails.distance,
+          vehicles: bookingDetails.vehicles.map(v => `${v.name} (${v.people} people, ${v.bags} bags) - LKR ${v.totalPrice.toLocaleString()}`).join('\n'),
+          totalPrice: bookingDetails.totalPrice,
+          adult: bookingDetails.adult,
+          children: bookingDetails.children,
+          name: bookingDetails.name,
+          contact: bookingDetails.contact,
+          email: "akilanirmalzz4352@gmail.com" ,// always send to default email
+          vehicleNames: bookingDetails.vehicles.map(v => v.name).join(', ') // send selected vehicle names
+        },
+        EMAILJS_USER_ID
+      );
+
       alert("Quotation submitted successfully! Our team will contact you within 1 hour.");
       setShowPopup(false);
       
@@ -251,7 +279,7 @@ export default function Airport() {
       
     } catch (error) {
       console.error("Error submitting quotation:", error);
-      alert("Failed to submit quotation. Please check your internet connection and try again.");
+      alert("Failed to submit quotation or send email. Please check your internet connection and try again.");
     } finally {
       setLoading(false);
     }
@@ -562,6 +590,9 @@ export default function Airport() {
                 </div>
                 <div style={{ marginBottom: "8px" }}>
                   <strong>Distance:</strong> {bookingDetails.distance} km (approx.)
+                </div>
+                <div style={{ marginBottom: "8px" }}>
+                  <strong>Vehicle Name(s):</strong> {bookingDetails.vehicles.map(v => v.name).join(', ')}
                 </div>
                 <div style={{ marginBottom: "8px" }}>
                   <strong>Vehicles:</strong>

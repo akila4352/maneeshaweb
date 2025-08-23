@@ -1,0 +1,61 @@
+<div style="font-family: system-ui, sans-serif, Arial; font-size: 14px; color: #333; background-color: #f5f5f5; padding: 0;">
+  <div style="max-width: 600px; margin: auto; background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
+    <div style="border-top: 6px solid #458500; padding: 16px; background: #f9f9f9;">
+      <a href="[Website Link]" target="_blank" rel="noopener" style="text-decoration: none;">
+        <img src="cid:logo.png" alt="logo" style="height: 32px; vertical-align: middle;">
+      </a>
+      <span style="font-size: 16px; vertical-align: middle; border-left: 1px solid #333; padding-left: 8px; margin-left: 8px;">
+        <strong>Quotation</strong>
+      </span>
+    </div>
+    <div style="padding: 24px 16px;">
+      <p style="margin: 0 0 16px 0;">Thank you for your booking request. Here are your quotation details:</p>
+      <div style="font-size: 15px; padding-bottom: 8px; border-bottom: 2px solid #458500;">
+        <strong>Order # {{order_id}}</strong>
+      </div>
+      <table style="width: 100%; margin-top: 16px; font-size: 14px;">
+        <tbody>
+          <tr>
+            <td style="padding: 6px 0;"><strong>Type:</strong></td>
+            <td>{{type}}</td>
+          </tr>
+          <tr>
+            <td style="padding: 6px 0;"><strong>Name:</strong></td>
+            <td>{{name}}</td>
+          </tr>
+          <tr>
+            <td style="padding: 6px 0;"><strong>Contact Number:</strong></td>
+            <td>{{contact}}</td>
+          </tr>
+          <tr>
+            <td style="padding: 6px 0;"><strong>Email:</strong></td>
+            <td>{{email}}</td>
+          </tr>
+          <tr>
+            <td style="padding: 6px 0;"><strong>Destination(s):</strong></td>
+            <td>{{destination}}{{destinations}}</td>
+          </tr>
+          <tr>
+            <td style="padding: 6px 0;"><strong>Date:</strong></td>
+            <td>{{date}}{{startDate}} - {{endDate}}</td>
+          </tr>
+          <tr>
+            <td style="padding: 6px 0;"><strong>Details:</strong></td>
+            <td>
+              {{vehicleNames}}{{duration}}{{room}}{{adult}}{{children}}{{travelers}}{{message}}
+            </td>
+          </tr>
+          <tr>
+            <td style="padding: 6px 0;"><strong>Total Price:</strong></td>
+            <td>{{totalPrice}}</td>
+          </tr>
+        </tbody>
+      </table>
+      <div style="margin: 24px 0 0 0; font-size: 13px; color: #888;">
+        We'll send you tracking information when the order ships.<br>
+        The email was sent to {{email}}.<br>
+        You received this email because you placed the order.
+      </div>
+    </div>
+  </div>
+</div>

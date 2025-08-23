@@ -10,7 +10,7 @@ import TableContainer from "@mui/material/TableContainer"
 import TableHead from "@mui/material/TableHead"
 import TableRow from "@mui/material/TableRow"
 import Paper from "@mui/material/Paper"
-import { ref, get, child } from "firebase/database"
+import { ref, get, child, remove } from "firebase/database"
 import { rtdb } from "../../firebase/firebase"
 
 const tableColumns = {
@@ -21,20 +21,27 @@ const tableColumns = {
     "Destination",
     "Date",
     "Time",
+    "Distance",
+    "Vehicle Name(s)",
     "Total Price",
     "Contact",
     "Email",
+    "Created At",
+    "Delete"
   ],
   hotelBookings: [
     "ID",
     "Name",
-    "Hotel",
-    "City",
-    "Date",
-    "Nights",
-    "Total Price",
+    "Destination",
+    "Start Date",
+    "End Date",
+    "Adult",
+    "Children",
+    "Room",
     "Contact",
     "Email",
+    "Created At",
+    "Delete"
   ],
   safariQuotations: [
     "ID",
@@ -45,6 +52,9 @@ const tableColumns = {
     "Total Price",
     "Contact",
     "Email",
+    "Message",
+    "Created At",
+    "Delete"
   ],
   tripQuotations: [
     "ID",
@@ -52,9 +62,10 @@ const tableColumns = {
     "Destinations",
     "Duration",
     "Date",
-    "Total Price",
     "Contact",
     "Email",
+    "Created At",
+    "Delete"
   ],
   tukTukQuotations: [
     "ID",
@@ -62,9 +73,11 @@ const tableColumns = {
     "Destination",
     "Date",
     "Travelers",
-    "Total Price",
     "Contact",
     "Email",
+    "Message",
+    "Created At",
+    "Delete"
   ],
 }
 
@@ -103,10 +116,16 @@ const TableData = () => {
         if (snap.exists()) {
           // Convert object to array, add id if not present
           const dataObj = snap.val()
-          const arr = Object.entries(dataObj).map(([key, value]) => ({
+          let arr = Object.entries(dataObj).map(([key, value]) => ({
             id: value.id || key,
             ...value,
           }))
+          // FIFO: sort by createdAt ascending (oldest first)
+          arr = arr.sort((a, b) => {
+            const ta = a.timestamp || new Date(a.createdAt || 0).getTime();
+            const tb = b.timestamp || new Date(b.createdAt || 0).getTime();
+            return ta - tb;
+          });
           setRows(arr)
         } else {
           setRows([])
@@ -117,6 +136,16 @@ const TableData = () => {
     }
     fetchRows()
   }, [selectedType])
+
+  const handleDelete = async (rowId) => {
+    if (!window.confirm("Are you sure you want to delete this record?")) return;
+    try {
+      await remove(ref(rtdb, `${selectedType}/${rowId}`));
+      setRows(rows => rows.filter(row => row.id !== rowId));
+    } catch (err) {
+      alert("Failed to delete record.");
+    }
+  };
 
   const columns = tableColumns[selectedType]
 
@@ -193,27 +222,50 @@ const TableData = () => {
                   {rows.map((row) => (
                     <TableRow key={row.id}>
                       {columns.map((col, idx) => {
-                        const value =
-                          row[
-                            col
-                              .replace(/ /g, "")
-                              .replace("ID", "id")
-                              .replace("Name", "name")
-                              .replace("Pickup", "pickup")
-                              .replace("Destination", "destination")
-                              .replace("Date", "date")
-                              .replace("Time", "time")
-                              .replace("TotalPrice", "totalPrice")
-                              .replace("Total Price", "totalPrice")
-                              .replace("Contact", "contact")
-                              .replace("Email", "email")
-                              .replace("Hotel", "hotel")
-                              .replace("City", "city")
-                              .replace("Nights", "nights")
-                              .replace("Travelers", "travelers")
-                              .replace("Destinations", "destinations")
-                              .replace("Duration", "duration")
-                          ];
+                        // Map column names to actual data keys
+                        let value = "";
+                        switch (col) {
+                          case "ID": value = row.id; break;
+                          case "Name": value = row.name; break;
+                          case "Pickup": value = row.pickup; break;
+                          case "Destination": value = row.destination || row.destinations; break;
+                          case "Date": value = row.date?.startDate || row.date?.endDate || row.date || ""; break;
+                          case "Start Date": value = row.date?.startDate || ""; break;
+                          case "End Date": value = row.date?.endDate || ""; break;
+                          case "Time": value = row.time; break;
+                          case "Distance": value = row.distance; break;
+                          case "Vehicle Name(s)": value = row.vehicleNames || (row.vehicles ? row.vehicles.map(v => v.name).join(", ") : ""); break;
+                          case "Total Price": value = row.totalPrice; break;
+                          case "Adult": value = row.adult; break;
+                          case "Children": value = row.children; break;
+                          case "Room": value = row.room || (row.options ? row.options.room : ""); break;
+                          case "Travelers": value = row.travelers; break;
+                          case "Contact": value = row.contact || row.phone; break;
+                          case "Email": value = row.email; break;
+                          case "Message": value = row.message; break;
+                          case "Created At": value = row.createdAt ? new Date(row.createdAt).toLocaleString() : ""; break;
+                          case "Delete":
+                            return (
+                              <TableCell key={idx}>
+                                <button
+                                  style={{
+                                    background: "#e25d5d",
+                                    color: "#fff",
+                                    border: "none",
+                                    borderRadius: "6px",
+                                    padding: "4px 12px",
+                                    cursor: "pointer",
+                                    fontWeight: "bold"
+                                  }}
+                                  onClick={() => handleDelete(row.id)}
+                                >
+                                  Delete
+                                </button>
+                              </TableCell>
+                            );
+                          default:
+                            value = row[col.toLowerCase()] || "";
+                        }
                         // If value is an object, convert to string
                         let displayValue = value;
                         if (typeof value === "object" && value !== null) {

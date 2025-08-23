@@ -10,6 +10,7 @@ import { rtdb } from '../../firebase/firebase';
 import { ref, push } from "firebase/database";
 import { tripPlanningImages } from '../data/Data';
 import DreamTripSVG from './yBhAn901.svg';
+import emailjs from 'emailjs-com';
  
 const images = tripPlanningImages;
 
@@ -18,7 +19,7 @@ const sliderSettings = {
   infinite: true,
   speed: 500,
   slidesToShow: 1,
-  slidesToScroll: 1,
+  slidesToScroll: 1, 
   arrows: false,
   autoplay: true,
   autoplaySpeed: 3500
@@ -48,6 +49,10 @@ const ArrowButton = ({ direction, onClick }) => (
     {direction === "left" ? "‹" : "›"}
   </button>
 );
+
+const EMAILJS_SERVICE_ID = 'service_0gmvl4o';
+const EMAILJS_TEMPLATE_ID = 'template_qodp4ef';
+const EMAILJS_USER_ID = 'R_CMaLVBqicquTPm8';
 
 const TripPlanning = () => {
   const sliderRef = useRef();
@@ -100,6 +105,23 @@ const TripPlanning = () => {
         createdAt: new Date().toISOString(),
         timestamp: Date.now()
       });
+
+      // Send email via EmailJS
+      await emailjs.send(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        {
+          type: 'trip_planning',
+          name: form.name,
+          contact: form.contact,
+          email: "akilanirmalzz4352@gmail.com",
+          destinations: form.destinations,
+          duration: form.duration,
+          date: form.date.toLocaleDateString()
+        },
+        EMAILJS_USER_ID
+      );
+
       setLoading(false);
       setShowPopup(false);
       alert("We received your quotation. We will contact you within 2 hours.");

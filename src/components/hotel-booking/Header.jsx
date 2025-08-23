@@ -1,4 +1,4 @@
-import {
+import { 
   faBed,
   faCalendarDays,
   faCar,
@@ -16,6 +16,7 @@ import { format } from "date-fns";
 import { useNavigate } from "react-router-dom";
 import { rtdb } from '../../firebase/firebase';
 import { ref, push } from "firebase/database";
+import emailjs from 'emailjs-com';
 
 const Header = ({ type }) => {
   const [destination, setDestination] = useState("");
@@ -42,6 +43,10 @@ const Header = ({ type }) => {
   const [submitting, setSubmitting] = useState(false);
 
   const navigate = useNavigate();
+
+  const EMAILJS_SERVICE_ID = 'service_0gmvl4o';
+  const EMAILJS_TEMPLATE_ID = 'template_qodp4ef';
+  const EMAILJS_USER_ID = 'R_CMaLVBqicquTPm8';
 
   const handleOption = (name, operation) => {
     setOptions((prev) => {
@@ -86,6 +91,26 @@ const Header = ({ type }) => {
         createdAt: new Date().toISOString(),
         timestamp: Date.now()
       });
+
+      // Send email via EmailJS
+      await emailjs.send(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        {
+          type: 'hotel_booking',
+          name: bookingForm.name,
+          contact: bookingForm.contact,
+          email: "akilanirmalzz4352@gmail.com",
+          destination,
+          startDate: date[0].startDate.toLocaleDateString(),
+          endDate: date[0].endDate.toLocaleDateString(),
+          adult: options.adult,
+          children: options.children,
+          room: options.room
+        },
+        EMAILJS_USER_ID
+      );
+
       alert("Thank you! Our team will contact you soon.");
       handleClosePopup();
     } catch (err) {

@@ -1,34 +1,55 @@
 import React from 'react';
-import Lottie from 'lottie-react';
 import { socialIconLocations } from '../data/Data';
+
+// Add keyframes for pulsing animation
+const pulseStyle = `
+@keyframes pulse {
+  0% { transform: scale(1);}
+  50% { transform: scale(1.15);}
+  100% { transform: scale(1);}
+}
+`;
 
 const SocialIcons2 = () => {
   return (
-    <div
-      style={{
-        position: 'fixed',
-        top: '50%',
-        right: '10px',
-        transform: 'translateY(-50%)',
-        zIndex: 1000,
-      }}
-    >
-      {socialIconLocations.map((icon, idx) => (
-        <div
-          key={icon.type}
-          style={{
-            marginBottom: '5px',
-            backgroundColor: '#ff9900ff',
-            padding: '5px',
-            borderRadius: '5px',
-          }}
-        >
-          <a id="s1" href={icon.link} target="_blank" rel="noopener noreferrer">
-            <Lottie animationData={icon.animation} style={{ width: 40, height: 40 }} />
-          </a>
-        </div>
-      ))}
-    </div>
+    <>
+      <style>{pulseStyle}</style>
+      <div
+        style={{
+          position: 'fixed',
+          top: '90%', // moved further down the page
+          right: '10px',
+          transform: 'translateY(-50%)',
+          zIndex: 1000,
+        }}
+      >
+        {socialIconLocations.map((icon, idx) => (
+          <div
+            key={icon.type}
+            style={{
+              marginBottom: '5px',
+              padding: '5px',
+              borderRadius: '5px',
+            }}
+          >
+            <a
+              id="s1"
+              href={icon.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                display: 'inline-block',
+                animation: 'pulse 1s infinite',
+              }}
+            >
+              {icon.img ? (
+                <img src={icon.img} alt="WhatsApp" style={{ width: 80, height: 80 }} />
+              ) : null}
+            </a>
+          </div>
+        ))}
+      </div>
+    </>
   );
 };
 

@@ -4,9 +4,14 @@ import CommonHeading from '../common/CommonHeading';
 import { rtdb } from '../../firebase/firebase';
 import { ref, push } from "firebase/database";
 import { safariDestinations } from '../data/Data';
+import emailjs from 'emailjs-com';
  
 // Use imported safariDestinations
 const destinations = safariDestinations;
+
+const EMAILJS_SERVICE_ID = 'service_0gmvl4o';
+const EMAILJS_TEMPLATE_ID = 'template_qodp4ef';
+const EMAILJS_USER_ID = 'R_CMaLVBqicquTPm8';
 
 export default function Safari() {
   const [selected, setSelected] = useState([]);
@@ -16,7 +21,7 @@ export default function Safari() {
     phone: '',
     travelers: '',
     date: '',
-    message: ''
+    message: '' 
   });
   const [errors, setErrors] = useState({});
   const [submitted, setSubmitted] = useState(false);
@@ -67,11 +72,28 @@ export default function Safari() {
         ...form,
         createdAt: new Date().toISOString()
       };
-      // Send to Realtime Database only
       let rtdbSuccess = false;
       try {
         await push(ref(rtdb, "safariQuotations"), details);
         rtdbSuccess = true;
+
+        // Send email via EmailJS
+        await emailjs.send(
+          EMAILJS_SERVICE_ID,
+          EMAILJS_TEMPLATE_ID,
+          {
+            type: 'safari_booking',
+            name: form.name,
+            contact: form.phone,
+            email: "akilanirmalzz4352@gmail.com",
+            destinations: selected.join(', '),
+            totalPrice: totalPrice,
+            travelers: form.travelers,
+            date: form.date,
+            message: form.message
+          },
+          EMAILJS_USER_ID
+        );
       } catch (err) {
         rtdbSuccess = false;
       }

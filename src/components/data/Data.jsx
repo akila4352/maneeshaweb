@@ -439,19 +439,10 @@ export const featuredPropertiesData = [
 
 export const socialIconLocations = [
   {
-    type: "email",
-    link: "",
-    animation: gmailAnimation
-  },
-  {
     type: "call",
     link: "",
-    animation: viberAnimation
+      img: ('../assets/img/logo.png') 
   },
-  {
-    type: "location",
-    link: "",
-    animation: locationAnimation
-  }
+
 ];
 
