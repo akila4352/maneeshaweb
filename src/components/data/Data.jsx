@@ -449,7 +449,7 @@ export const tourPackages = [
     days: 1,
     routes: ["Colombo", "Ella"],
     inclusions: ["Transport"],
-    thumb: "../assets/img/Yala1.jpg",
+    thumb: "../assets/img/ella.jpg",
     price: "70.00",
     pricing: {
       label: "Pricing",
@@ -464,7 +464,7 @@ export const tourPackages = [
     days: 2,
     routes: ["Ella", "Kandy"],
     inclusions: ["Transport", "Hotel"],
-    thumb: "../assets/img/Yala1.jpg",
+    thumb: "../assets/img/kandy.jpg",
     price: "120.00",
     pricing: {
       label: "Pricing",
@@ -479,7 +479,7 @@ export const tourPackages = [
     days: 3,
     routes: ["Kandy", "Sigiriya"],
     inclusions: ["Transport", "Guide"],
-    thumb: "../assets/img/Yala1.jpg",
+    thumb: "../assets/img/sigiriya.jpg",
     price: "180.00",
     pricing: {
       label: "Pricing",
@@ -494,7 +494,7 @@ export const tourPackages = [
     days: 4,
     routes: ["Sigiriya", "Nuwara Eliya", "Haputale"],
     inclusions: ["Transport", "Hotel", "Guide"],
-    thumb: "../assets/img/Yala1.jpg",
+    thumb: "../assets/img/nuwaraeliya.jpg",
     price: "240.00",
     pricing: {
       label: "Pricing",
@@ -509,7 +509,7 @@ export const tourPackages = [
     days: 5,
     routes: ["Haputale", "Trincomalee", "Jaffna"],
     inclusions: ["Transport", "Hotel"],
-    thumb: "../assets/img/Yala1.jpg",
+    thumb: "../assets/img/palliya.jpg",
     price: "300.00",
     pricing: {
       label: "Pricing",
@@ -524,7 +524,7 @@ export const tourPackages = [
     days: 6,
     routes: ["Jaffna", "Anuradhapura", "Polonnaruwa", "Colombo"],
     inclusions: ["Transport", "Hotel", "Guide"],
-    thumb: "../assets/img/Yala1.jpg",
+    thumb: "../assets/img/polonaruwa.jpg",
     price: "360.00",
     pricing: {
       label: "Pricing",
