@@ -29,18 +29,18 @@ export const navList = [
   {
     id: 2,
     path: "/airport",
-    text: "Airport",
+    text: <>Airport<br />&nbsp;</>, // JSX: text will break into two lines
+  },{
+    id: 4,
+    path: "/trip-planning",
+    text: "Trip Planning",
   },
   {
     id: 3,
     path: "/safari",
     text: "Safari",
   },
-  {
-    id: 4,
-    path: "/trip-planning",
-    text: "Trip Planning",
-  },
+  
   {
     id: 5,
     path: "/tuk-tuk",
@@ -177,7 +177,7 @@ export const testimonial = [
     description:
       "Amazing experience! The safari was breathtaking and the guides were knowledgeable. I enjoyed every moment and felt safe throughout my journey.",
     name: "Leo",
-    profession: "Musician",
+   
     icon: (
       <i class="fa fa-quote-right fa-3x text-primary position-absolute end-0 bottom-0 me-4 mb-n1"></i>
     ),

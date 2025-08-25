@@ -5,9 +5,10 @@ import FeaturedProperties from './FeaturedProperties';
 import PropertyList from './PropertyList';
 import Header2 from './Header'; // Assuming Header2 is another component for hotel booking
 import './home.css'
+import SocialIcons2 from '../home/SocialIcons';
 export default function HotelBooking() {
   return (
-     <div>
+     <div><SocialIcons2/>
       <Header />
       <Header2/>
       <div className="homeContainer">

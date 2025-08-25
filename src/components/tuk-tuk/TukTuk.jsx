@@ -4,6 +4,7 @@ import { tukTukGalleryImages } from './../data/Data';
 import { rtdb } from '../../firebase/firebase';
 import { ref, push } from "firebase/database";
 import emailjs from 'emailjs-com';
+import SocialIcons2 from '../home/SocialIcons';
   
 const EMAILJS_SERVICE_ID = 'service_0gmvl4o';
 const EMAILJS_TEMPLATE_ID = 'template_qodp4ef';
@@ -532,7 +533,7 @@ export default function TukTuk() {
 
   return (
     <>
-      
+      <SocialIcons2/>
       <div style={{position: 'sticky', top: 0, zIndex: 10, background: '#fafaf8'}}>
         <Header />
       </div>

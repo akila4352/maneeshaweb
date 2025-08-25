@@ -2,13 +2,29 @@ import React, { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { navList } from "../data/Data";
 import SocialIcons from "./SocialIcons";
- 
+
+const specialLinkStyle = {
+  background: "rgba(184, 218, 255, 1)",
+  color: "#0F172B",
+  fontWeight: "bold",
+  boxShadow: "0 2px 8px rgba(15,23,43,0.08)",
+  padding: "8px 20px",
+  transition: "color 0.2s, background 0.2s",
+  margin: 0,
+  borderRadius: 0
+};
+
+const specialLinkHoverStyle = {
+  color: "#ff7f27", // orange
+};
+
 export default function Header() {
   const [navbarCollapse, setNavbarCollapse] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
   const [showLogin, setShowLogin] = useState(false);
   const [form, setForm] = useState({ username: "", password: "" });
   const [error, setError] = useState("");
+  const [hoveredIndex, setHoveredIndex] = useState(null);
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -83,7 +99,7 @@ export default function Header() {
                 <div className="navbar-nav mr-auto py-0">
                   {navList.map((item, index) => (
                     <div key={index}>
-                      {item.subItems ? ( 
+                      {item.subItems ? (
                         <div
                           className="nav-item dropdown"
                           onMouseEnter={() => handleMouseEnter(item.id)}
@@ -116,7 +132,28 @@ export default function Header() {
                           </div>
                         </div>
                       ) : (
-                        <Link to={item.path} className="nav-item nav-link">
+                        <Link
+                          to={item.path}
+                          className={`nav-item nav-link${(index === 1 || index === 2) ? " special-link orange-underline" : ""}`}
+                          style={
+                            (index === 1 || index === 2)
+                              ? {
+                                  ...specialLinkStyle,
+                                  ...(index === 1 ? { borderTopLeftRadius: "8px", borderBottomLeftRadius: "8px" } : {}),
+                                  ...(index === 2 ? { borderTopRightRadius: "8px", borderBottomRightRadius: "8px" } : {}),
+                                  ...(hoveredIndex === index ? specialLinkHoverStyle : {})
+                                }
+                              : (index === 0
+                                  ? { margin: 0, borderRadius: 0 }
+                                  : undefined)
+                          }
+                          onMouseEnter={() => {
+                            if (index === 1 || index === 2) setHoveredIndex(index);
+                          }}
+                          onMouseLeave={() => {
+                            if (index === 1 || index === 2) setHoveredIndex(null);
+                          }}
+                        >
                           {item.text}
                         </Link>
                       )}
@@ -166,7 +203,7 @@ export default function Header() {
         >
           <div
             style={{
-              background: "#fff",
+              background: "#ffffffff",
               borderRadius: "16px",
               boxShadow: "0 8px 32px rgba(0,0,0,0.18)",
               padding: "32px 24px",
@@ -249,6 +286,34 @@ export default function Header() {
           </div>
         </div>
       )}
+      <style>
+        {`
+          .special-link:hover {
+            color: #ff7f27 !important;
+            background: #ffe8b7ff !important;
+          }
+          .orange-underline {
+            position: relative;
+            z-index: 1;
+          }
+          .orange-underline::after {
+            content: "";
+            position: absolute;
+            left: 16px;
+            right: 16px;
+            bottom: 6px;
+            height: 3px;
+            background: linear-gradient(90deg, #ff7f27 60%, #ff0055 100%);
+            border-radius: 2px;
+            transform: scaleX(0);
+            transition: transform 0.35s cubic-bezier(.4,0,.2,1);
+            z-index: 2;
+          }
+          .orange-underline:hover::after {
+            transform: scaleX(1);
+          }
+        `}
+      </style>
     </>
   );
 }

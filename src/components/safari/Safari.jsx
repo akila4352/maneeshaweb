@@ -5,6 +5,7 @@ import { rtdb } from '../../firebase/firebase';
 import { ref, push } from "firebase/database";
 import { safariDestinations } from '../data/Data';
 import emailjs from 'emailjs-com'; 
+import SocialIcons2 from '../home/SocialIcons';
  
 // Use imported safariDestinations
 const destinations = safariDestinations;
@@ -115,7 +116,7 @@ export default function Safari() {
   };
 
   return (
-    <>
+    <><SocialIcons2/>
       <Header />
       <div className="safari-page">
         <CommonHeading

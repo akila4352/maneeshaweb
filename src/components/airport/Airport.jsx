@@ -15,6 +15,7 @@ import Footer from '../common/Footer';
 import { rtdb } from '../../firebase/firebase';
 import { ref, push } from "firebase/database";
 import emailjs from 'emailjs-com';
+import SocialIcons2 from '../home/SocialIcons';
 
 // Custom icons
 const greenIcon = new L.Icon({
@@ -298,7 +299,7 @@ export default function Airport() {
   };
 
   return (
-    <>
+    <><SocialIcons2/>
       <div className="body1">
         <Header />
         <div className="airport-container">

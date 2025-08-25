@@ -12,6 +12,7 @@ import { tripPlanningImages, tourPackages } from '../data/Data';
 import DreamTripSVG from './yBhAn901.svg';
 import emailjs from 'emailjs-com';
 import { useNavigate } from "react-router-dom";
+import SocialIcons2 from "../home/SocialIcons";
 
 const sliderSettings = {
   dots: false,
@@ -159,7 +160,7 @@ const TripPlanning = () => {
   };
 
   return (
-    <>
+    <><SocialIcons2/>
       <Header />
       {/* Carousel at the top */}
       <div style={{ width: "100vw", margin: "0 auto", marginTop: "0px", position: "relative" }}>
