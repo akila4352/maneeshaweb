@@ -28,7 +28,7 @@ export default function TourDetails1() {
         padding: "32px 16px",
         alignItems: "flex-start",
         flexDirection: isMobile ? "column" : "row"
-      }}>
+      }}> 
         <div style={{ flex: 1 }}>
           <h2 style={{ fontSize: "2rem", fontWeight: "bold", marginBottom: "1rem" }}>Sri Lanka Tour 1 Days</h2>
           <div style={{ fontWeight: "bold", color: "#888", marginBottom: "1rem" }}>Budget</div>

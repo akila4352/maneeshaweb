@@ -165,16 +165,19 @@ const TripPlanning = () => {
       {/* Carousel at the top */}
       <div style={{ width: "100vw", margin: "0 auto", marginTop: "0px", position: "relative" }}>
         {/* Dark filter overlay */}
-        <div style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          width: "100vw",
-          height: "480px",
-          background: "rgba(15,23,43,0.55)",
-          zIndex: 2,
-          pointerEvents: "none"
-        }} />
+        <div
+          className="carousel-dark-filter"
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: "100vw",
+            height: "480px",
+            background: "rgba(15,23,43,0.55)",
+            zIndex: 2,
+            pointerEvents: "none"
+          }}
+        />
         {/* Remove dark background from text, use CommonHeading */}
         <div style={{
           position: "absolute",
@@ -365,22 +368,22 @@ const TripPlanning = () => {
               </label>
               {/* Card content */}
               <div style={{ padding: 0, flex: 1, display: "flex", flexDirection: "column" }}>
-                <h2 style={{ fontSize: "1.5rem", fontWeight: 700, marginBottom: "0.7rem", color: "#fff" }}>
+                <h2 className="card-days" style={{ fontSize: "1.5rem", fontWeight: 700, marginBottom: "0.7rem", color: "#fff" }}>
                   {pkg.days} Days
                 </h2>
-                <div style={{ fontWeight: "bold", color: "#fff", marginBottom: "0.5rem" }}>Budget</div>
-                <div style={{ marginBottom: "0.5rem" }}>
+                <div className="card-budget" style={{ fontWeight: "bold", color: "#fff", marginBottom: "0.5rem" }}>Budget</div>
+                <div className="card-routes" style={{ marginBottom: "0.5rem" }}>
                   <span style={{ color: "#FEA116", fontWeight: "bold" }}>Routes:</span>
                   <span style={{ marginLeft: "8px" }}>{pkg.routes.join(" ")}</span>
                 </div>
-                <div style={{ marginBottom: "1rem" }}>
+                <div className="card-inclusions" style={{ marginBottom: "1rem" }}>
                   <span style={{ color: "#FEA116", fontWeight: "bold" }}>Inclusions:</span>
                   <span style={{ marginLeft: "8px" }}>{pkg.inclusions.join(" ")}</span>
                 </div>
-                <div style={{ fontSize: "1.1rem", fontWeight: 500, color: "#ff9800" }}>
+                <div className="card-price" style={{ fontSize: "1.1rem", fontWeight: 500, color: "#ff9800" }}>
                   USD {pkg.price}
                 </div>
-                <div style={{ display: "flex", gap: "12px", marginTop: "18px" }}>
+                <div className="card-actions" style={{ display: "flex", gap: "12px", marginTop: "18px", flexWrap: "wrap" }}>
                   <button
                     style={{
                       background: "#ff9800",
@@ -401,6 +404,7 @@ const TripPlanning = () => {
                     Quotation
                   </button>
                   <button
+                    className="card-view-btn"
                     style={{
                       background: "#0F172B",
                       color: "#fff",
@@ -645,6 +649,45 @@ const TripPlanning = () => {
           }
           .trip-card {
             grid-template-columns: 1fr !important;
+          }
+          .carousel-dark-filter {
+            height: 320px !important;
+          }
+          /* Reduce gap between cards */
+          [style*="display: grid"] {
+            gap: 1rem !important;
+            padding-left: 10px !important;
+            padding-right: 10px !important;
+          }
+          /* Stack buttons vertically inside card */
+          .card-actions {
+            flex-direction: column !important;
+            gap: 8px !important;
+            margin-top: 12px !important;
+          }
+          .card-view-btn {
+            margin-top: 0 !important;
+          }
+          /* Responsive card text */
+          .card-days {
+            font-size: 1.1rem !important;
+          }
+          .card-budget,
+          .card-routes,
+          .card-inclusions,
+          .card-price {
+            font-size: 0.95rem !important;
+          }
+        }
+        @media (max-width: 600px) {
+          .card-days {
+            font-size: 1rem !important;
+          }
+          .card-budget,
+          .card-routes,
+          .card-inclusions,
+          .card-price {
+            font-size: 0.85rem !important;
           }
         }
       `}</style>

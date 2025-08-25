@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Header from "../common/Header";
 import BookingCard from "./BookingCard";
+import { tourPackages } from "../data/Data";
 
 export default function TourDetails6() {
   const handleBook = (persons, totalPrice, destination, date) => {
@@ -14,7 +15,9 @@ export default function TourDetails6() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  return (
+  const pkg = tourPackages[5];
+
+  return ( 
     <>
       <Header />
       <div style={{
@@ -30,7 +33,7 @@ export default function TourDetails6() {
           <h2 style={{ fontSize: "2rem", fontWeight: "bold", marginBottom: "1rem" }}>Sri Lanka Tour 6 Days</h2>
           <div style={{ fontWeight: "bold", color: "#888", marginBottom: "1rem" }}>Budget</div>
           <img
-            src="../assets/img/Yala1.jpg"
+            src={pkg.image}
             alt="Tour"
             style={{
               width: isMobile ? "100%" : "900px",
@@ -70,7 +73,7 @@ export default function TourDetails6() {
                 marginRight: "-40px"
               }
         }>
-          <BookingCard price={360.00} days={6} destination="Anuradhapura, Polonnaruwa" onBook={handleBook} />
+          <BookingCard price={pkg.pricing.price} days={pkg.pricing.days} destination={pkg.pricing.destination} onBook={handleBook} />
         </div>
       </div>
     </>
