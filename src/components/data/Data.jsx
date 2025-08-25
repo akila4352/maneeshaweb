@@ -299,7 +299,7 @@ export const planeIcons = [
     coords: [6.8219, 79.8862],
     image: "../assets/img/plane.png"
   }
-];
+]; 
 
 export const safariDestinations = [
   {
@@ -441,5 +441,98 @@ export const socialIconLocations = [
       img: ('../assets/img/logo.png') 
   },
 
+];
+
+export const tourPackages = [
+  {
+    image: "../assets/img/ella.jpg",
+    days: 1,
+    routes: ["Colombo", "Ella"],
+    inclusions: ["Transport"],
+    thumb: "../assets/img/Yala1.jpg",
+    price: "70.00",
+    pricing: {
+      label: "Pricing",
+      price: 70.0,
+      days: 1,
+      destination: "Colombo, Ella",
+      persons: [1, 2, 3, 4, 5],
+    },
+  },
+  {
+    image: "../assets/img/kandy.jpg",
+    days: 2,
+    routes: ["Ella", "Kandy"],
+    inclusions: ["Transport", "Hotel"],
+    thumb: "../assets/img/Yala1.jpg",
+    price: "120.00",
+    pricing: {
+      label: "Pricing",
+      price: 120.0,
+      days: 2,
+      destination: "Ella, Kandy",
+      persons: [1, 2, 3, 4, 5],
+    },
+  },
+  {
+    image: "../assets/img/sigiriya.jpg",
+    days: 3,
+    routes: ["Kandy", "Sigiriya"],
+    inclusions: ["Transport", "Guide"],
+    thumb: "../assets/img/Yala1.jpg",
+    price: "180.00",
+    pricing: {
+      label: "Pricing",
+      price: 180.0,
+      days: 3,
+      destination: "Kandy, Sigiriya",
+      persons: [1, 2, 3, 4, 5],
+    },
+  },
+  {
+    image: "../assets/img/nuwaraeliya.jpg",
+    days: 4,
+    routes: ["Sigiriya", "Nuwara Eliya", "Haputale"],
+    inclusions: ["Transport", "Hotel", "Guide"],
+    thumb: "../assets/img/Yala1.jpg",
+    price: "240.00",
+    pricing: {
+      label: "Pricing",
+      price: 240.0,
+      days: 4,
+      destination: "Sigiriya, Nuwara Eliya, Haputale",
+      persons: [1, 2, 3, 4, 5],
+    },
+  },
+  {
+    image: "../assets/img/palliya.jpg",
+    days: 5,
+    routes: ["Haputale", "Trincomalee", "Jaffna"],
+    inclusions: ["Transport", "Hotel"],
+    thumb: "../assets/img/Yala1.jpg",
+    price: "300.00",
+    pricing: {
+      label: "Pricing",
+      price: 300.0,
+      days: 5,
+      destination: "Haputale, Trincomalee, Jaffna",
+      persons: [1, 2, 3, 4, 5],
+    },
+  },
+  {
+    image: "../assets/img/polonaruwa.jpg",
+    days: 6,
+    routes: ["Jaffna", "Anuradhapura", "Polonnaruwa", "Colombo"],
+    inclusions: ["Transport", "Hotel", "Guide"],
+    thumb: "../assets/img/Yala1.jpg",
+    price: "360.00",
+    pricing: {
+      label: "Pricing",
+      price: 360.0,
+      days: 6,
+      destination: "Jaffna, Anuradhapura, Polonnaruwa, Colombo",
+      persons: [1, 2, 3, 4, 5],
+    },
+  },
 ];
 

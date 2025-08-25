@@ -4,7 +4,7 @@ import CommonHeading from '../common/CommonHeading';
 import { rtdb } from '../../firebase/firebase';
 import { ref, push } from "firebase/database";
 import { safariDestinations } from '../data/Data';
-import emailjs from 'emailjs-com';
+import emailjs from 'emailjs-com'; 
  
 // Use imported safariDestinations
 const destinations = safariDestinations;
