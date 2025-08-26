@@ -1,73 +1,44 @@
-# Getting Started with Create React App
+# 🌍 Travel Agency Client Project  
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Hi 👋, I’m **Akila Nirmal**  
 
-## Available Scripts
+This is a **fully customized tourism web application** built for a client, using **React.js** and **Firebase**.  
+The project was tailored to client requirements, developed in just **1 month**, and includes both the customer-facing site and an **admin panel** for management.  
 
-In the project directory, you can run:
+---
 
-### `npm start`
+## ✨ Features  
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- ⚛️ **React.js Frontend** – Modern and responsive UI  
+- 🔥 **Firebase Integration** – Hosting, authentication & database  
+- 🗺️ **Interactive Map** – Implemented with `react-leaflet`  
+- 📧 **Email API Integration** – For inquiries and bookings  
+- 🛠️ **Custom Admin Panel** – Client can manage tours, destinations & bookings  
+- 🎨 **Fully Customized UI** – Designed to meet client’s branding and needs  
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+---
 
-### `npm test`
+## 🚀 Tech Stack  
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- **Frontend:** React.js, javascript / CSS Modules  
+- **Backend / Services:** Firebase  
+- **Maps:** React Leaflet + OpenStreetMap  
+- **Email Service:** API integration (third-party mail API)  
+- **Deployment:** vercel  
 
-### `npm run build`
+---
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 📸 Screenshots  
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+<img width="1910" height="861" alt="image" src="https://github.com/user-attachments/assets/bce82c0c-9fed-4517-97b7-d180fd23878a" />
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+---
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## 📂 Project Setup  
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+1. Clone the repo  
+   ```bash
+   git clone [https://github.com/akila4352/maneeshaweb.git]
+   cd travel-agency-client
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-# My Travel Agency
-# My Travel Agency
-# My Travel Agency
