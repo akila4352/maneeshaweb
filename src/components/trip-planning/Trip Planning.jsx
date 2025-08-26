@@ -13,7 +13,7 @@ import DreamTripSVG from './yBhAn901.svg';
 import emailjs from 'emailjs-com';
 import { useNavigate } from "react-router-dom";
 import SocialIcons2 from "../home/SocialIcons";
-
+import Footer from "../common/Footer";
 const sliderSettings = {
   dots: false,
   infinite: true,
@@ -199,7 +199,6 @@ const TripPlanning = () => {
         </div>
         <div className="carousel" style={{
           width: "100vw",
-          borderRadius: "32px",
           overflow: "hidden",
           boxShadow: "0 8px 32px rgba(0,0,0,0.12)",
           position: "relative",
@@ -222,7 +221,6 @@ const TripPlanning = () => {
                     width: "100vw",
                     height: "480px",
                     objectFit: "cover",
-                    borderRadius: "32px"
                   }}
                 />
                 {/* Remove dark background from carousel caption */}
@@ -690,7 +688,7 @@ const TripPlanning = () => {
             font-size: 0.85rem !important;
           }
         }
-      `}</style>
+      `}</style><Footer />
     </>
   );
 };

@@ -9,7 +9,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./header.css";
 import { DateRange } from "react-date-range";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import "react-date-range/dist/styles.css"; // main css file
 import "react-date-range/dist/theme/default.css"; // theme css file
 import { format } from "date-fns";
@@ -18,7 +18,7 @@ import { rtdb } from '../../firebase/firebase';
 import { ref, push } from "firebase/database";
 import emailjs from 'emailjs-com';
 
-const Header = ({ type }) => {
+const Header = ({ type, selectedProperties = [] }) => {
   const [destination, setDestination] = useState("");
   const [openDate, setOpenDate] = useState(false);
   const [date, setDate] = useState([
@@ -41,6 +41,8 @@ const Header = ({ type }) => {
     contact: "",
   });
   const [submitting, setSubmitting] = useState(false);
+  const [calendarRef, setCalendarRef] = useState(null);
+  const optionsRef = useRef(null);
 
   const navigate = useNavigate();
 
@@ -62,6 +64,10 @@ const Header = ({ type }) => {
   };
 
   const handleBookNow = () => {
+    if (selectedProperties.length === 0) {
+      alert("Please select at least one property type before booking.");
+      return;
+    }
     setShowBookingPopup(true);
   };
 
@@ -119,6 +125,34 @@ const Header = ({ type }) => {
     }
   };
 
+  // Add effect to close calendar when clicking outside
+  useEffect(() => {
+    if (!openDate) return;
+    function handleClickOutside(event) {
+      if (calendarRef && !calendarRef.contains(event.target)) {
+        setOpenDate(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [openDate, calendarRef]);
+
+  // Add effect to close options when clicking outside
+  useEffect(() => {
+    if (!openOptions) return;
+    function handleClickOutside(event) {
+      if (optionsRef.current && !optionsRef.current.contains(event.target)) {
+        setOpenOptions(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [openOptions]);
+
   return (
     <div className="header">
       <div
@@ -126,7 +160,6 @@ const Header = ({ type }) => {
           type === "list" ? "headerContainer listMode" : "headerContainer"
         }
       >
-       
         {type !== "list" && (
           <>
             <h1 className="headerTitle" style={{color: "#FEA116"}}>
@@ -136,7 +169,7 @@ const Header = ({ type }) => {
               Get rewarded for your travels – unlock instant savings of 10% or
               more with a free Lamabooking account
             </p>
-         
+          
             <div
               className="headerSearch"
               style={{
@@ -156,24 +189,40 @@ const Header = ({ type }) => {
               </div>
               <div className="headerSearchItem">
                 <FontAwesomeIcon icon={faCalendarDays} className="headerIcon" />
-                <span
-                  onClick={() => setOpenDate(!openDate)}
-                  className="headerSearchText"
-                  style={{ fontWeight: "bold", color: "#111" }}
-                >{`${format(date[0].startDate, "MM/dd/yyyy")} to ${format(
-                  date[0].endDate,
-                  "MM/dd/yyyy"
-                )}`}</span>
-                {openDate && (
-                  <DateRange
-                    editableDateInputs={true}
-                    onChange={(item) => setDate([item.selection])}
-                    moveRangeOnFirstSelection={false}
-                    ranges={date}
-                    className="date"
-                    minDate={new Date()}
-                  />
-                )}
+                <div style={{display: "flex", flexDirection: "column", width: "100%"}}>
+                  <span
+                    onClick={() => setOpenDate(!openDate)}
+                    className="headerSearchText"
+                    style={{ fontWeight: "bold", color: "#111" }}
+                  >{`${format(date[0].startDate, "MM/dd/yyyy")} to ${format(
+                    date[0].endDate,
+                    "MM/dd/yyyy"
+                  )}`}</span>
+                  {openDate && (
+                    <div
+                      ref={setCalendarRef}
+                      style={{
+                        position: "static",
+                        marginTop: "8px",
+                        width: "100%",
+                        zIndex: 10,
+                        // Responsive: full width on mobile
+                        ...(window.innerWidth <= 900
+                          ? { maxWidth: "100vw" }
+                          : { position: "absolute", top: "50px", zIndex: 2 }),
+                      }}
+                    >
+                      <DateRange
+                        editableDateInputs={true}
+                        onChange={(item) => setDate([item.selection])}
+                        moveRangeOnFirstSelection={false}
+                        ranges={date}
+                        className="date"
+                        minDate={new Date()}
+                      />
+                    </div>
+                  )}
+                </div>
               </div>
               <div className="headerSearchItem">
                 <FontAwesomeIcon icon={faPerson} className="headerIcon" />
@@ -183,7 +232,7 @@ const Header = ({ type }) => {
                   style={{ fontWeight: "bold", color: "#111" }}
                 >{`${options.adult} adult · ${options.children} children · ${options.room} room`}</span>
                 {openOptions && (
-                  <div className="options">
+                  <div className="options" ref={optionsRef}>
                     <div className="optionItem">
                       <span className="optionText">Adult</span>
                       <div className="optionCounter">
@@ -251,7 +300,14 @@ const Header = ({ type }) => {
                 )}
               </div>
               <div className="headerSearchItem">
-                <button className="headerBtn" onClick={handleBookNow}>
+                <button
+                  className="headerBtn"
+                  onClick={handleBookNow}
+                  style={{
+                    opacity: selectedProperties.length === 0 ? 0.6 : 1,
+                    cursor: selectedProperties.length === 0 ? "not-allowed" : "pointer"
+                  }}
+                >
                   Book Now
                 </button>
               </div>
@@ -289,6 +345,8 @@ const Header = ({ type }) => {
                     Destination: <b>{destination || "N/A"}</b><br />
                     Dates: <b>{format(date[0].startDate, "MM/dd/yyyy")} to {format(date[0].endDate, "MM/dd/yyyy")}</b><br />
                     Guests: <b>{options.adult} adult, {options.children} children, {options.room} room</b>
+                    <br />
+                    Property Types: <b>{selectedProperties.length ? selectedProperties.join(", ") : "N/A"}</b>
                   </p>
                   <form onSubmit={handleBookingSubmit} style={{marginBottom: "16px"}}>
                     <input
@@ -379,6 +437,45 @@ const Header = ({ type }) => {
           </>
         )}
       </div>
+      <style>{`
+        @media (max-width: 900px) {
+          .headerSearch {
+            flex-direction: column !important;
+            padding: 10px 2vw !important;
+            font-size: 0.95rem !important;
+            min-height: 0 !important;
+          }
+          .headerSearchItem {
+            margin-bottom: 8px !important;
+            width: 100% !important;
+          }
+          .headerBtn {
+            width: 100% !important;
+            font-size: 0.95rem !important;
+            padding: 8px 0 !important;
+          }
+          .headerTitle {
+            font-size: 1rem !important;
+            text-align: center !important;
+          }
+          .headerDesc {
+            font-size: 0.95rem !important;
+            text-align: center !important;
+          }
+          .options {
+            min-width: 90vw !important;
+            font-size: 0.95rem !important;
+          }
+        }
+        @media (max-width: 600px) {
+          .headerSearch {
+            font-size: 0.9rem !important;
+          }
+          .headerTitle {
+            font-size: 0.95rem !important;
+          }
+        }
+      `}</style>
     </div>
   );
 };

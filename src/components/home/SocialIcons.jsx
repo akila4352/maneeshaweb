@@ -15,9 +15,9 @@ const SocialIcons2 = () => {
     <>
       <style>{pulseStyle}</style>
       <div
+        className="social-icons-fixed"
         style={{
           position: 'fixed',
-          top: '90%', // moved further down the page
           right: '10px',
           transform: 'translateY(-50%)',
           zIndex: 1000,
@@ -49,6 +49,19 @@ const SocialIcons2 = () => {
           </div>
         ))}
       </div>
+      <style>{`
+        ${pulseStyle}
+        @media (max-width: 900px) {
+          .social-icons-fixed {
+            top: 80% !important;
+          }
+        }
+        @media (min-width: 901px) {
+          .social-icons-fixed {
+            top: 50% !important;
+          }
+        }
+      `}</style>
     </>
   );
 };

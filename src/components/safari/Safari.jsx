@@ -6,7 +6,7 @@ import { ref, push } from "firebase/database";
 import { safariDestinations } from '../data/Data';
 import emailjs from 'emailjs-com'; 
 import SocialIcons2 from '../home/SocialIcons';
- 
+ import Footer from '../common/Footer';
 // Use imported safariDestinations
 const destinations = safariDestinations;
 
@@ -564,7 +564,7 @@ export default function Safari() {
           color: #ff9800;
           font-weight: 500;
         }
-      `}</style>
+      `}</style><Footer />
     </>
   );
 }

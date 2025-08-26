@@ -4,7 +4,7 @@ import { navList } from "../data/Data";
 import SocialIcons from "./SocialIcons";
 
 const specialLinkStyle = {
-  background: "rgba(184, 218, 255, 1)",
+  background: "#FEA116 ",
   color: "#0F172B",
   fontWeight: "bold",
   boxShadow: "0 2px 8px rgba(15,23,43,0.08)",
@@ -86,8 +86,15 @@ export default function Header() {
                 type="button"
                 className="navbar-toggler"
                 onClick={() => setNavbarCollapse(!navbarCollapse)}
+                style={{ border: "2px solid #ff7f27", background: "transparent" }} // add border color
               >
-                <span className="navbar-toggler-icon"></span>
+                <span
+                  className="navbar-toggler-icon"
+                  style={{
+                    filter: "invert(54%) sepia(99%) saturate(749%) hue-rotate(359deg) brightness(101%) contrast(101%)"
+                    // This filter makes the default icon orange (#ff7f27)
+                  }}
+                ></span>
               </button>
               <div
                 className={
@@ -97,88 +104,150 @@ export default function Header() {
                 }
               >
                 <div className="navbar-nav mr-auto py-0">
+                  {/* Render HOME link first */}
                   {navList.map((item, index) => (
-                    <div key={index}>
-                      {item.subItems ? (
-                        <div
-                          className="nav-item dropdown"
-                          onMouseEnter={() => handleMouseEnter(item.id)}
-                          onMouseLeave={handleMouseLeave}
-                        >
-                          <Link to={item.path} className="nav-link dropdown-toggle">
+                    index === 0 && (
+                      <div key={index}>
+                        {item.subItems ? (
+                          <div
+                            className="nav-item dropdown"
+                            onMouseEnter={() => handleMouseEnter(item.id)}
+                            onMouseLeave={handleMouseLeave}
+                          >
+                            <Link to={item.path} className="nav-link dropdown-toggle" style={{ whiteSpace: "nowrap" }}>
+                              {item.text}
+                            </Link>
+                            <div
+                              className={`dropdown-menu rounded-0 m-0 ${
+                                activeDropdown === item.id ? "show" : ""
+                              }`}
+                            >
+                              {item.subItems.map((sub) =>
+                                sub.path.startsWith("#") ? (
+                                  <a
+                                    href={sub.path}
+                                    className="dropdown-item"
+                                    key={sub.id}
+                                    onClick={(e) => handleAnchorClick(e, sub.path)}
+                                  >
+                                    {sub.text}
+                                  </a>
+                                ) : (
+                                  <Link to={sub.path} className="dropdown-item" key={sub.id}>
+                                    {sub.text}
+                                  </Link>
+                                )
+                              )}
+                            </div>
+                          </div>
+                        ) : (
+                          <Link
+                            to={item.path}
+                            className="nav-item nav-link"
+                            style={{ margin: 0, borderRadius: 0, whiteSpace: "nowrap" }}
+                          >
                             {item.text}
                           </Link>
-                          <div
-                            className={`dropdown-menu rounded-0 m-0 ${
-                              activeDropdown === item.id ? "show" : ""
-                            }`}
+                        )}
+                      </div>
+                    )
+                  ))}
+                  {/* Wrap 2nd and 3rd links in a flex container */}
+                  <div style={{ display: "flex", alignItems: "center" }} className="nav-flex-group">
+                    {navList.map((item, index) => (
+                      <React.Fragment key={index}>
+                        {(index === 1 || index === 2) ? (
+                          <Link
+                            to={item.path}
+                            className={`nav-item nav-link special-link orange-underline nav-green-full`}
+                            style={{
+                              ...specialLinkStyle,
+                              width: "100%",
+                              display: "block",
+                              ...(hoveredIndex === index ? specialLinkHoverStyle : {}),
+                              ...(index === 1 ? { borderTopLeftRadius: "8px", borderBottomLeftRadius: "8px" } : {}),
+                              ...(index === 2 ? { borderTopRightRadius: "8px", borderBottomRightRadius: "8px" } : {}),
+                              whiteSpace: "nowrap"
+                            }}
+                            onMouseEnter={() => setHoveredIndex(index)}
+                            onMouseLeave={() => setHoveredIndex(null)}
                           >
-                            {item.subItems.map((sub) =>
-                              sub.path.startsWith("#") ? (
-                                <a
-                                  href={sub.path}
-                                  className="dropdown-item"
-                                  key={sub.id}
-                                  onClick={(e) => handleAnchorClick(e, sub.path)}
-                                >
-                                  {sub.text}
-                                </a>
-                              ) : (
-                                <Link to={sub.path} className="dropdown-item" key={sub.id}>
-                                  {sub.text}
-                                </Link>
-                              )
-                            )}
+                            {item.text}
+                          </Link>
+                        ) : null}
+                      </React.Fragment>
+                    ))}
+                  </div>
+                  {/* Render other links normally */}
+                  {navList.map((item, index) => (
+                    (index !== 0 && index !== 1 && index !== 2) && (
+                      <div key={index}>
+                        {item.subItems ? (
+                          <div
+                            className="nav-item dropdown"
+                            onMouseEnter={() => handleMouseEnter(item.id)}
+                            onMouseLeave={handleMouseLeave}
+                          >
+                            <Link to={item.path} className="nav-link dropdown-toggle">
+                              {item.text}
+                            </Link>
+                            <div
+                              className={`dropdown-menu rounded-0 m-0 ${
+                                activeDropdown === item.id ? "show" : ""
+                              }`}
+                            >
+                              {item.subItems.map((sub) =>
+                                sub.path.startsWith("#") ? (
+                                  <a
+                                    href={sub.path}
+                                    className="dropdown-item"
+                                    key={sub.id}
+                                    onClick={(e) => handleAnchorClick(e, sub.path)}
+                                  >
+                                    {sub.text}
+                                  </a>
+                                ) : (
+                                  <Link to={sub.path} className="dropdown-item" key={sub.id}>
+                                    {sub.text}
+                                  </Link>
+                                )
+                              )}
+                            </div>
                           </div>
-                        </div>
-                      ) : (
-                        <Link
-                          to={item.path}
-                          className={`nav-item nav-link${(index === 1 || index === 2) ? " special-link orange-underline" : ""}`}
-                          style={
-                            (index === 1 || index === 2)
-                              ? {
-                                  ...specialLinkStyle,
-                                  ...(index === 1 ? { borderTopLeftRadius: "8px", borderBottomLeftRadius: "8px" } : {}),
-                                  ...(index === 2 ? { borderTopRightRadius: "8px", borderBottomRightRadius: "8px" } : {}),
-                                  ...(hoveredIndex === index ? specialLinkHoverStyle : {})
-                                }
-                              : (index === 0
-                                  ? { margin: 0, borderRadius: 0 }
-                                  : undefined)
-                          }
-                          onMouseEnter={() => {
-                            if (index === 1 || index === 2) setHoveredIndex(index);
-                          }}
-                          onMouseLeave={() => {
-                            if (index === 1 || index === 2) setHoveredIndex(null);
-                          }}
-                        >
-                          {item.text}
-                        </Link>
-                      )}
-                    </div>
+                        ) : (
+                          <Link
+                            to={item.path}
+                            className="nav-item nav-link"
+                            style={{ whiteSpace: "nowrap" }}
+                          >
+                            {item.text}
+                          </Link>
+                        )}
+                      </div>
+                    )
                   ))}
                 </div>
-                <SocialIcons />
-                {/* Sign In button */}
-                <button
-                  style={{
-                    background: "#0F172B",
-                    color: "#fff",
-                    border: "none",
-                    borderRadius: "8px",
-                    padding: "8px 20px",
-                    fontWeight: "bold",
-                    cursor: "pointer",
-                    marginLeft: "1px"
-                  }}
-                  onClick={() => setShowLogin(true)}
-                >
-                  <>
-                    Sign <br/>In
-                  </>
-                </button>
+                {/* Group SocialIcons and Sign In button in a flex container */}
+                <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
+                  <SocialIcons />
+                  {/* Sign In button */}
+                  <button
+                    style={{
+                      background: "#0F172B",
+                      color: "#fff",
+                      border: "none",
+                      borderRadius: "8px",
+                      padding: "8px 20px",
+                      fontWeight: "bold",
+                      cursor: "pointer",
+                      marginLeft: "0px", // reduce margin
+                      whiteSpace: "nowrap" // keep text on one line
+                    }}
+                    onClick={() => setShowLogin(true)}
+                  >
+                    Sign In
+                  </button>
+                </div>
               </div>
             </nav>
           </div>
@@ -311,6 +380,23 @@ export default function Header() {
           }
           .orange-underline:hover::after {
             transform: scaleX(1);
+          }
+          .nav-green-full {
+            width: 100%;
+            display: block;
+          }
+          @media (max-width: 900px) {
+            .nav-flex-group {
+              flex-direction: column-reverse !important;
+              align-items: stretch !important;
+              gap: 0 !important;
+              width: 100%;
+            }
+            .nav-flex-group .nav-link {
+              margin-bottom: 4px;
+              width: 100% !important;
+              border-radius: 0 !important;
+            }
           }
         `}
       </style>

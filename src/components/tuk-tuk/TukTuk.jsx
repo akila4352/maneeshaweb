@@ -5,7 +5,7 @@ import { rtdb } from '../../firebase/firebase';
 import { ref, push } from "firebase/database";
 import emailjs from 'emailjs-com';
 import SocialIcons2 from '../home/SocialIcons';
-  
+  import Footer from '../common/Footer';
 const EMAILJS_SERVICE_ID = 'service_0gmvl4o';
 const EMAILJS_TEMPLATE_ID = 'template_qodp4ef';
 const EMAILJS_USER_ID = 'R_CMaLVBqicquTPm8';
@@ -550,7 +550,7 @@ export default function TukTuk() {
           <h1>Tuk Tuk Adventure: Explore Sri Lanka's Villages</h1>
           <div style={{marginBottom: '24px'}}>
             <span style={{fontSize: '1.5rem', color: '#0a8'}}>★★★★★</span>
-            <span style={{marginLeft: '8px'}}>5.0 · 2 Ratings · Tissamaharama</span>
+            <span style={{marginLeft: '8px'}}>5.0  Ratings </span>
           </div>
      
           <ImageGrid images={galleryImages} onViewGallery={idx => { setGalleryOpen(true); setGalleryIndex(idx); }} />
@@ -602,7 +602,7 @@ export default function TukTuk() {
         errors={errors}
         form={form}
         handleFormChange={handleFormChange}
-      />
+      /><Footer />
     </>
   );
 }

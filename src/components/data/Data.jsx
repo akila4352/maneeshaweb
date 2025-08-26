@@ -29,7 +29,7 @@ export const navList = [
   {
     id: 2,
     path: "/airport",
-    text: <>Airport<br />&nbsp;</>, // JSX: text will break into two lines
+    text: "Airport"
   },{
     id: 4,
     path: "/trip-planning",

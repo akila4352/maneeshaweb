@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Header from "../common/Header";
 import BookingCard from "./BookingCard";
 import { tourPackages } from "../data/Data";
-
+import Footer from "../common/Footer";
 export default function TourDetails2() {
   const handleBook = (persons, totalPrice, destination, date) => {
     alert(`Booking for ${persons} person(s) to ${destination} on ${date}. Total: USD ${totalPrice}`);
@@ -73,8 +73,8 @@ export default function TourDetails2() {
               }
         }>
           <BookingCard price={pkg.pricing.price} days={pkg.pricing.days} destination={pkg.pricing.destination} onBook={handleBook} />
-        </div>
-      </div>
+        </div> 
+      </div><Footer />
     </>
   );
 }
