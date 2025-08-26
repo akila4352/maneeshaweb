@@ -1,7 +1,7 @@
 import "./featuredProperties.css";
 import { featuredPropertiesData } from "../data/Data";
 
-const FeaturedProperties = () => {
+const FeaturedProperties = ({ onBookNow }) => {
   return (
     <div className="fp">
       {featuredPropertiesData.map((item, idx) => (
@@ -13,8 +13,26 @@ const FeaturedProperties = () => {
           <div className="fpRating">
             <button>{item.rating}</button>
             <span>{item.ratingText}</span>
-          </div> 
-        </div> 
+          </div>
+          <button
+            className="fpBookBtn"
+            style={{
+              background: "#FEA116",
+              color: "#fff",
+              border: "none",
+              borderRadius: "8px",
+              padding: "8px 16px",
+              fontWeight: "bold",
+              cursor: "pointer",
+              marginTop: "8px",
+              width: "100%",
+              fontSize: "1rem"
+            }}
+            onClick={() => onBookNow && onBookNow(item.name)}
+          >
+            Book Now
+          </button>
+        </div>
       ))}
       <style>{`
         @media (max-width: 900px) {
@@ -44,12 +62,19 @@ const FeaturedProperties = () => {
           .fpRating button {
             font-size: 0.85rem !important;
           }
+          .fpBookBtn {
+            font-size: 0.95rem !important;
+            padding: 8px 0 !important;
+          }
         }
         @media (max-width: 600px) {
           .fpImg {
             height: 60px !important;
           }
           .fpName, .fpCity, .fpPrice {
+            font-size: 0.85rem !important;
+          }
+          .fpBookBtn {
             font-size: 0.85rem !important;
           }
         }

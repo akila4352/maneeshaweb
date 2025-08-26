@@ -53,12 +53,12 @@ const SocialIcons2 = () => {
         ${pulseStyle}
         @media (max-width: 900px) {
           .social-icons-fixed {
-            top: 80% !important;
+            top: 85% !important;
           }
         }
         @media (min-width: 901px) {
           .social-icons-fixed {
-            top: 50% !important;
+            top: 90% !important; // moved further down for Windows/desktop mode
           }
         }
       `}</style>

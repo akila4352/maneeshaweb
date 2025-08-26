@@ -13,7 +13,7 @@ const destinations = safariDestinations;
 const EMAILJS_SERVICE_ID = 'service_0gmvl4o';
 const EMAILJS_TEMPLATE_ID = 'template_qodp4ef';
 const EMAILJS_USER_ID = 'R_CMaLVBqicquTPm8';
-
+ 
 export default function Safari() {
   const [selected, setSelected] = useState([]);
   const [form, setForm] = useState({
@@ -115,6 +115,14 @@ export default function Safari() {
     setErrors({});
   };
 
+  // Handle Quotation button click for a specific card
+  const handleCardQuotationClick = (name) => {
+    setSelected([name]);
+    setShowPopup(true);
+    setSubmitted(false);
+    setErrors({});
+  };
+
   return (
     <><SocialIcons2/>
       <Header />
@@ -124,56 +132,188 @@ export default function Safari() {
           title="Destinations"
           subtitle="Explore Top"
         />
-        <div className="safari-grid">
+        {/* Cards for safari destinations */}
+        <div
+          className="safari-grid"
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(2, 1fr)",
+            gap: "2rem",
+            maxWidth: "1400px",
+            paddingLeft: "40px",
+            paddingRight: "40px",
+            marginLeft: "auto",
+            marginRight: "auto",
+            marginTop: "32px",
+          }}
+        >
           {destinations.map(dest => (
             <div
               className={`safari-card${selected.includes(dest.name) ? ' selected' : ''}`}
               key={dest.name}
               style={{
+                borderRadius: "1rem",
+                boxShadow: selected.includes(dest.name)
+                  ? "0 12px 32px rgba(255,152,0,0.25), 0 4px 24px rgba(0,0,0,0.12)"
+                  : "0 2px 12px rgba(0,0,0,0.10)",
+                overflow: "hidden",
+                position: "relative",
+                minHeight: "480px",
+                height: "100%",
                 background: `url(${dest.image}) center/cover no-repeat`,
-                position: "relative"
+                display: "flex",
+                flexDirection: "column",
+                transition: "box-shadow 0.2s, transform 0.2s",
+                border: "none",
               }}
             >
-              {/* Overlay for gradient effect */}
-              <div className="safari-card-image-overlay"></div>
-              {/* Dark transparent filter for text area */}
-              <div className="card-content-overlay">
-                <label className="card-checkbox">
+              {/* Gradient overlay for bottom half */}
+              <div
+                style={{
+                  position: "absolute",
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  height: "50%",
+                  pointerEvents: "none",
+                  zIndex: 1,
+                  borderRadius: "0 0 1rem 1rem",
+                  background:
+                    "linear-gradient(to bottom, rgba(30,30,30,0.0) 0%, rgba(30,30,30,0.45) 40%, rgba(30,30,30,0.85) 100%)",
+                }}
+                className="safari-card-image-overlay"
+              />
+              {/* Overlay for content and checkbox */}
+              <div
+                className="card-content-overlay"
+                style={{
+                  position: "absolute",
+                  bottom: 0,
+                  left: 0,
+                  width: "100%",
+                  minHeight: "180px",
+                  background:
+                    "linear-gradient(180deg, rgba(30,30,30,0.0) 0%, rgba(30,30,30,0.78) 100%)",
+                  color: "#fff",
+                  padding: "32px 18px 18px 18px",
+                  boxSizing: "border-box",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "flex-end",
+                  zIndex: 2,
+                }}
+              >
+                {/* Checkbox */}
+                <label
+                  className="card-checkbox"
+                  style={{
+                    position: "absolute",
+                    top: "18px",
+                    right: "18px",
+                    zIndex: 2,
+                  }}
+                >
                   <input
                     type="checkbox"
                     checked={selected.includes(dest.name)}
                     onChange={() => handleSelect(dest.name)}
+                    style={{ opacity: 0, width: 0, height: 0 }}
                   />
-                  <span className="custom-checkbox"></span>
+                  <span
+                    className="custom-checkbox"
+                    style={{
+                      display: "inline-block",
+                      width: "28px",
+                      height: "28px",
+                      background: selected.includes(dest.name) ? "#ff9800" : "#fff",
+                      border: "2px solid #ff9800",
+                      borderRadius: "50%",
+                      position: "relative",
+                      transition: "background 0.2s",
+                      cursor: "pointer",
+                    }}
+                  >
+                    {selected.includes(dest.name) && (
+                      <span
+                        style={{
+                          position: "absolute",
+                          left: "8px",
+                          top: "5px",
+                          width: "8px",
+                          height: "14px",
+                          border: "solid #fff",
+                          borderWidth: "0 3px 3px 0",
+                          transform: "rotate(45deg)",
+                        }}
+                      ></span>
+                    )}
+                  </span>
                 </label>
-                <div className="card-content">
-                  <h2 className="card-title">{dest.name}</h2>
-                  <p className="card-desc">{dest.description}</p>
-                  <div className="card-price">${dest.price.toLocaleString()}</div>
+                {/* Card content */}
+                <div className="card-content" style={{ padding: 0, flex: 1, display: "flex", flexDirection: "column" }}>
+                  <h2 className="card-title" style={{ fontSize: "1.5rem", fontWeight: 700, marginBottom: "0.7rem", color: "#fff" }}>{dest.name}</h2>
+                  <p className="card-desc" style={{ flex: 1, fontSize: "1.08rem", color: "#f3f3f3", marginBottom: "1.2rem" }}>{dest.description}</p>
+                  <div className="card-price" style={{ fontSize: "1.1rem", fontWeight: 500, color: "#ff9800" }}>${dest.price.toLocaleString()}</div>
+                  <div className="card-actions" style={{ display: "flex", gap: "12px", marginTop: "18px", flexWrap: "wrap" }}>
+                    <button
+                      style={{
+                        background: "#ff9800",
+                        color: "#fff",
+                        border: "none",
+                        borderRadius: "8px",
+                        padding: "8px 16px",
+                        fontWeight: "bold",
+                        cursor: "pointer",
+                        flex: 1
+                      }}
+                      onClick={() => handleCardQuotationClick(dest.name)}
+                    >
+                      Quotation
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
           ))}
         </div>
-        <div className="selected-summary">
-          <h3>Selected Destinations:</h3>
-          <ul>
+        {/* Selected summary and Quotation button */}
+        <div className="selected-summary" style={{
+          maxWidth: "900px",
+          margin: "2rem auto 2.5rem auto",
+          background: "#f7faf9",
+          borderRadius: "0.7rem",
+          padding: "1.2rem"
+        }}>
+          <h3 style={{ fontSize: "1.2rem", color: "#2d3a3a" }}>Selected Destinations:</h3>
+          <ul style={{ margin: "0.5rem 0 1rem 0", paddingLeft: "1.2rem" }}>
             {selected.length === 0 ? <li>None selected</li> :
               selected.map(name => <li key={name}>{name}</li>)
             }
           </ul>
-          <div className="total-price">
+          <div className="total-price" style={{ fontSize: "1.1rem", color: "#ff9800" }}>
             <strong>Total Price:</strong> ${totalPrice.toLocaleString()}
           </div>
+          <button
+            className="submit-btn"
+            style={{
+              background: "#ff9800",
+              color: "#fff",
+              border: "none",
+              borderRadius: "0.5rem",
+              padding: "0.9rem 2rem",
+              fontSize: "1.1rem",
+              fontWeight: "600",
+              cursor: "pointer",
+              marginTop: "16px",
+              display: "block",
+              marginLeft: "auto",
+              marginRight: "auto"
+            }}
+            onClick={handleQuotationClick}
+          >
+            Quotation 
+          </button>
         </div>
-        {/* Remove info form from main page */}
-        <button
-          className="submit-btn"
-          style={{ marginBottom: "24px", display: "block", marginLeft: "auto", marginRight: "auto" }}
-          onClick={handleQuotationClick}
-        >
-          Quotation 
-        </button>
         {/* Quotation Popup */}
         {showPopup && (
           <div
@@ -346,7 +486,53 @@ export default function Safari() {
           </div>
         )}
       </div>
+      {/* Responsive styles */}
       <style>{`
+        .safari-card.selected {
+          box-shadow: 0 12px 32px rgba(255,152,0,0.25), 0 4px 24px rgba(0,0,0,0.12);
+        }
+        .safari-card {
+          transition: box-shadow 0.2s, transform 0.2s;
+        }
+        .safari-card:hover {
+          box-shadow: 0 12px 32px rgba(0,0,0,0.18);
+          transform: translateY(-6px) scale(1.03);
+        }
+        @media (max-width: 900px) {
+          .safari-grid {
+            grid-template-columns: 1fr !important;
+            gap: 1rem !important;
+            padding-left: 10px !important;
+            padding-right: 10px !important;
+          }
+          .card-actions {
+            flex-direction: column !important;
+            gap: 8px !important;
+            margin-top: 12px !important;
+          }
+          .card-title {
+            font-size: 1.1rem !important;
+          }
+          .card-desc,
+          .card-price {
+            font-size: 0.95rem !important;
+          }
+          .safari-card {
+            min-height: 320px !important;
+          }
+        }
+        @media (max-width: 600px) {
+          .card-title {
+            font-size: 1rem !important;
+          }
+          .card-desc,
+          .card-price {
+            font-size: 0.85rem !important;
+          }
+          .safari-card {
+            min-height: 220px !important;
+          }
+        }
         .safari-page {
           max-width: 1100px;
           margin: 0 auto;
@@ -400,7 +586,6 @@ export default function Safari() {
           pointer-events: none;
           z-index: 1;
           border-radius: 0 0 1rem 1rem;
-          /* Gradient: lighter at top, darker at bottom */
           background: linear-gradient(
             to bottom,
             rgba(30,30,30,0.0) 0%,
@@ -417,7 +602,7 @@ export default function Safari() {
           background: linear-gradient(180deg, rgba(30,30,30,0.0) 0%, rgba(30,30,30,0.78) 100%);
           color: #fff;
           padding: 32px 18px 18px 18px;
-          box-sizing: border-box;
+          box-sizing: "border-box";
           display: flex;
           flex-direction: column;
           justify-content: flex-end;
@@ -487,6 +672,12 @@ export default function Safari() {
           font-weight: 500;
           color: #ff9800;
         }
+        .card-actions {
+          display: flex;
+          gap: 12px;
+          margin-top: 18px;
+          flex-wrap: wrap;
+        }
         .selected-summary {
           margin: 2rem 0 2.5rem 0;
           background: #f7faf9;
@@ -505,45 +696,6 @@ export default function Safari() {
         .total-price {
           font-size: 1.1rem;
           color: #ff9800;
-        }
-        .contact-form {
-          background: #fff;
-          border-radius: 1rem;
-          box-shadow: 0 2px 16px rgba(0,0,0,0.07);
-          padding: 2rem 1.5rem;
-          max-width: 500px;
-          margin: 0 auto 2rem auto;
-        }
-        .contact-form h2 {
-          margin-top: 0;
-          font-size: 1.5rem;
-          color: #2d3a3a;
-          margin-bottom: 1.2rem;
-        }
-        .form-row {
-          margin-bottom: 1.2rem;
-          position: relative;
-        }
-        .contact-form input,
-        .contact-form textarea {
-          width: 100%;
-          padding: 0.8rem;
-          border-radius: 0.5rem;
-          border: 1px solid #d0e2e2;
-          font-size: 1rem;
-          outline: none;
-          transition: border 0.2s;
-        }
-        .contact-form input.error,
-        .contact-form textarea.error {
-          border-color: #ff9800;
-        }
-        .form-error {
-          color: #e25d5d;
-          font-size: 0.9rem;
-          position: absolute;
-          top: 100%;
-          left: 0;
         }
         .submit-btn {
           background: #ff9800;

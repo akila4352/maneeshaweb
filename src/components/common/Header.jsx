@@ -4,8 +4,8 @@ import { navList } from "../data/Data";
 import SocialIcons from "./SocialIcons";
 
 const specialLinkStyle = {
-  background: "#FEA116 ",
-  color: "#0F172B",
+  background: "#00b439ff ",
+  color: "#ffffffff",
   fontWeight: "bold",
   boxShadow: "0 2px 8px rgba(15,23,43,0.08)",
   padding: "8px 20px",

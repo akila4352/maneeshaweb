@@ -8,12 +8,22 @@ import './home.css'
 import SocialIcons2 from '../home/SocialIcons';
 export default function HotelBooking() {
   const [selectedProperties, setSelectedProperties] = useState([]);
+  const [triggerBookNow, setTriggerBookNow] = useState(0);
+
+  // Add property to selectedProperties if not already present and trigger booking popup
+  const handleBookNow = (propertyName) => {
+    setSelectedProperties(prev =>
+      prev.includes(propertyName) ? prev : [...prev, propertyName]
+    );
+    // Open booking popup in Header2 if not already open
+    setTriggerBookNow(Date.now());
+  };
 
   return (
     <div>
       <SocialIcons2/>
       <Header /> 
-      <Header2 selectedProperties={selectedProperties} />
+      <Header2 selectedProperties={selectedProperties} triggerBookNow={triggerBookNow} />
       <div className="homeContainer">
    
         <h1 className="homeTitle">select  property type</h1>
@@ -22,7 +32,7 @@ export default function HotelBooking() {
           setSelected={setSelectedProperties}
         />
         <h1 className="homeTitle">Homes guests love</h1>
-        <FeaturedProperties/>
+        <FeaturedProperties onBookNow={handleBookNow}/>
 
       </div> 
       <Footer />

@@ -18,7 +18,7 @@ import { rtdb } from '../../firebase/firebase';
 import { ref, push } from "firebase/database";
 import emailjs from 'emailjs-com';
 
-const Header = ({ type, selectedProperties = [] }) => {
+const Header = ({ type, selectedProperties = [], triggerBookNow }) => {
   const [destination, setDestination] = useState("");
   const [openDate, setOpenDate] = useState(false);
   const [date, setDate] = useState([
@@ -125,6 +125,15 @@ const Header = ({ type, selectedProperties = [] }) => {
     }
   };
 
+  // Open booking popup when triggerBookNow changes
+  useEffect(() => {
+    if (triggerBookNow) {
+      if (selectedProperties.length > 0) {
+        setShowBookingPopup(true);
+      }
+    }
+  }, [triggerBookNow, selectedProperties]);
+
   // Add effect to close calendar when clicking outside
   useEffect(() => {
     if (!openDate) return;
@@ -163,12 +172,9 @@ const Header = ({ type, selectedProperties = [] }) => {
         {type !== "list" && (
           <>
             <h1 className="headerTitle" style={{color: "#FEA116"}}>
-              A lifetime of discounts? It's Genius.
+            find your next stay
             </h1>
-            <p className="headerDesc">
-              Get rewarded for your travels – unlock instant savings of 10% or
-              more with a free Lamabooking account
-            </p>
+          
           
             <div
               className="headerSearch"
@@ -178,7 +184,7 @@ const Header = ({ type, selectedProperties = [] }) => {
                 minHeight: "80px",
               }}
             >
-              <div className="headerSearchItem">
+              <div className="headerSearchItem" >
                 <FontAwesomeIcon icon={faBed} className="headerIcon" />
                 <input
                   type="text"
@@ -193,7 +199,7 @@ const Header = ({ type, selectedProperties = [] }) => {
                   <span
                     onClick={() => setOpenDate(!openDate)}
                     className="headerSearchText"
-                    style={{ fontWeight: "bold", color: "#111" }}
+                    style={{ fontWeight: "bold", color: "#ff7f27" }}
                   >{`${format(date[0].startDate, "MM/dd/yyyy")} to ${format(
                     date[0].endDate,
                     "MM/dd/yyyy"
@@ -229,7 +235,7 @@ const Header = ({ type, selectedProperties = [] }) => {
                 <span
                   onClick={() => setOpenOptions(!openOptions)}
                   className="headerSearchText"
-                  style={{ fontWeight: "bold", color: "#111" }}
+                  style={{ fontWeight: "bold", color: "#ff7f27" }}
                 >{`${options.adult} adult · ${options.children} children · ${options.room} room`}</span>
                 {openOptions && (
                   <div className="options" ref={optionsRef}>
@@ -444,10 +450,13 @@ const Header = ({ type, selectedProperties = [] }) => {
             padding: 10px 2vw !important;
             font-size: 0.95rem !important;
             min-height: 0 !important;
+            background: transparent !important;
+           
           }
           .headerSearchItem {
             margin-bottom: 8px !important;
             width: 100% !important;
+           
           }
           .headerBtn {
             width: 100% !important;
@@ -460,7 +469,7 @@ const Header = ({ type, selectedProperties = [] }) => {
           }
           .headerDesc {
             font-size: 0.95rem !important;
-            text-align: center !important;
+            text-align: center !important;  
           }
           .options {
             min-width: 90vw !important;
