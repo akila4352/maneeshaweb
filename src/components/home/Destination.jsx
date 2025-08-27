@@ -48,13 +48,15 @@ export default function Destination() {
     autoplaySpeed: 3500,
     arrows: true,
     responsive: [
+      { breakpoint: 1200, settings: { slidesToShow: 1 } },
+      { breakpoint: 992, settings: { slidesToShow: 1 } },
       { breakpoint: 768, settings: { slidesToShow: 1 } }
     ],
   };
 
   return (
     <div className="container py-5">
-      {/* Orange color for slider dots and responsive card style */}
+      {/* Orange color for slider dots */}
       <style>
         {`
           .slick-dots li button:before {
@@ -65,14 +67,17 @@ export default function Destination() {
             color: #FFA500 !important;
             opacity: 1 !important;
           }
-          @media (max-width: 768px) {
-            .destination-card {
-              min-height: 340px !important;
-              height: 340px !important;
-              border-radius: 50% 50% 50% 50% / 70% 70% 30% 30% !important;
+          @media (max-width: 1000px) {
+            .slick-slide > div {
+              width: 100% !important;
+              max-width: 100vw !important;
             }
-            .destination-card img {
-              border-radius: 50% 50% 50% 50% / 70% 70% 30% 30% !important;
+            .slick-slider {
+              min-height: 400px;
+            }
+            .slick-slide img {
+              min-height: 400px;
+              height: 400px;
             }
           }
         `}
@@ -86,7 +91,6 @@ export default function Destination() {
         {tours.map((tour, idx) => (
           <div key={idx} style={{ padding: "0 10px" }}>
             <div
-              className="destination-card"
               style={{
                 background: "transparent",
                 borderRadius: "50% 50% 50% 50% / 60% 60% 40% 40%",
@@ -139,5 +143,4 @@ export default function Destination() {
     </div>
   );
 }
-
 
