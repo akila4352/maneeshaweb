@@ -41,14 +41,20 @@ const Home = () => {
         <button
           style={specialLinkStyle}
           className="mobile-bottom-btn mobile-bottom-btn-left"
-          onClick={() => navigate(navList[1].path)}
+          onClick={() => {
+            window.scrollTo(0, 0);
+            navigate(navList[1].path);
+          }}
         >
           {navList[1].text}
         </button>
         <button
           style={specialLinkStyle}
           className="mobile-bottom-btn mobile-bottom-btn-right"
-          onClick={() => navigate(navList[2].path)}
+          onClick={() => {
+            window.scrollTo(0, 0);
+            navigate(navList[2].path);
+          }}
         >
           {navList[2].text}
         </button>
