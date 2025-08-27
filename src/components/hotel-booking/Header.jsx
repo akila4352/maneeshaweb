@@ -171,9 +171,7 @@ const Header = ({ type, selectedProperties = [], triggerBookNow }) => {
       >
         {type !== "list" && (
           <>
-            <h1 className="headerTitle" style={{color: "#FEA116"}}>
-            find your next stay
-            </h1>
+  
           
           
             <div
