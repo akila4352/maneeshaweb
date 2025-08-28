@@ -3,10 +3,10 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import CommonHeading from "../common/CommonHeading";
-
+// Example data
 const tours = [
   {
-    img: "/assets/img/sigiriya.jpg",
+    img: "../assets/img/sigiriya.jpg",
     title: "03 Days Budget Tour",
     desc: "Elephants, tea trails, waterfalls & temples – a quick escape into Kandy’s highlands and heritage.",
   },
@@ -20,64 +20,73 @@ const tours = [
     title: "05 Days Budget Tour",
     desc: "Elephants, tea gardens, historic temples, and beach adventures – a perfect Sri Lankan getaway from Kandy to Colombo.",
   },
-  {
+  { 
     img: "/assets/img/fort.jpg",
     title: "03 Days Budget Tour",
     desc: "Elephants, tea trails, waterfalls & temples – a quick escape into Kandy’s highlands and heritage.",
+  },
+  {
+    img: "/assets/img/mirissa.jpg",
+    title: "04 Days Budget Tour",
+    desc: "Elephants, tea hills, sacred temples & Sigiriya Rock – a quick dive into Sri Lanka’s culture and nature.",
+  },
+  {
+    img: "/assets/img/thalpe.jpg",
+    title: "04 Days Budget Tour",
+    desc: "Elephants, tea hills, sacred temples & Sigiriya Rock – a quick dive into Sri Lanka’s culture and nature.",
   },
 ];
 
 export default function Destination() {
   const settings = {
     dots: true,
-    arrows: true,
     infinite: true,
-    speed: 600,
-    slidesToShow: 3, // desktop default
+    speed: 700,
+    slidesToShow: 3,
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 3500,
-    centerMode: false,
-    variableWidth: false,
+    arrows: true,
     responsive: [
-      {
-        breakpoint: 1024, // tablets & below
-        settings: { slidesToShow: 1, arrows: false },
-      },
-      {
-        breakpoint: 768, // phones
-        settings: { slidesToShow: 1, arrows: false },
-      },
-      {
-        breakpoint: 480, // small phones
-        settings: { slidesToShow: 1, arrows: false },
-      },
+      { breakpoint: 1200, settings: { slidesToShow: 1 } },
+      { breakpoint: 992, settings: { slidesToShow: 1 } },
+      { breakpoint: 768, settings: { slidesToShow: 1 } }
     ],
   };
 
   return (
     <div className="container py-5">
-      <style>{`
-        .slick-dots li button:before {
-          color: #FFA500 !important;
-          opacity: 1 !important;
-        }
-        .slick-dots li.slick-active button:before {
-          color: #FFA500 !important;
-          opacity: 1 !important;
-        }
-        /* remove any width overrides */
-        .slick-slide > div {
-          width: auto !important;
-        }
-      `}</style>
-
+      {/* Orange color for slider dots */}
+      <style>
+        {`
+          .slick-dots li button:before {
+            color: #FFA500 !important;
+            opacity: 1 !important;
+          }
+          .slick-dots li.slick-active button:before {
+            color: #FFA500 !important;
+            opacity: 1 !important;
+          }
+          @media (max-width: 1000px) {
+            .slick-slide > div {
+              width: 100% !important;
+              max-width: 100vw !important;
+            }
+            .slick-slider {
+              min-height: 400px;
+            }
+            .slick-slide img {
+              min-height: 400px;
+              height: 400px;
+            }
+          }
+        `}
+      </style>
       <CommonHeading
         heading="Destinations in Sri Lanka"
         title="Destinations"
         subtitle="Explore Our"
       />
-
       <Slider {...settings}>
         {tours.map((tour, idx) => (
           <div key={idx} style={{ padding: "0 10px" }}>
@@ -121,20 +130,9 @@ export default function Destination() {
                   borderBottomRightRadius: "40% 40%",
                 }}
               >
-                <h3
-                  style={{
-                    fontWeight: "bold",
-                    marginBottom: "18px",
-                    color: "#FFA500",
-                  }}
-                >
-                  {tour.title}
-                </h3>
+               <h3 style={{ fontWeight: "bold", marginBottom: "18px", color: "#FFA500" }}>{tour.title}</h3>
                 <p style={{ marginBottom: "24px" }}>{tour.desc}</p>
-                <a
-                  href="#"
-                  style={{ color: "#fff", textDecoration: "underline" }}
-                >
+                <a href="#" style={{ color: "#fff", textDecoration: "underline" }}>
                   Read more
                 </a>
               </div>
@@ -145,3 +143,4 @@ export default function Destination() {
     </div>
   );
 }
+
