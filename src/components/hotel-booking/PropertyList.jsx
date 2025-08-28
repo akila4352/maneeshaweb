@@ -44,6 +44,8 @@ const PropertyList = ({ selected, setSelected }) => {
         <div
           className={`pListItem${
             selected.includes(item.name) ? " selected" : ""
+          }${
+            selected.length === 0 ? " glow" : ""
           }`}
           key={idx}
           onClick={() => handleSelect(item.name)}
@@ -83,6 +85,14 @@ const PropertyList = ({ selected, setSelected }) => {
       <style>{` 
         .pListItem.selected {
           box-shadow: 0 0 0 3px #FEA116;
+        }
+        .pListItem.glow {
+          box-shadow: 0 0 0 4px #FEA116, 0 0 16px 4px #FEA11680;
+          animation: glowBorder 1.2s infinite alternate;
+        }
+        @keyframes glowBorder {
+          0% { box-shadow: 0 0 0 4px #FEA116, 0 0 16px 4px #FEA11680; }
+          100% { box-shadow: 0 0 0 6px #FEA116, 0 0 24px 8px #FEA11640; }
         }
         @media (max-width: 900px) {
           .pList {

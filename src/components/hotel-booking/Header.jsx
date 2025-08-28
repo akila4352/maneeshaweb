@@ -43,6 +43,8 @@ const Header = ({ type, selectedProperties = [], triggerBookNow }) => {
   const [submitting, setSubmitting] = useState(false);
   const [calendarRef, setCalendarRef] = useState(null);
   const optionsRef = useRef(null);
+  const [openDestination, setOpenDestination] = useState(false);
+  const destinationRef = useRef(null);
 
   const navigate = useNavigate();
 
@@ -162,6 +164,20 @@ const Header = ({ type, selectedProperties = [], triggerBookNow }) => {
     };
   }, [openOptions]);
 
+  // Add effect to close destination input when clicking outside
+  useEffect(() => {
+    if (!openDestination) return;
+    function handleClickOutside(event) {
+      if (destinationRef.current && !destinationRef.current.contains(event.target)) {
+        setOpenDestination(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [openDestination]);
+
   return (
     <div className="header">
       <div
@@ -171,25 +187,57 @@ const Header = ({ type, selectedProperties = [], triggerBookNow }) => {
       >
         {type !== "list" && (
           <>
-  
-          
-          
-            <div
-              className="headerSearch"
+            <h1
+              className="headerTitle"
+              style={{
+                textAlign: "center",
+                fontWeight: "bold",
+                fontSize: "2rem",
+                color: "#FEA116",
+                marginBottom: "18px",
+                letterSpacing: "1px"
+              }}
+            >
+              Find Your Best Stay
+            </h1>
+            <div className="headerSearch"
               style={{
                 padding: "30px 20px",
                 fontSize: "1.2rem",
                 minHeight: "80px",
               }}
             >
-              <div className="headerSearchItem" >
+              <div className="headerSearchItem" ref={destinationRef}>
                 <FontAwesomeIcon icon={faBed} className="headerIcon" />
-                <input
-                  type="text"
-                  placeholder="Where are you going?"
-                  className="headerSearchInput"
-                  onChange={(e) => setDestination(e.target.value)}
-                />
+                {!openDestination ? (
+                  <span
+                    className="headerSearchText"
+                    style={{ fontWeight: "bold", color: "#ff7f27", cursor: "pointer" }}
+                    onClick={() => setOpenDestination(true)}
+                  >
+                    {destination ? destination : "Where are you going?"}
+                  </span>
+                ) : (
+                  <input
+                    type="text"
+                    placeholder="Where are you going?"
+                    className="headerSearchInput"
+                    value={destination}
+                    autoFocus
+                    onChange={(e) => setDestination(e.target.value)}
+                    onBlur={() => setOpenDestination(false)}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") setOpenDestination(false);
+                    }}
+                    style={{
+                      width: "90%",
+                      padding: "8px",
+                      borderRadius: "6px",
+                      border: "1px solid #ccc",
+                      fontSize: "1rem",
+                    }}
+                  />
+                )}
               </div>
               <div className="headerSearchItem">
                 <FontAwesomeIcon icon={faCalendarDays} className="headerIcon" />
@@ -308,8 +356,7 @@ const Header = ({ type, selectedProperties = [], triggerBookNow }) => {
                   className="headerBtn"
                   onClick={handleBookNow}
                   style={{
-                    opacity: selectedProperties.length === 0 ? 0.6 : 1,
-                    cursor: selectedProperties.length === 0 ? "not-allowed" : "pointer"
+                    // Remove opacity and cursor logic so button is always clickable
                   }}
                 >
                   Book Now
@@ -488,3 +535,4 @@ const Header = ({ type, selectedProperties = [], triggerBookNow }) => {
 };
 
 export default Header;
+
