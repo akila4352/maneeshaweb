@@ -45,6 +45,7 @@ const Header = ({ type, selectedProperties = [], triggerBookNow }) => {
   const optionsRef = useRef(null);
   const [openDestination, setOpenDestination] = useState(false);
   const destinationRef = useRef(null);
+  const [editRoom, setEditRoom] = useState(false);
 
   const navigate = useNavigate();
 
@@ -198,7 +199,7 @@ const Header = ({ type, selectedProperties = [], triggerBookNow }) => {
                 letterSpacing: "1px"
               }}
             >
-             
+              &nbsp;
             </h1>
             <div className="headerSearch"
               style={{
@@ -337,9 +338,39 @@ const Header = ({ type, selectedProperties = [], triggerBookNow }) => {
                         >
                           -
                         </button>
-                        <span className="optionCounterNumber">
-                          {options.room}
-                        </span>
+                        {editRoom ? (
+                          <input
+                            type="number"
+                            min={1}
+                            value={options.room}
+                            style={{
+                              width: "40px",
+                              textAlign: "center",
+                              fontSize: "1rem",
+                              borderRadius: "4px",
+                              border: "1px solid #ccc",
+                              margin: "0 4px"
+                            }}
+                            autoFocus
+                            onChange={e => {
+                              let val = Math.max(1, parseInt(e.target.value) || 1);
+                              setOptions(prev => ({ ...prev, room: val }));
+                            }}
+                            onBlur={() => setEditRoom(false)}
+                            onKeyDown={e => {
+                              if (e.key === "Enter") setEditRoom(false);
+                            }}
+                          />
+                        ) : (
+                          <span
+                            className="optionCounterNumber"
+                            style={{ cursor: "pointer" }}
+                            onClick={() => setEditRoom(true)}
+                            title="Click to enter room count"
+                          >
+                            {options.room}
+                          </span>
+                        )}
                         <button
                           className="optionCounterButton"
                           onClick={() => handleOption("room", "i")}
