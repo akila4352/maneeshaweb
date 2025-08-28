@@ -3,10 +3,11 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import CommonHeading from "../common/CommonHeading";
-// Example data
+
+// All images served from /public/assets/...
 const tours = [
   {
-    img: "../assets/img/sigiriya.jpg",
+    img: "/assets/img/sigiriya.jpg",
     title: "03 Days Budget Tour",
     desc: "Elephants, tea trails, waterfalls & temples – a quick escape into Kandy’s highlands and heritage.",
   },
@@ -20,7 +21,7 @@ const tours = [
     title: "05 Days Budget Tour",
     desc: "Elephants, tea gardens, historic temples, and beach adventures – a perfect Sri Lankan getaway from Kandy to Colombo.",
   },
-  { 
+  {
     img: "/assets/img/fort.jpg",
     title: "03 Days Budget Tour",
     desc: "Elephants, tea trails, waterfalls & temples – a quick escape into Kandy’s highlands and heritage.",
@@ -40,57 +41,63 @@ const tours = [
 export default function Destination() {
   const settings = {
     dots: true,
+    arrows: true,
     infinite: true,
-    speed: 700,
+    speed: 600,
     slidesToShow: 3,
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 3500,
-    arrows: true,
+    cssEase: "ease",
+    adaptiveHeight: true,
+    centerMode: false,
+    variableWidth: false,
     responsive: [
-      { breakpoint: 1200, settings: { slidesToShow: 1 } },
-      { breakpoint: 992, settings: { slidesToShow: 1 } },
-      { breakpoint: 768, settings: { slidesToShow: 1 } }
+      // ≤1280px → 2 slides
+      { breakpoint: 1280, settings: { slidesToShow: 2 } },
+      // ≤992px → 2 slides (tablets)
+      { breakpoint: 992, settings: { slidesToShow: 2 } },
+      // ≤768px → 1 slide (phones)
+      { breakpoint: 768, settings: { slidesToShow: 1, arrows: false } },
+      // ≤576px → 1 slide (small phones)
+      { breakpoint: 576, settings: { slidesToShow: 1, arrows: false } },
     ],
   };
 
   return (
     <div className="container py-5">
-      {/* Orange color for slider dots */}
-      <style>
-        {`
-          .slick-dots li button:before {
-            color: #FFA500 !important;
-            opacity: 1 !important;
+      {/* Only safe customizations — no overrides that fight Slick's widths */}
+      <style>{`
+        .slick-dots li button:before {
+          color: #FFA500 !important;
+          opacity: 1 !important;
+        }
+        .slick-dots li.slick-active button:before {
+          color: #FFA500 !important;
+          opacity: 1 !important;
+        }
+
+        /* Card heights adapt on small screens */
+        @media (max-width: 768px) {
+          .tour-card,
+          .tour-card img {
+            min-height: 440px !important;
+            height: 440px !important;
           }
-          .slick-dots li.slick-active button:before {
-            color: #FFA500 !important;
-            opacity: 1 !important;
-          }
-          @media (max-width: 1000px) {
-            .slick-slide > div {
-              width: 100% !important;
-              max-width: 100vw !important;
-            }
-            .slick-slider {
-              min-height: 400px;
-            }
-            .slick-slide img {
-              min-height: 400px;
-              height: 400px;
-            }
-          }
-        `}
-      </style>
+        }
+      `}</style>
+
       <CommonHeading
         heading="Destinations in Sri Lanka"
         title="Destinations"
         subtitle="Explore Our"
       />
+
       <Slider {...settings}>
         {tours.map((tour, idx) => (
           <div key={idx} style={{ padding: "0 10px" }}>
             <div
+              className="tour-card"
               style={{
                 background: "transparent",
                 borderRadius: "50% 50% 50% 50% / 60% 60% 40% 40%",
@@ -109,30 +116,61 @@ export default function Destination() {
               <img
                 src={tour.img}
                 alt={tour.title}
+                loading="lazy"
                 style={{
                   position: "absolute",
-                  top: 0,
-                  left: 0,
+                  inset: 0,
                   width: "100%",
                   height: "100%",
                   objectFit: "cover",
                   borderRadius: "50% 50% 50% 50% / 60% 60% 40% 40%",
                   zIndex: 1,
+                  filter: "saturate(1) contrast(1.05)",
                 }}
               />
+
+              {/* subtle top-to-bottom gradient for legible text */}
+              <div
+                style={{
+                  position: "absolute",
+                  inset: 0,
+                  zIndex: 2,
+                  background:
+                    "linear-gradient(180deg, rgba(0,0,0,0.05) 20%, rgba(0,0,0,0.35) 55%, rgba(0,0,0,0.6) 100%)",
+                  borderRadius: "50% 50% 50% 50% / 60% 60% 40% 40%",
+                }}
+              />
+
               <div
                 style={{
                   position: "relative",
-                  zIndex: 2,
-                  background: "rgba(20,20,30,0.6)",
-                  padding: "40px 24px 24px 24px",
-                  borderBottomLeftRadius: "40% 40%",
-                  borderBottomRightRadius: "40% 40%",
+                  zIndex: 3,
+                  padding: "40px 22px 24px",
                 }}
               >
-               <h3 style={{ fontWeight: "bold", marginBottom: "18px", color: "#FFA500" }}>{tour.title}</h3>
-                <p style={{ marginBottom: "24px" }}>{tour.desc}</p>
-                <a href="#" style={{ color: "#fff", textDecoration: "underline" }}>
+                <h3
+                  style={{
+                    fontWeight: 800,
+                    marginBottom: 14,
+                    color: "#FFA500",
+                    lineHeight: 1.1,
+                    textTransform: "uppercase",
+                    letterSpacing: "0.5px",
+                  }}
+                >
+                  {tour.title}
+                </h3>
+                <p style={{ marginBottom: 18, lineHeight: 1.5 }}>
+                  {tour.desc}
+                </p>
+                <a
+                  href="#"
+                  style={{
+                    color: "#fff",
+                    textDecoration: "underline",
+                    fontWeight: 600,
+                  }}
+                >
                   Read more
                 </a>
               </div>
@@ -143,4 +181,3 @@ export default function Destination() {
     </div>
   );
 }
-
