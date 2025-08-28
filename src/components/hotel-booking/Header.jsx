@@ -187,19 +187,7 @@ const Header = ({ type, selectedProperties = [], triggerBookNow }) => {
       >
         {type !== "list" && (
           <>
-            <h1
-              className="headerTitle"
-              style={{
-                textAlign: "center",
-                fontWeight: "bold",
-                fontSize: "2rem",
-                color: "#FEA116",
-                marginBottom: "18px",
-                letterSpacing: "1px"
-              }}
-            >
-              Find Your Best Stay
-            </h1>
+          
             <div className="headerSearch"
               style={{
                 padding: "30px 20px",
