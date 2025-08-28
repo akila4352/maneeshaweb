@@ -1,8 +1,8 @@
 import React from "react";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 import CommonHeading from "../common/CommonHeading";
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
+
 // Example data
 const tours = [
   {
@@ -37,45 +37,70 @@ const tours = [
   },
 ];
 
-export default function Destination() {
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 700,
-    slidesToShow: 3,
-    slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 3500,
-    arrows: true,
-    responsive: [
-      { breakpoint: 1200, settings: { slidesToShow: 1 } },
-      { breakpoint: 992, settings: { slidesToShow: 1 } },
-      { breakpoint: 768, settings: { slidesToShow: 1 } }
-    ],
-  };
+const responsive = {
+  desktop: {
+    breakpoint: { max: 3000, min: 1000 },
+    items: 3,
+    slidesToSlide: 1,
+  },
+  tablet: {
+    breakpoint: { max: 1000, min: 600 },
+    items: 2,
+    slidesToSlide: 1,
+  },
+  mobile: {
+    breakpoint: { max: 600, min: 0 },
+    items: 1,
+    slidesToSlide: 1,
+  },
+};
 
+export default function Destination() {
   return (
     <div className="container py-5">
-      {/* Orange color for slider dots */}
+      {/* Custom styles for card shape and overlay */}
       <style>
         {`
-          .slick-dots li button:before {
-            color: #FFA500 !important;
-            opacity: 1 !important;
+          .destination-card {
+            background: transparent;
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            overflow: hidden;
+            text-align: center;
+            color: #fff;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+            min-height: 520px;
+            height: 520px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            margin-bottom: 32px;
+            transition: transform 0.3s;
           }
-          .slick-dots li.slick-active button:before {
-            color: #FFA500 !important;
-            opacity: 1 !important;
+          .destination-card img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            z-index: 1;
+          }
+          .destination-card-content {
+            position: relative;
+            z-index: 2;
+            background: rgba(20,20,30,0.6);
+            padding: 40px 24px 24px 24px;
+            border-bottom-left-radius: 40% 40%;
+            border-bottom-right-radius: 40% 40%;
           }
           @media (max-width: 1000px) {
-            .slick-slide > div {
-              width: 100% !important;
-              max-width: 100vw !important;
-            }
-            .slick-slider {
+            .destination-card {
               min-height: 400px;
+              height: 400px;
             }
-            .slick-slide img {
+            .destination-card img {
               min-height: 400px;
               height: 400px;
             }
@@ -87,50 +112,22 @@ export default function Destination() {
         title="Destinations"
         subtitle="Explore Our"
       />
-      <Slider {...settings}>
+      <Carousel
+        responsive={responsive}
+        autoPlay={true}
+        autoPlaySpeed={3500}
+        infinite={true}
+        arrows={true}
+        showDots={true}
+        containerClass="carousel-container"
+        itemClass="px-2"
+      >
         {tours.map((tour, idx) => (
-          <div key={idx} style={{ padding: "0 10px" }}>
-            <div
-              style={{
-                background: "transparent",
-                borderRadius: "50% 50% 50% 50% / 60% 60% 40% 40%",
-                overflow: "hidden",
-                textAlign: "center",
-                color: "#fff",
-                boxShadow: "0 4px 24px rgba(0,0,0,0.12)",
-                minHeight: "520px",
-                height: "520px",
-                position: "relative",
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "flex-end",
-              }}
-            >
-              <img
-                src={tour.img}
-                alt={tour.title}
-                style={{
-                  position: "absolute",
-                  top: 0,
-                  left: 0,
-                  width: "100%",
-                  height: "100%",
-                  objectFit: "cover",
-                  borderRadius: "50% 50% 50% 50% / 60% 60% 40% 40%",
-                  zIndex: 1,
-                }}
-              />
-              <div
-                style={{
-                  position: "relative",
-                  zIndex: 2,
-                  background: "rgba(20,20,30,0.6)",
-                  padding: "40px 24px 24px 24px",
-                  borderBottomLeftRadius: "40% 40%",
-                  borderBottomRightRadius: "40% 40%",
-                }}
-              >
-               <h3 style={{ fontWeight: "bold", marginBottom: "18px", color: "#FFA500" }}>{tour.title}</h3>
+          <div key={idx}>
+            <div className="destination-card w-100 mx-auto" style={{maxWidth: "600px"}}>
+              <img src={tour.img} alt={tour.title} />
+              <div className="destination-card-content">
+                <h3 style={{ fontWeight: "bold", marginBottom: "18px", color: "#FFA500" }}>{tour.title}</h3>
                 <p style={{ marginBottom: "24px" }}>{tour.desc}</p>
                 <a href="#" style={{ color: "#fff", textDecoration: "underline" }}>
                   Read more
@@ -139,8 +136,8 @@ export default function Destination() {
             </div>
           </div>
         ))}
-      </Slider>
+      </Carousel>
     </div>
   );
 }
-
+              
