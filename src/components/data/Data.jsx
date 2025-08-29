@@ -69,22 +69,27 @@ export const socialIcons = [
 export const footerItem = [
   {
     id: 1,
-    header: "Company",
+    header: "Quick Links",
     UnitItem: [
       {
-        name: "About Us",
+        name: "Trip Planning",
+        path: "/trip-planning",
       },
       {
-        name: "Contact Us",
+        name: "Airport",
+        path: "/airport",
       },
       {
-        name: "Privacy Policy",
+        name: "Tuk Tuk",
+        path: "/tuk-tuk",
       },
       {
-        name: "Terms & Condition",
+        name: "Hotel Booking",
+        path: "/hotel-booking",
       },
       {
-        name: "Support",
+        name: "Safari",
+        path: "/safari",
       },
     ],
   },
