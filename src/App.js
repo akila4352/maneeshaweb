@@ -25,12 +25,14 @@ import TourDetails3 from './components/tour-details/TourDetails3';
 import TourDetails4 from './components/tour-details/TourDetails4';
 import TourDetails5 from './components/tour-details/TourDetails5';
 import TourDetails6 from './components/tour-details/TourDetails6';
+import ScrollToTop from './components/common/ScrollToTop';
 
 function App() {
 return (
     <div className="App">
-      <div >
+ 
      <BrowserRouter>
+     <ScrollToTop />
      <Routes>
       <Route path="/" element={<Home/>}/>
       <Route path="/footer" element={<Footer/>}/>
@@ -52,12 +54,12 @@ return (
       <Route path="/tour-details4" element={<TourDetails4 />} />
       <Route path="/tour-details5" element={<TourDetails5 />} />
       <Route path="/tour-details6" element={<TourDetails6 />} />
+           <Route path="/trip-planning" element={<TripPlanning />} />
+        <Route path="/airport" element={<Airport />} />
       </Routes>
       </BrowserRouter>
-     
+
     </div>
-    </div>
-    
   );
 }
 

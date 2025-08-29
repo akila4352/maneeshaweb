@@ -42,7 +42,6 @@ const Home = () => {
           style={specialLinkStyle}
           className="mobile-bottom-btn mobile-bottom-btn-left"
           onClick={() => {
-            window.scrollTo(0, 0);
             navigate(navList[1].path);
           }}
         >
@@ -52,7 +51,6 @@ const Home = () => {
           style={specialLinkStyle}
           className="mobile-bottom-btn mobile-bottom-btn-right"
           onClick={() => {
-            window.scrollTo(0, 0);
             navigate(navList[2].path);
           }}
         >
@@ -93,4 +91,6 @@ const Home = () => {
 }; 
 
 export default Home;
+
+
 
