@@ -15,7 +15,7 @@ function AkilaContact() {
         className="text-white text-uppercase mb-3"
         style={{ fontWeight: "bold" }}
       >
-        SOFTWARE COMPANY: AKILA NIRMAL
+           Developed by: AKILA NIRMAL
       </h6>
       <div className="mb-2">
         <a
