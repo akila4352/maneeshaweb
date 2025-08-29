@@ -60,11 +60,40 @@ export default function Sliders() {
           {`
             @media (max-width: 992px) {
               .testimonial-item {
-                min-height: 220px !important;
-                height: 220px !important;
-                max-width: 95vw !important;
-                width: 95vw !important;
+                min-height: 240px !important;
+                height: auto !important;
+                max-width: 98vw !important;
+                width: 98vw !important;
                 margin: 0 auto !important;
+                padding: 1.5rem !important;
+              }
+              .testimonial-item p {
+                font-size: 1rem !important;
+                word-break: break-word !important;
+              }
+            }
+            @media (max-width: 600px) {
+              .testimonial-item {
+                min-height: 260px !important;
+                width: 100% !important;
+                max-width: 98vw !important;
+                margin: 0 auto !important;
+                padding: 1.2rem !important;
+                box-sizing: border-box !important;
+              }
+              .testimonial-item p {
+                font-size: 0.98rem !important;
+                word-break: break-word !important;
+              }
+              .testimonial-item img {
+                width: 36px !important;
+                height: 36px !important;
+              }
+              .testimonial-item h6 {
+                font-size: 1rem !important;
+              }
+              .testimonial-item small {
+                font-size: 0.85rem !important;
               }
             }
           `}
@@ -78,8 +107,9 @@ export default function Sliders() {
                   className="testimonial-item position-relative bg-white rounded overflow-hidden"
                   style={{
                     minHeight: "320px",
-                    height: "320px",
+                    height: "auto",
                     width: "420px",
+                    maxWidth: "98vw",
                     margin: "0 auto",
                   }}
                 >
