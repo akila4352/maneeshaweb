@@ -68,19 +68,54 @@ export default function Header() {
   return (
     <>
       <div className="container-fluid bg-dark px-0">
-        <div className="row gx-0">
-          <div className="col-lg-3 bg-dark d-none d-lg-block">
+        <div className="row gx-0" style={{ display: "flex", alignItems: "center" }}>
+          <div
+            className="col-lg-3 bg-dark d-none d-lg-flex"
+            style={{
+              minWidth: "180px",
+              maxWidth: "260px",
+              alignItems: "center",
+              justifyContent: "center",
+              display: "flex",
+              height: "72px" // keep header height smaller
+            }}
+          >
             <Link
               to="/"
-              className="navbar-brand w-100 h-100 m-0 p-0 d-flex align-items-center justify-content-center"
+              className="navbar-brand m-0 p-0 d-flex align-items-center justify-content-center"
+              style={{ height: "72px", position: "relative" }}
             >
-              <h1 className="m-0 text-primary text-uppercase">travelers</h1>
+              <img
+                src={"../assets/img/mylogo.png"}
+                alt="Logo"
+                style={{
+                  height: "150px",    // further increased height
+                  width: "320px",     // further increased width
+                  objectFit: "contain",
+                  padding: "0px",
+                  marginTop: "-48px", // let logo overflow above header
+                  marginBottom: "-32px", // let logo overflow below header
+                  boxShadow: "0 2px 8px rgba(15,23,43,0.08)"
+                }}
+              />
             </Link>
           </div>
-          <div className="col-lg-9">
+          <div className="col-lg-9" style={{ paddingLeft: "32px", flex: 1 }}>
             <nav className="navbar navbar-expand-lg bg-dark navbar-dark p-3 p-lg-0">
               <Link to="/" className="navbar-brand d-block d-lg-none">
-                <h1 className="m-0 text-primary text-uppercase">travelers</h1>
+                <img
+                  src={"../assets/img/mylogo.png"}
+                  alt="Logo"
+                  style={{
+                    height: "120px",    // further increased height for mobile
+                    width: "240px",     // further increased width for mobile
+                    objectFit: "contain",
+                    padding: "0px",
+                    marginTop: "-36px",
+                    marginBottom: "-16px",
+                    boxShadow: "0 2px 8px rgba(15,23,43,0.08)"
+                  }}
+                />
               </Link>
               <button
                 type="button"
@@ -102,6 +137,7 @@ export default function Header() {
                     ? "navbar-collapse justify-content-around navbarCollapse"
                     : "collapse navbar-collapse justify-content-around"
                 }
+                style={{ paddingLeft: "32px" }} // move nav group right
               >
                 <div className="navbar-nav mr-auto py-0">
                   {/* Render HOME link first */}
@@ -228,7 +264,7 @@ export default function Header() {
                   ))}
                 </div>
                 {/* Group SocialIcons and Sign In button in a flex container */}
-                <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: "24px", marginLeft: "24px" }}>
                   <SocialIcons />
                   {/* Sign In button */}
                   <button
@@ -403,3 +439,5 @@ export default function Header() {
     </>
   );
 }
+
+
