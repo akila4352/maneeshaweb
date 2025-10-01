@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Helmet } from "react-helmet";
 import Header from '../common/Header';
 import CommonHeading from '../common/CommonHeading';
 import { MapContainer, TileLayer, Marker, Popup, useMapEvents } from 'react-leaflet';
@@ -16,7 +17,7 @@ import { rtdb } from '../../firebase/firebase';
 import { ref, push } from "firebase/database";
 import emailjs from 'emailjs-com';
 import SocialIcons2 from '../home/SocialIcons';
-
+ 
 // Custom icons
 const greenIcon = new L.Icon({
   iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-green.png',
@@ -299,9 +300,31 @@ export default function Airport() {
   };
 
   return (
-    <><SocialIcons2/>
+    <>
+      <Helmet>
+        <title>Airport Transfers Sri Lanka | Travel with Maniya</title>
+        <meta name="description" content="Book reliable airport transfers and pickups in Sri Lanka with Travel with Maniya. Multiple vehicle types, competitive prices, and exceptional service for international tourists." />
+        <meta name="keywords" content="Sri Lanka airport transfer, airport pickup Sri Lanka, Colombo airport taxi, Bandaranaike airport transfer, Sri Lanka travel, airport shuttle Sri Lanka, airport taxi Sri Lanka" />
+        <script type="application/ld+json">{`
+          {
+            "@context": "https://schema.org",
+            "@type": "Service",
+            "serviceType": "Airport Transfer",
+            "provider": {
+              "@type": "TravelAgency",
+              "name": "Travel with Maniya"
+            },
+            "areaServed": "Sri Lanka"
+          }
+        `}</script>
+      </Helmet>
+      {/* H1 for airport transfer page */}
+      <h1 style={{display:"none"}}>Sri Lanka Airport Transfers & Pickups - Travel with Maniya</h1>
+      <SocialIcons2/>
       <div className="body1">
         <Header />
+        {/* H2 for main service */}
+        <h2 style={{display:"none"}}>Book Airport Taxi, Shuttle, and Private Transfers in Sri Lanka</h2>
         <div className="airport-container">
           <div className='common-heading' style={{ marginTop: "24px" }}>
             <CommonHeading   
@@ -454,7 +477,10 @@ export default function Airport() {
                       }
                     }}
                   >
-                    <Popup>{airport.name}</Popup>
+                    <Popup>
+                      <img src={airport.image} alt={`Airport marker for ${airport.name}`} style={{width:24}} />
+                      {airport.name}
+                    </Popup>
                   </Marker>
                 ))}
                 {pickupCoords && (

@@ -5,7 +5,9 @@ import { rtdb } from '../../firebase/firebase';
 import { ref, push } from "firebase/database";
 import emailjs from 'emailjs-com';
 import SocialIcons2 from '../home/SocialIcons';
-  import Footer from '../common/Footer';
+import Footer from '../common/Footer';
+import { Helmet } from "react-helmet";
+
 const EMAILJS_SERVICE_ID = 'service_0gmvl4o';
 const EMAILJS_TEMPLATE_ID = 'template_qodp4ef';
 const EMAILJS_USER_ID = 'R_CMaLVBqicquTPm8';
@@ -533,10 +535,30 @@ export default function TukTuk() {
 
   return (
     <>
-      <SocialIcons2/>
+      <Helmet>
+        <title>Tuk Tuk Village Adventures Sri Lanka | Travel with Maniya</title>
+        <meta name="description" content="Experience authentic Sri Lankan village life with tuk tuk adventures. Flexible quotation-based booking, no upfront payment. Perfect for international tourists." />
+        <meta name="keywords" content="Sri Lanka tuk tuk, tuk tuk tours Sri Lanka, village adventure Sri Lanka, Sri Lanka local experience, tuk tuk rental Sri Lanka, Sri Lanka travel agency" />
+        <script type="application/ld+json">{`
+          {
+            "@context": "https://schema.org",
+            "@type": "Service",
+            "serviceType": "Tuk Tuk Adventure",
+            "provider": {
+              "@type": "TravelAgency",
+              "name": "Travel with Maniya"
+            },
+            "areaServed": "Sri Lanka"
+          }
+        `}</script>
+      </Helmet>
+      {/* H1 for tuk tuk */}
+      <h1 style={{display:"none"}}>Sri Lanka Tuk Tuk Village Adventures - Travel with Maniya</h1>
       <div style={{position: 'sticky', top: 0, zIndex: 10, background: '#fafaf8'}}>
         <Header />
       </div>
+      {/* H2 for tuk tuk */}
+      <h2 style={{display:"none"}}>Book Tuk Tuk Tours & Village Experiences in Sri Lanka</h2>
       <div style={{
         display: 'flex',
         maxWidth: '1200px',
@@ -545,7 +567,7 @@ export default function TukTuk() {
         padding: '32px 16px',
         alignItems: 'flex-start',
         flexDirection: isMobile ? 'column' : 'row'
-      }}>
+      }}> 
         <div style={{flex: 1}}>
           <h1>Tuk Tuk Adventure: Explore Sri Lanka's Villages</h1>
           <div style={{marginBottom: '24px'}}>
@@ -554,6 +576,10 @@ export default function TukTuk() {
           </div>
      
           <ImageGrid images={galleryImages} onViewGallery={idx => { setGalleryOpen(true); setGalleryIndex(idx); }} />
+          {/* Add image alt text for SEO */}
+          {galleryImages.map((img, idx) => (
+            <img src={img} alt={`Tuk Tuk adventure Sri Lanka image ${idx+1}`} style={{display:"none"}} key={idx} />
+          ))}
           <p>
             Discover Sri Lanka's charm by renting local tuk tuks. Support village communities and explore with friends. Book your adventure today.
           </p>

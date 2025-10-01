@@ -26,7 +26,7 @@ import TourDetails4 from './components/tour-details/TourDetails4';
 import TourDetails5 from './components/tour-details/TourDetails5';
 import TourDetails6 from './components/tour-details/TourDetails6';
 import ScrollToTop from './components/common/ScrollToTop';
-
+ 
 function App() {
 return (
     <div className="App">
@@ -64,3 +64,6 @@ return (
 }
 
 export default App;
+
+// SEO-friendly URLs are already present (e.g., /airport, /trip-planning, /safari, /tuk-tuk, /hotel-booking)
+// For best SEO, avoid spaces in URLs (already done).

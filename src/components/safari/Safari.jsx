@@ -7,13 +7,15 @@ import { safariDestinations } from '../data/Data';
 import emailjs from 'emailjs-com'; 
 import SocialIcons2 from '../home/SocialIcons';
  import Footer from '../common/Footer';
+import { Helmet } from "react-helmet";
+
 // Use imported safariDestinations
 const destinations = safariDestinations;
 
 const EMAILJS_SERVICE_ID = 'service_0gmvl4o';
 const EMAILJS_TEMPLATE_ID = 'template_qodp4ef';
 const EMAILJS_USER_ID = 'R_CMaLVBqicquTPm8';
- 
+  
 export default function Safari() {
   const [selected, setSelected] = useState([]);
   const [form, setForm] = useState({
@@ -124,8 +126,29 @@ export default function Safari() {
   };
 
   return (
-    <><SocialIcons2/>
+    <>
+      <Helmet>
+        <title>Safari Bookings Sri Lanka | Travel with Maniya</title>
+        <meta name="description" content="Book Sri Lankan safari tours with Travel with Maniya. Explore Yala, Udawalawe, Wilpattu, Minneriya and more. Flexible quotation system for international tourists." />
+        <meta name="keywords" content="Sri Lanka safari, Yala safari, Udawalawe safari, Wilpattu safari, Minneriya safari, Sri Lanka wildlife tours, Sri Lanka travel agency, safari booking Sri Lanka" />
+        <script type="application/ld+json">{`
+          {
+            "@context": "https://schema.org",
+            "@type": "Service",
+            "serviceType": "Safari Booking",
+            "provider": {
+              "@type": "TravelAgency",
+              "name": "Travel with Maniya"
+            },
+            "areaServed": "Sri Lanka"
+          }
+        `}</script>
+      </Helmet>
+      {/* H1 for safari */}
+      <h1 style={{display:"none"}}>Sri Lanka Safari Bookings - Yala, Udawalawe, Wilpattu, Minneriya</h1>
       <Header />
+      {/* H2 for safari destinations */}
+      <h2 style={{display:"none"}}>Book Sri Lankan Wildlife Safaris - Flexible Quotation</h2>
       <div className="safari-page">
         <CommonHeading
           heading="Safari"
@@ -273,6 +296,8 @@ export default function Safari() {
                   </div>
                 </div>
               </div>
+              {/* Add image alt text for SEO */}
+              <img src={dest.image} alt={`Safari destination ${dest.name} Sri Lanka`} style={{display:"none"}} />
             </div>
           ))}
         </div>

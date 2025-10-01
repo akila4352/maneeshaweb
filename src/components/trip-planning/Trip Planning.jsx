@@ -1,4 +1,5 @@
 import React, { useRef, useState } from "react";
+import { Helmet } from "react-helmet";
 import Header from '../common/Header';
 import CommonHeading from '../common/CommonHeading';
 import Slider from "react-slick";
@@ -14,7 +15,7 @@ import emailjs from 'emailjs-com';
 import { useNavigate } from "react-router-dom";
 import SocialIcons2 from "../home/SocialIcons";
 import Footer from "../common/Footer";
-const sliderSettings = {
+const sliderSettings = { 
   dots: false,
   infinite: true,
   speed: 500,
@@ -160,8 +161,29 @@ const TripPlanning = () => {
   };
 
   return (
-    <><SocialIcons2/>
+    <>
+      <Helmet>
+        <title>Trip Planning Sri Lanka | Travel with Maniya</title>
+        <meta name="description" content="Plan your Sri Lankan trip with Travel with Maniya. Explore attractions, create custom itineraries, and get quotations based on duration and budget. Perfect for international tourists." />
+        <meta name="keywords" content="Sri Lanka trip planning, Sri Lanka itinerary, Sri Lanka attractions, Sri Lanka travel planner, Sri Lanka tours, Sri Lanka vacation, Sri Lanka travel agency" />
+        <script type="application/ld+json">{`
+          {
+            "@context": "https://schema.org",
+            "@type": "Service",
+            "serviceType": "Trip Planning",
+            "provider": {
+              "@type": "TravelAgency",
+              "name": "Travel with Maniya"
+            },
+            "areaServed": "Sri Lanka"
+          }
+        `}</script>
+      </Helmet>
+      {/* H1 for trip planning */}
+      <h1 style={{display:"none"}}>Sri Lanka Trip Planning & Itinerary Tool - Travel with Maniya</h1>
       <Header />
+      {/* H2 for trip planner */}
+      <h2 style={{display:"none"}}>Plan Your Sri Lankan Vacation - Attractions, Routes, Packages</h2>
       {/* Carousel at the top */}
       <div style={{ width: "100vw", margin: "0 auto", marginTop: "0px", position: "relative" }}>
         {/* Dark filter overlay */}

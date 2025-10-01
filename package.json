@@ -29,6 +29,7 @@
     "react-date-range": "^2.0.1",
     "react-datepicker": "^8.4.0",
     "react-dom": "^19.1.1",
+    "react-helmet": "^6.1.0",
     "react-leaflet": "^5.0.0",
     "react-list": "^0.8.18",
     "react-multi-carousel": "^2.8.6",
