@@ -28,7 +28,7 @@ import TourDetails6 from './components/tour-details/TourDetails6';
 import ScrollToTop from './components/common/ScrollToTop';
  
 function App() {
-return (
+  return (
     <div className="App">
  
      <BrowserRouter>
@@ -58,7 +58,10 @@ return (
         <Route path="/airport" element={<Airport />} />
       </Routes>
       </BrowserRouter>
-
+      {/* Add keyword-rich content for SEO */}
+      <div style={{display: 'none'}}>
+        Maniya Travel Agency Ahangama - Best tours, safaris, and travel services in Ahangama, Sri Lanka.
+      </div>
     </div>
   );
 }
