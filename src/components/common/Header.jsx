@@ -77,7 +77,8 @@ export default function Header() {
               alignItems: "center",
               justifyContent: "center",
               display: "flex",
-              height: "72px" // keep header height smaller
+              height: "72px", // keep header height smaller
+              overflow: "visible" // allow logo overflow
             }}
           >
             <Link
@@ -89,12 +90,12 @@ export default function Header() {
                 src={"../assets/img/mylogo.png"}
                 alt="Logo"
                 style={{
-                  height: "150px",    // further increased height
-                  width: "320px",     // further increased width
+                  height: "120px",    // increased height
+                  width: "260px",     // increased width
                   objectFit: "contain",
                   padding: "0px",
-                  marginTop: "-48px", // let logo overflow above header
-                  marginBottom: "-32px", // let logo overflow below header
+                  marginTop: "0px",   // prevent top overflow
+                  marginBottom: "-16px", // allow bottom overflow
                   boxShadow: "0 2px 8px rgba(15,23,43,0.08)"
                 }}
               />
@@ -107,12 +108,12 @@ export default function Header() {
                   src={"../assets/img/mylogo.png"}
                   alt="Logo"
                   style={{
-                    height: "120px",    // further increased height for mobile
-                    width: "240px",     // further increased width for mobile
+                    height: "90px",    // increased height for mobile
+                    width: "180px",    // increased width for mobile
                     objectFit: "contain",
                     padding: "0px",
-                    marginTop: "-36px",
-                    marginBottom: "-16px",
+                    marginTop: "0px",      // prevent top overflow
+                    marginBottom: "-8px",  // allow bottom overflow
                     boxShadow: "0 2px 8px rgba(15,23,43,0.08)"
                   }}
                 />
