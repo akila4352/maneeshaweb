@@ -441,9 +441,10 @@ export const featuredPropertiesData = [
 
 export const socialIconLocations = [
   {
-    type: "call",
-    link: "",
-      img: ('../assets/img/logo.png') 
+    type: "whatsapp",
+    // Use wa.me link (country code + number, no plus). Opens WhatsApp/chat.
+    link: "https://wa.me/94768254907",
+    img: ('../assets/img/logo.png')
   },
 
 ];

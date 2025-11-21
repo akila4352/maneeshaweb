@@ -5,12 +5,7 @@ import Newsletter from "../home/Newsletter";
 function AkilaContact() {
   return (
     <div className="bg-secondary rounded p-4 h-100">
-      <h6 className="section-title text-start text-warning text-uppercase mb-4">
-        CONTACT{" "}
-        <span className="text-white" style={{ fontWeight: "bold" }}>
-          ────
-        </span>
-      </h6>
+      
       <h6
         className="text-white text-uppercase mb-3"
         style={{ fontWeight: "bold" }}
@@ -104,14 +99,14 @@ function ClientDetails() {
   return (
     <div className="bg-secondary rounded p-4 h-100 mt-4 mb-3">
       <h6 className="section-title text-start text-warning text-uppercase mb-3">
-        CLIENT DETAILS{" "}
+        COMPANY DETAILS{" "}
         <span className="text-white" style={{ fontWeight: "bold" }}>
           ────
         </span>
       </h6>
       <div className="mb-2">
         <span style={{ verticalAlign: "middle", marginRight: 8 }}>
-          {/* User SVG */}
+          {/* Phone SVG */}
           <svg
             width="18"
             height="18"
@@ -122,31 +117,45 @@ function ClientDetails() {
               verticalAlign: "middle",
             }}
           >
-            <path d="M16 16c4.418 0 8-3.582 8-8s-3.582-8-8-8-8 3.582-8 8 3.582 8 8 8zm0 2c-5.33 0-16 2.668-16 8v4h32v-4c0-5.332-10.67-8-16-8z" />
+            <path d="M6.6 1.6L4.2 4c-.6.6-.6 1.5 0 2.1l3.1 3.1c.4.4 1 .5 1.5.3 1.2-.5 2.6-.8 4-.8s2.8.3 4 .8c.5.2 1.1.1 1.5-.3l3.1-3.1c.6-.6.6-1.5 0-2.1l-2.4-2.4c-.6-.6-1.5-.6-2.1 0L18 4.9c-1.2.9-2.8 1.5-4.4 1.5s-3.2-.6-4.4-1.5L8.7 1.6c-.6-.6-1.5-.6-2.1 0z" />
           </svg>
         </span>
-        <span style={{ verticalAlign: "middle" }}>Owner: Maneesha</span>
+        <a
+          href="tel:0768254907"
+          className="text-white"
+          style={{ textDecoration: "none", verticalAlign: "middle" }}
+        >
+          0768254907
+        </a>
       </div>
-      <div className="mb-2">
-        <span style={{ verticalAlign: "middle", marginRight: 8 }}>
-          {/* Email SVG */}
-          <svg
-            width="18"
-            height="18"
-            viewBox="0 0 32 32"
-            fill="currentColor"
-            style={{
-              color: "#28a745",
-              verticalAlign: "middle",
-            }}
-          >
-            <path d="M27 7H5c-1.104 0-2 .896-2 2v14c0 1.104.896 2 2 2h22c1.104 0 2-.896 2-2V9c0-1.104-.896-2-2-2zm0 2v2.236l-11 7.334-11-7.334V9h22zm-22 14V12.236l10.447 6.96c.34.227.766.227 1.106 0L27 12.236V23H5z" />
-          </svg>
-        </span>
-        <span style={{ verticalAlign: "middle" }}>maneesha@gmail.com</span>
-      </div>
-    </div>
-  );
+       <div className="mb-2">
+         <span style={{ verticalAlign: "middle", marginRight: 8 }}>
+           {/* Email SVG */}
+           <svg
+             width="18"
+             height="18"
+             viewBox="0 0 32 32"
+             fill="currentColor"
+             style={{
+               color: "#28a745",
+               verticalAlign: "middle",
+             }}
+           >
+             <path d="M27 7H5c-1.104 0-2 .896-2 2v14c0 1.104.896 2 2 2h22c1.104 0 2-.896 2-2V9c0-1.104-.896-2-2-2zm0 2v2.236l-11 7.334-11-7.334V9h22zm-22 14V12.236l10.447 6.96c.34.227.766.227 1.106 0L27 12.236V23H5z" />
+           </svg>
+         </span>
+        <a
+          href="mailto:travelwithmaniya@gmail.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-white"
+          style={{ textDecoration: "none", verticalAlign: "middle" }}
+        >
+          travelwithmaniya@gmail.com
+        </a>
+       </div>
+     </div>
+   );
 }
 
 export default function Footer(props) {
