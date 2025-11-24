@@ -256,11 +256,14 @@ export default function Airport() {
           children: bookingDetails.children,
           name: bookingDetails.name,
           contact: bookingDetails.contact,
-          email: "akilanirmalzz4352@gmail.com" ,// always send to default email
+          email: bookingDetails.email,
+          from_name: bookingDetails.name,
+          user_email: bookingDetails.email,
+          reply_to: bookingDetails.email,
           vehicleNames: bookingDetails.vehicles.map(v => v.name).join(', ') // send selected vehicle names
         },
         EMAILJS_USER_ID
-      );
+      ); 
 
       alert("Quotation submitted successfully! Our team will contact you within 1 hour.");
       setShowPopup(false);

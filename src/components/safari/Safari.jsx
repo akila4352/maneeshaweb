@@ -87,8 +87,11 @@ export default function Safari() {
           {
             type: 'safari_booking',
             name: form.name,
+            from_name: form.name,         // added: explicit sender name
             contact: form.phone,
-            email: "akilanirmalzz4352@gmail.com",
+            email: form.email,            // keep for templates expecting "email"
+            user_email: form.email,       // added: explicit user email variable
+            reply_to: form.email,         // added: set reply-to so replies go to user
             destinations: selected.join(', '),
             totalPrice: totalPrice,
             travelers: form.travelers,
@@ -422,11 +425,11 @@ export default function Safari() {
                       {errors.phone && <span className="form-error">{errors.phone}</span>}
                     </div>
                     <div className="form-row" style={{ width: "100%", margin: "8px 0" }}>
-                      <label style={{ textAlign: "center", display: "block" }}>Gmail Address</label>
+                      <label style={{ textAlign: "center", display: "block" }}>Email Address</label>
                       <input
                         type="email"
                         name="email"
-                        placeholder="Enter Gmail address"
+                        placeholder="Enter email address"
                         value={form.email}
                         onChange={handleFormChange}
                         className={errors.email ? 'error' : ''}

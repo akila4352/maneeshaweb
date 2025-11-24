@@ -351,11 +351,11 @@ function QuotationPopup({ open, onClose, onSubmit, loading, submitted, errors, f
                 {errors.phone && <span style={{color: "#e25d5d", fontSize: "0.9rem"}}>{errors.phone}</span>}
               </div>
               <div>
-                <label>Gmail Address</label>
+                <label>Email Address</label>
                 <input
                   type="email"
                   name="email"
-                  placeholder="Enter Gmail address"
+                  placeholder="Enter email address"
                   value={form.email}
                   onChange={handleFormChange}
                   className={errors.email ? 'error' : ''}
@@ -502,7 +502,10 @@ export default function TukTuk() {
             type: 'tuk_tuk_booking',
             name: form.name,
             contact: form.phone,
-            email: "akilanirmalzz4352@gmail.com",
+            email: form.email,
+            from_name: form.name,
+            user_email: form.email,
+            reply_to: form.email,
             destination: form.destination,
             date: details.date,
             travelers: form.travelers,

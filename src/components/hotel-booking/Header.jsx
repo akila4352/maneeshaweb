@@ -109,7 +109,10 @@ const Header = ({ type, selectedProperties = [], triggerBookNow }) => {
           type: 'hotel_booking',
           name: bookingForm.name,
           contact: bookingForm.contact,
-          email: "akilanirmalzz4352@gmail.com",
+          email: bookingForm.gmail,
+          from_name: bookingForm.name,
+          user_email: bookingForm.gmail,
+          reply_to: bookingForm.gmail,
           destination,
           startDate: date[0].startDate.toLocaleDateString(),
           endDate: date[0].endDate.toLocaleDateString(),
@@ -450,7 +453,7 @@ const Header = ({ type, selectedProperties = [], triggerBookNow }) => {
                     <input
                       type="email"
                       name="gmail"
-                      placeholder="Your Gmail"
+                      placeholder="Email Address"
                       value={bookingForm.gmail}
                       onChange={handleFormChange}
                       required

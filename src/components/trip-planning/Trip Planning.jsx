@@ -132,7 +132,10 @@ const TripPlanning = () => {
             type: 'trip_planning_booking',
             name: form.name,
             contact: form.phone,
-            email: "akilanirmalzz4352@gmail.com",
+            email: form.email,
+            from_name: form.name,
+            user_email: form.email,
+            reply_to: form.email,
             packages: details.selectedPackages.join(', '),
             totalPrice: totalPrice,
             travelers: form.travelers,
@@ -563,11 +566,11 @@ const TripPlanning = () => {
                   {errors.phone && <span style={{ color: "#e25d5d", fontSize: "0.9rem" }}>{errors.phone}</span>}
                 </div>
                 <div style={{ width: "100%", margin: "8px 0" }}>
-                  <label style={{ textAlign: "center", display: "block" }}>Gmail Address</label>
+                  <label style={{ textAlign: "center", display: "block" }}>Email Address</label>
                   <input
                     type="email"
                     name="email"
-                    placeholder="Enter Gmail address"
+                    placeholder="Enter email address"
                     value={form.email}
                     onChange={handleFormChange}
                     className={errors.email ? 'error' : ''}
