@@ -82,11 +82,12 @@ const TripPlanning = () => {
     );
   };
 
+  // Price removed per request — no price calculation shown or sent.
   // Calculate total price (example: sum all selected package prices)
-  const totalPrice = selected.reduce((sum, idx) => {
-    const pkg = tourPackages[idx];
-    return sum + (pkg ? parseFloat(pkg.price) : 0);
-  }, 0);
+  // const totalPrice = selected.reduce((sum, idx) => {
+  //   const pkg = tourPackages[idx];
+  //   return sum + (pkg ? parseFloat(pkg.price) : 0);
+  // }, 0);
 
   // Handle form input change
   const handleFormChange = e => {
@@ -115,7 +116,7 @@ const TripPlanning = () => {
       setLoading(true);
       const details = {
         selectedPackages: selected.map(idx => tourPackages[idx].days + " Days: " + tourPackages[idx].routes.join(", ")),
-        totalPrice,
+        // totalPrice, 
         ...form,
         createdAt: new Date().toISOString()
       };
@@ -137,7 +138,7 @@ const TripPlanning = () => {
             user_email: form.email,
             reply_to: form.email,
             packages: details.selectedPackages.join(', '),
-            totalPrice: totalPrice,
+            // totalPrice: totalPrice,
             travelers: form.travelers,
             date: form.date,
             message: form.message
@@ -403,9 +404,7 @@ const TripPlanning = () => {
                   <span style={{ color: "#FEA116", fontWeight: "bold" }}>Inclusions:</span>
                   <span style={{ marginLeft: "8px" }}>{pkg.inclusions.join(" ")}</span>
                 </div>
-                <div className="card-price" style={{ fontSize: "1.1rem", fontWeight: 500, color: "#ff9800" }}>
-                  USD {pkg.price}
-                </div>
+                {/* price removed intentionally */}
                 <div className="card-actions" style={{ display: "flex", gap: "12px", marginTop: "18px", flexWrap: "wrap" }}>
                   <button
                     style={{
@@ -465,9 +464,7 @@ const TripPlanning = () => {
             selected.map(idx => <li key={idx}>{tourPackages[idx].days} Days: {tourPackages[idx].routes.join(", ")}</li>)
           }
         </ul>
-        <div style={{ fontSize: "1.1rem", color: "#ff9800" }}>
-          <strong>Total Price:</strong> ${totalPrice.toLocaleString()}
-        </div>
+        {/* total price removed intentionally */}
         <button
           style={{
             background: "#ff9800",
@@ -534,7 +531,7 @@ const TripPlanning = () => {
               </ul>
             </div>
             <div style={{ marginBottom: "8px", color: "#0F172B", fontWeight: "bold", fontSize: "1.2rem" }}>
-              <strong>Total Price:</strong> ${totalPrice.toLocaleString()}
+              {/* Total Price intentionally omitted */}
             </div>
             {/* Info form inside popup */}
             <form onSubmit={handleSubmit} noValidate>

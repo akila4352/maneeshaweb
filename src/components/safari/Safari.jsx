@@ -38,11 +38,7 @@ export default function Safari() {
     );
   };
 
-  // Calculate total price
-  const totalPrice = selected.reduce((sum, name) => {
-    const dest = destinations.find(d => d.name === name);
-    return sum + (dest ? dest.price : 0);
-  }, 0);
+  // price removed per request — not calculated or shown
 
   // Handle form input change
   const handleFormChange = e => {
@@ -71,7 +67,6 @@ export default function Safari() {
       setLoading(true);
       const details = {
         selectedDestinations: selected,
-        totalPrice,
         ...form,
         createdAt: new Date().toISOString()
       };
@@ -83,17 +78,16 @@ export default function Safari() {
         // Send email via EmailJS
         await emailjs.send(
           EMAILJS_SERVICE_ID,
-          EMAILJS_TEMPLATE_ID,
+          EMAILJS_TEMPLATE_ID, 
           {
             type: 'safari_booking',
             name: form.name,
-            from_name: form.name,         // added: explicit sender name
+            from_name: form.name,
             contact: form.phone,
-            email: form.email,            // keep for templates expecting "email"
-            user_email: form.email,       // added: explicit user email variable
-            reply_to: form.email,         // added: set reply-to so replies go to user
+            email: form.email,
+            user_email: form.email,
+            reply_to: form.email,
             destinations: selected.join(', '),
-            totalPrice: totalPrice,
             travelers: form.travelers,
             date: form.date,
             message: form.message
@@ -279,7 +273,7 @@ export default function Safari() {
                 <div className="card-content" style={{ padding: 0, flex: 1, display: "flex", flexDirection: "column" }}>
                   <h2 className="card-title" style={{ fontSize: "1.5rem", fontWeight: 700, marginBottom: "0.7rem", color: "#fff" }}>{dest.name}</h2>
                   <p className="card-desc" style={{ flex: 1, fontSize: "1.08rem", color: "#f3f3f3", marginBottom: "1.2rem" }}>{dest.description}</p>
-                  <div className="card-price" style={{ fontSize: "1.1rem", fontWeight: 500, color: "#ff9800" }}>${dest.price.toLocaleString()}</div>
+                  {/* price removed intentionally */}
                   <div className="card-actions" style={{ display: "flex", gap: "12px", marginTop: "18px", flexWrap: "wrap" }}>
                     <button
                       style={{
@@ -318,9 +312,7 @@ export default function Safari() {
               selected.map(name => <li key={name}>{name}</li>)
             }
           </ul>
-          <div className="total-price" style={{ fontSize: "1.1rem", color: "#ff9800" }}>
-            <strong>Total Price:</strong> ${totalPrice.toLocaleString()}
-          </div>
+          {/* total price intentionally omitted */}
           <button
             className="submit-btn"
             style={{
@@ -389,7 +381,7 @@ export default function Safari() {
                 </ul>
               </div>
               <div style={{ marginBottom: "8px", color: "#0F172B", fontWeight: "bold", fontSize: "1.2rem" }}>
-                <strong>Total Price:</strong> ${totalPrice.toLocaleString()}
+                {/* Total Price omitted */}
               </div>
               {/* Info form inside popup */}
               <div className="safari-contact-details" style={{ marginBottom: "8px" }}>
@@ -695,11 +687,6 @@ export default function Safari() {
           color: #f3f3f3;
           margin-bottom: 1.2rem;
         }
-        .card-price {
-          font-size: 1.1rem;
-          font-weight: 500;
-          color: #ff9800;
-        }
         .card-actions {
           display: flex;
           gap: 12px;
@@ -720,10 +707,6 @@ export default function Safari() {
         .selected-summary ul {
           margin: 0.5rem 0 1rem 0;
           padding-left: 1.2rem;
-        }
-        .total-price {
-          font-size: 1.1rem;
-          color: #ff9800;
         }
         .submit-btn {
           background: #ff9800;
