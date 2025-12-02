@@ -4,7 +4,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { carouselData } from "../data/Data";
 import { useNavigate } from "react-router-dom";
-
+ 
 export default function Carousel() {
   const sliderRef = useRef(null);
   const navigate = useNavigate();
